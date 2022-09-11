@@ -14,9 +14,7 @@ function Footer(props) {
   
 
   return (
-    <Grid container style={{bottom: 0,
-      position: 'absolute',
-      right: 0}}>
+    <Grid container>
       <footer className={styles.footer}>
             Footer
         </footer>

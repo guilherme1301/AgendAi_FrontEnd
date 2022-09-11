@@ -1,4 +1,4 @@
-import BasePage from '../components/pages/basePage'
+import BasePage from '../components/pageComponents/basePage'
 import '../styles/Home.module.css'
 
 function MyApp({ Component, pageProps }) {

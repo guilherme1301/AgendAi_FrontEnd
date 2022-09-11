@@ -6,7 +6,7 @@ import Header from '../navs/header';
 
 export default function BasePage({ children }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} >
         <Head>
             <title>AgendAI</title>
             <meta
@@ -18,7 +18,7 @@ export default function BasePage({ children }) {
         
         <Header />
 
-        <main className={styles.main}>{children}</main>
+        <main className={styles.main} style={{minHeight: '70vh'}}>{children}</main>
 
         <Footer />
     </div>
