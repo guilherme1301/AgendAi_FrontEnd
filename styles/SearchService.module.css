@@ -1,0 +1,40 @@
+.return{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 20px;
+  top: 80px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #666666;
+}
+
+.svgreturn{
+  margin-right: 5px;
+}
+
+.service{
+  position: absolute;
+  left: 50px;
+  top: 140px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 50px;
+  color: #666666;
+}
+
+.serviceName{
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #666666;
+}
+
+.serviceItem{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #666666;
+}
