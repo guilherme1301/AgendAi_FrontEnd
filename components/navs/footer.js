@@ -1,23 +1,60 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { Grid } from "@mui/material";
-import styles from '../../styles/Home.module.css'
-const drawerWidth = 240;
-const navItems = [
-  { item: "Quem Somos", style: "text", link: "/" },
-  { item: "Contato", style: "text", link: "/" },
-  { item: "Entrar", style: "outlined", link: "/login" },
-  { item: "Inscrição", style: "outlined", link: "/" },
+import { Grid, Typography } from "@mui/material";
+import styles from "../../styles/Home.module.css";
+import { Box } from "@mui/system";
+import Link from "next/link";
+const COLUMNS = [
+  { title: "Categorias",  items: [
+    {text: "Categoria 1", link: "#"},
+    {text: "Categoria 2", link: "#"},
+    {text: "Categoria 3", link: "#"},
+  ]},
+  { title: "Sobre",  items: [
+    {text: "Termos de Serviço", link: "#"},
+    {text: "Política de Privacidade", link: "#"},
+    {text: "Parcerias", link: "#"},
+  ]},
+  { title: "Suporte",  items: [
+    {text: "Ajuda", link: "#"},
+    {text: "Segurança", link: "#"},
+    {text: "Privacidade", link: "#"},
+  ]},
 ];
 
 function Footer(props) {
-  
-
   return (
     <Grid container>
       <footer className={styles.footer}>
-            Footer
-        </footer>
+        <Grid container>
+          <Grid container alignContent="center" alignItems={"strech"} justifyContent={"center"}  md={2} className={styles.innerColumn} gap={3}>
+            <Grid item style={{
+              width: '100%',
+              height: '100%',
+              background: '#cdcdcd'
+            }}>
+            </Grid>
+          </Grid>
+          {COLUMNS.map(col => (
+            <Grid container direction="column" alignContent="center" md={3} className={styles.innerColumn} gap={2}>
+              <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
+              {col.items?.map( item => (
+                  <Grid item textAlign={"center"}>
+                    <Link href={"#"}>
+                      <Typography variant="body1" style={{cursor: "pointer"}} sx={[
+                        (theme) => ({
+                          '&:hover': {
+                            color: theme.palette.primary.main,
+                          },
+                        }),
+                      ]}>{item.text}</Typography>
+                    </Link>
+                  </Grid>
+              ))}
+            </Grid>
+            ))}
+        </Grid>
+      </footer>
     </Grid>
   );
 }

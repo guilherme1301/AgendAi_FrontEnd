@@ -18,7 +18,7 @@ export default function BasePage({ children }) {
         
         <Header />
 
-        <main className={styles.main} style={{minHeight: '70vh'}}>{children}</main>
+        <main className={styles.main} style={{minHeight: '56vh'}}>{children}</main>
 
         <Footer />
     </div>

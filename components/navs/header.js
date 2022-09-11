@@ -1,5 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -14,6 +16,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import SearchIcon from '@mui/icons-material/Search';
+import { ButtonBase } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
@@ -22,6 +26,49 @@ const navItems = [
   { item: "Entrar", style: "outlined", link: "/login" },
   { item: "Inscrição", style: "outlined", link: "/" },
 ];
+
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  border: '1px solid #cdcdcd',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'all',
+  cursor: 'pointer',
+  right: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 1),
+    paddingRight: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -72,6 +119,15 @@ function DrawerAppBar(props) {
           >
             AgendAí
           </Typography>
+          <Search style={{flexGrow: 1}}>
+              <SearchIconWrapper>
+                  <SearchIcon />
+              </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Busque serviços"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map(({ item, style, link }) => (
               <Link href={link}>
@@ -82,7 +138,9 @@ function DrawerAppBar(props) {
                   sx={{ color: "#000" }}
                   variant={style}
                 >
-                  {item}
+                  <Typography variant="body1">
+                    {item}
+                  </Typography>
                 </Button>
               </Link>
             ))}
