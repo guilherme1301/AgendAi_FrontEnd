@@ -1,0 +1,23 @@
+.tituloEmpresa{
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.titulosServicos{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.divEsquerda{
+    width: 20%;
+    text-align: start;
+}
+
+.divDireita{
+    width: 20%;
+    text-align: start;
+}
+
+.boxEmpresa{
+    display: flex;
+}
