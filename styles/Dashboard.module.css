@@ -1,0 +1,53 @@
+.container{
+  width: 90%;
+  margin: auto;
+}
+
+.body{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  background-color: yellow;
+}
+
+.title{
+  width: 90%;
+  font-family: 'Noto Sans';
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 50px;
+  color: #666666;
+  text-align: start;
+}
+
+.subTitle{
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 50px;
+  color: #666666;
+}
+
+.divButton{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  isolation: isolate;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.accept{
+  width: 5%;
+  display: flex;
+  justify-content: space-between;
+}
