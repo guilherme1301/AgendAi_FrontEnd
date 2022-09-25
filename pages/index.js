@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!isLogged) router.push("/dashboard");
-  }, [isLogged]);
+  }, []);
 
   return (
     <>
