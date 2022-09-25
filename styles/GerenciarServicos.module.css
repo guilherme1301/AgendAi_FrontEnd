@@ -6,6 +6,35 @@
 .titulosServicos{
     font-size: 20px;
     font-weight: bold;
+    margin-top: 45px;
+}
+
+.diasSemana{
+    font-weight: bold;
+}
+
+.funcionamento{
+    margin-top: 10px;
+}
+.horario{
+    margin-left: 25px;
+}
+.botaoAgendar{
+    margin-top: 35px;
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 5px 50px ;
+    
+}
+.botaoAgendar:hover{
+    background-color: darkgrey;
+    color: white;
+    border: none;    
+}
+
+.gridInfo{
+    padding: 35px 0 0 15px;
 }
 
 .divEsquerda{
@@ -20,4 +49,9 @@
 
 .boxEmpresa{
     display: flex;
+}
+
+.boxDataTable{
+    border:solid 1px;
+    padding: 15px 65px;
 }
