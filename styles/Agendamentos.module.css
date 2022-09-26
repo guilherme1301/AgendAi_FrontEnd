@@ -1,36 +1,8 @@
-.container{
-  width: 90%;
-  margin: auto;
-}
-
-.body{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
-.title{
-  width: 90%;
-  font-family: 'Noto Sans';
-  font-weight: 700;
-  font-size: 64px;
-  line-height: 50px;
-  color: #666666;
-  text-align: start;
-}
-
 .divContent{
   width: 45%;
 }
 
-.subTitle{
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 50px;
-  color: #666666;
-}
-
+  
 .divButton{
   display: flex;
   align-items: center;
@@ -49,11 +21,20 @@
   margin-bottom: 20px;
 }
 
+.accept{
+  width: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subTitle{
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 50px;
+  color: #666666;
+}
+
 @media (max-width: 1080px) {
-  .body {
-    flex-direction: column;
-    width: 100%;
-  }
   .divContent{
     margin-top: 50px;
     width: 100%;
