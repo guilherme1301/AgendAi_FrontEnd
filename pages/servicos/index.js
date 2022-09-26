@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "10px"
 }));
 
-export default function gerenciarServicoComponent() {
+export default function servicos() {
   return (
     <>
       <div className={styles.return}>
