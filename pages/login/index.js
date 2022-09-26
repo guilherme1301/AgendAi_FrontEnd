@@ -7,47 +7,64 @@ import styles from "../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
+import AuthenticateService from "../../services/authenticate";
 
-export default function dashboardGeneral() {
+export default function Login({onLogin, userData}) {
   const [isLogged, setIsLogged] = useState(true);
   const methods = useForm();
 
-  useEffect(() => {
-    // if (!isLogged) router.push("/dashboard");
-  }, [isLogged]);
+  const onSubmit = async (data) => {
+    try {
+      const response = await AuthenticateService.login(data);
+      console.log("response", response);
+      await onLogin(response.access_token, {...response});
+      debugger
+      if(response.type == "client"){
+        router.push("/")
+      }
+    } catch (err) {
+      console.log(err);
+      debugger;
+    }
+  };
 
-  const onSubmit = (data) => {
-    console.log("Submiting data: ", data);
-  }
+  const handleGoBack = () => {
+    router.back();
+  };
 
   return (
     <>
-    <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Grid item xs={12}>
           <h2 className={styles.title}>Login</h2>
         </Grid>
         <Grid item xs={12}>
-          <Controller 
-            name='email'
+          <Controller
+            name="username"
             control={methods.control}
-            defaultValue="email@email.com"
-            render={({field}) => (
+            defaultValue="a"
+            render={({ field }) => (
               <TextField
                 {...field}
                 label="E-mail"
-                type={"email"}
+                // type={"email"}
+                variant="outlined"
                 fullWidth
                 margin="normal"
                 error={!!methods.formState.errors.email}
-                helperText={!!methods.formState.errors.email ? methods.formState.errors.email?.message : ""}
+                helperText={
+                  !!methods.formState.errors.email
+                    ? methods.formState.errors.email?.message
+                    : ""
+                }
               />
             )}
           />
-          <Controller 
-            name='password'
+          <Controller
+            name="password"
             control={methods.control}
             //defaultValue=""
-            render={({field}) => (
+            render={({ field }) => (
               <TextField
                 {...field}
                 label="Senha"
@@ -55,7 +72,11 @@ export default function dashboardGeneral() {
                 type={"password"}
                 margin="normal"
                 error={!!methods.formState.errors.password}
-                helperText={!!methods.formState.errors.password ? methods.formState.errors.password?.message : ""}
+                helperText={
+                  !!methods.formState.errors.password
+                    ? methods.formState.errors.password?.message
+                    : ""
+                }
               />
             )}
           />
@@ -63,12 +84,17 @@ export default function dashboardGeneral() {
 
         <Grid item>
           <Link href={"/forgotPassword"}>
-            <Button variant="text" color="inherit" style={{ textAlign: "left" }}>
+            <Button
+              variant="text"
+              color="inherit"
+              style={{ textAlign: "left" }}
+            >
               Esqueceu a senha?
             </Button>
           </Link>
         </Grid>
-        {(!!methods.formState.errors.email || !!methods.formState.errors.password) && (
+        {(!!methods.formState.errors.email ||
+          !!methods.formState.errors.password) && (
           <Grid item xs={12}>
             <span style={{ color: "red" }}>Senha ou email inválido(s).</span>
           </Grid>
@@ -76,6 +102,7 @@ export default function dashboardGeneral() {
         <Grid container direction="row" style={{ height: "50px" }} mt={2}>
           <Grid item xs={6} pr={1}>
             <Button
+              onClick={handleGoBack}
               variant="outlined"
               fullWidth
               style={{ height: "100%" }}

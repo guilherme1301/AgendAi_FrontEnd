@@ -13,14 +13,16 @@ export default class AbstractApiService {
       headers: {
         ...params.headers,
         'Content-Type': "application/json",
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': "*",
+        'Access-Control-Allow-Headers': "*",
         'x-access-token': getTokenSync()
-      }
+      },
     });
 
     if(!response.ok){
       if(response.statusText == 'Unauthorized'){
         emmitLogout();
+        ApiError.throwError("Unauthorized", false);
       }
       return
       // ApiError.throwError(result.message, false);
@@ -34,8 +36,7 @@ export default class AbstractApiService {
       }
       ApiError.throwError(result.message, false);
     }
-
-    return result.data || result.result || result;
+    return result;
   }
 
 }

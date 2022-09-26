@@ -21,10 +21,10 @@ import { ButtonBase } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
-  { item: "Quem Somos", style: "text", link: "/" },
-  { item: "Contato", style: "text", link: "/" },
+  { item: "Quem Somos", style: "text", link: "/dashboard" },
+  { item: "Contato", style: "text", link: "/dashboard" },
   { item: "Entrar", style: "outlined", link: "/login" },
-  { item: "Inscrição", style: "outlined", link: "/" },
+  { item: "Inscrição", style: "outlined", link: "/dashboard" },
 ];
 
 const Search = styled("div")(({ theme }) => ({
