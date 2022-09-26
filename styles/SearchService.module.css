@@ -38,3 +38,22 @@
   line-height: 24px;
   color: #666666;
 }
+
+.textoSobre {
+  width: 55%;
+  padding: 25px;
+}
+
+.cards40 {
+  width: 40%;
+}
+
+.pegandoTodos {
+  display: flex;
+  flex-direction: row;
+}
+
+.tituloEmpresa{
+  font-size: 45px;
+  font-weight: bold;
+}
