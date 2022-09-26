@@ -5,19 +5,18 @@ import router from "next/router";
 import BasePage from "../../components/pageComponents/basePage";
 import styles from "../../styles/Home.module.css";
 import { Typography } from "@mui/material";
+import Dashboard from "../../components/pageComponents/dashboard";
+import useAuthenticate from "../../hooks/useAuthenticate";
 
-export default function dashboardGeneral() {
+export default function dashboardGeneral({userData}) {
   const [isLogged, setIsLogged] = useState(true);
-
-  useEffect(() => {
-    // if (!isLogged) router.push("/dashboard");
-  }, [isLogged]);
-
+  
+  useEffect(()=> {
+    console.log("userData", userData);
+  }, [])
   return (
     <>
-        <Typography>
-            Dashboard nao logado!
-        </Typography>
+      <Dashboard type={userData?.type} />
     </>
   );
 }

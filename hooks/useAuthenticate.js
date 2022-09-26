@@ -9,12 +9,14 @@ export const getTokenSync = () => localStorage.getItem(LOCALSTORAGE_KEY);
 export const emmitLogout = () => EventEmitter.emit("logout");
 
 export default () => {
-  const [token, setToken] = useState(localStorage.getItem(LOCALSTORAGE_KEY));
+  const [token, setToken] = useState();
   const userLogged = token && jwtDecode(token);
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem(AUTH_DATA)));  
-
+  const [userData, setUserData] = useState();
+  // JSON.parse(localStorage.getItem(AUTH_DATA))
+  // localStorage.getItem(LOCALSTORAGE_KEY)
 
   const fetchUser = async function (token) {
+    debugger
     try{
       const user = await AuthenticateService.getUserData(token);
       if (user && user.user) {
@@ -23,11 +25,11 @@ export default () => {
     }catch(err){
       return null
     }
-
   }
 
   const getUser = async (tokenArg) => {
-    if (!!localStorage.getItem(AUTH_DATA)) {
+    debugger
+    if (!!localStorage.getItem(AUTH_DATA) && localStorage.getItem(AUTH_DATA) != 'undefined') {
       return JSON.parse(localStorage.getItem(AUTH_DATA));
     } else {
       return Promise.resolve(fetchUser(tokenArg || token))
@@ -45,11 +47,17 @@ export default () => {
   const login = useCallback(
     (tokenArg, data) => {
       try {
+        debugger;
         jwtDecode(tokenArg);
         setToken(tokenArg);
         localStorage.setItem(LOCALSTORAGE_KEY, tokenArg);
-        if (!userData || !data)
-          storeUserData(tokenArg)
+        if (!userData || !data){
+          const userType = {type: data.type};
+          localStorage.setItem(AUTH_DATA, JSON.stringify(userType))
+          setUserData(userType)
+          EventEmitter.emit("login-change", tokenArg);
+        }
+          //storeUserData(tokenArg)
       } catch (err) {
         return;
       }
