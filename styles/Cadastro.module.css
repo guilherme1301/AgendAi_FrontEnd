@@ -1,0 +1,89 @@
+.container {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background-color: #fff;
+    padding: 30px;
+    padding-top: 20px;
+    width: 428px;
+    height: 760px;
+    text-align: center;
+
+    
+}
+.container > svg {
+    margin: auto;
+}
+
+.svgReturn {
+    display: flex;
+    align-items: center;
+
+}
+.svgReturn > h4 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #666666;
+    margin-left: 10px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 18px;
+    color: #666666;
+    text-align: center;
+}
+
+.flexButton {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.flexButton > div {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 172px;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #666666;
+    border-radius: 8px;
+    color: #666666;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    width: 368px;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.forgetPassword {
+    margin-top: 5px;
+    text-align: end;
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+    line-height: 18px;
+}
+
+.createAccount {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.nextBtn{
+    margin: 25px 0 10px 0;
+}
