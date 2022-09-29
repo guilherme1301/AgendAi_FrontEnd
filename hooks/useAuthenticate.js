@@ -16,7 +16,6 @@ export default () => {
   // localStorage.getItem(LOCALSTORAGE_KEY)
 
   const fetchUser = async function (token) {
-    debugger
     try{
       const user = await AuthenticateService.getUserData(token);
       if (user && user.user) {
@@ -28,7 +27,6 @@ export default () => {
   }
 
   const getUser = async (tokenArg) => {
-    debugger
     if (!!localStorage.getItem(AUTH_DATA) && localStorage.getItem(AUTH_DATA) != 'undefined') {
       return JSON.parse(localStorage.getItem(AUTH_DATA));
     } else {
@@ -47,7 +45,6 @@ export default () => {
   const login = useCallback(
     (tokenArg, data) => {
       try {
-        debugger;
         jwtDecode(tokenArg);
         setToken(tokenArg);
         localStorage.setItem(LOCALSTORAGE_KEY, tokenArg);
@@ -87,6 +84,12 @@ export default () => {
       EventEmitter.off("logout", logout);
     };
   }, [token]);
+
+  useEffect(() => {
+    if(!userData)
+      setUserData(JSON.parse(localStorage.getItem(AUTH_DATA))) 
+    
+  }, [])
 
   return {
     isLogged: !!token,

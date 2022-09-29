@@ -29,7 +29,7 @@ export default function searchServiceComponent({serviceList}) {
         <div className={styles.service}>Serviço XXXXX</div>
             <Box sx={{ flexGrow: 1, marginTop: "100px" }}>
             <Grid container spacing={7}>
-            {data.map((item, index) => (
+            {data && data.map((item, index) => (
                 // <Grid item sm={4} key={index}>
                 <Grid item key={index}>
                     <Item>

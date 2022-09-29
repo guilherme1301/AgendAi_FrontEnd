@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchServiceComponent from "../../components/pageComponents/buscarServico";
-import axios from "axios"
+import ServicesService from "../../services/models/services";
+// import axios from "axios"
 
 export default function searchService({data}) {
   const [serviceList, setServiceList] = useState(data)
@@ -13,7 +14,9 @@ export default function searchService({data}) {
 }
 
 export const getStaticProps = async () => {
-  const {data} = await axios.get("https://agendai-api.herokuapp.com/service")
+  const data = await ServicesService.list();
+  debugger
+  // const {data} = await axios.get("https://agendai-api.herokuapp.com/service")
   
   return { props:{data}, revalidate: 60 }
 }

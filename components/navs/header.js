@@ -23,7 +23,7 @@ const drawerWidth = 240;
 const navItems = [
   { item: "Quem Somos", style: "text", link: "/dashboard" },
   { item: "Contato", style: "text", link: "/dashboard" },
-  { item: "Entrar", style: "outlined", link: "/login" },
+  { item: "Entrar", style: "outlined", link: "/client/auth/login" },
   { item: "Inscrição", style: "outlined", link: "/dashboard" },
 ];
 

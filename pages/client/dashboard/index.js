@@ -6,7 +6,7 @@ import BasePage from "../../components/pageComponents/basePage";
 import styles from "../../styles/Home.module.css";
 import { Typography } from "@mui/material";
 import Dashboard from "../../components/pageComponents/dashboard";
-import useAuthenticate from "../../hooks/useAuthenticate";
+import useAuthenticate from "../../../hooks/useAuthenticate";
 
 export default function dashboardGeneral(props) {
   const [isLogged, setIsLogged] = useState(true);
