@@ -18,7 +18,84 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "10px"
 }));
 
+const SERVICE_DATA = {
+  nameShop: 'Barbearia do Calvo e Careca',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent venenatis magna magna, a efficitur velit rhoncus ut. Etiam et varius libero. Sed laoreet non erat sed ornare. Donec fringilla lectus sit amet diam facilisis, ut tincidunt risus gravida. Nulla id mauris commodo nisi convallis tempor id at neque. Fusce quis mi condimentum enim commodo posuere nec fermentum dui.',
+  address: {
+    street: 'Rua Luiza Grinalda',
+    number: '37',
+    neighborhood: 'Centro',
+    city: 'Vila Velha',
+    state: 'ES'
+  },
+  images: [{
+    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
+  },
+  {
+    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
+  },
+  {
+    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
+  },
+  {
+    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
+  }
+]
+}
+
+const SERVICE_DAYS = [
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '09:00',
+    end: '21:30',
+    isOpen: true
+  },
+  {
+    start: '',
+    end: '',
+    isOpen: false
+  }
+]
+
+const WEEK_DAYS = [
+  'Segunda-Feira',
+  'Terça-Feira',
+  'Quarta-Feira',
+  'Quinta-Feira',
+  'Sexta-Feira',
+  'Sábado',
+  'Domingo'
+]
+
+
 export default function servicos() {
+
+  const [serviceData, setServiceData] = useState(SERVICE_DATA);
+
   return (
     <>
       <div className={styles.return}>
@@ -28,56 +105,39 @@ export default function servicos() {
         <h3>Voltar</h3>
       </div>
       <Grid container spacing={2}>
-        <Grid item xs={12} className={stylest.tituloEmpresa}>Barbearia do Calvo e Careca</Grid>
+        <Grid item xs={12} className={stylest.tituloEmpresa}>{serviceData.nameShop}</Grid>
         <Grid xs={12} md={12} lg={7} className={stylest.gridInfo}>
           <Grid container spacing={2} >
             <Grid item xs={12} className={stylest.titulosServicos}>Sobre</Grid>
-            <Grid item xs={9} className={stylest.boxEscrito}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent venenatis magna magna, a efficitur velit rhoncus ut. Etiam et varius libero. Sed laoreet non erat sed ornare. Donec fringilla lectus sit amet diam facilisis, ut tincidunt risus gravida. Nulla id mauris commodo nisi convallis tempor id at neque. Fusce quis mi condimentum enim commodo posuere nec fermentum dui.</Grid>
+            <Grid item xs={9} className={stylest.boxEscrito}>{serviceData.description}</Grid>
             <Grid item xs={12} className={stylest.titulosServicos}>Endereço</Grid>
-            <Grid item xs={12}>Rua Luiza Grinalda, 37 - Centro, Vila Velha - ES</Grid>
+            <Grid item xs={12}>{serviceData.address.street}, {serviceData.address.number} - {serviceData.address.neighborhood}, {serviceData.address.city} - {serviceData.address.state}</Grid>
             <Grid item xs={12} className={stylest.titulosServicos}>Horario de Funcionamento</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Segunda-Feira</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Terça-Feira</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Quarta-Feira</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Quinta-Feira</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Sexta-Feira</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Sábado</Grid><Grid item xs={6}>09:00 - 21:30</Grid>
-            <Grid item xs={6} className={stylest.diasSemana}>Domingo</Grid><Grid item xs={6}>Fechado</Grid>
+            {
+              WEEK_DAYS.map((weekName, index) => (
+                <>
+                  <Grid item xs={6} className={stylest.diasSemana}>{weekName}</Grid>
+                  <Grid item xs={6}>{SERVICE_DAYS[index].isOpen ? `${SERVICE_DAYS[index].start} - ${SERVICE_DAYS[index].end}` : 'Fechado'}</Grid>
+                </>
+              ))
+            }
           </Grid>
         </Grid>
-        <Grid xs={12} lg={5} container spacing={2}>
-          <Grid item xs={5} lg={12}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
-          </Grid>
+        <Grid xs={12} lg={5} container spacing={2} mt={3}>          
+          {
+            SERVICE_DATA.images.map((urlImage, index) => (
+              <>
+                <Grid item xs={12} lg={index == 0 ? 12 : 4}>
+                  <Grid item style={{
+                    width: '100%',
+                    height: '200px',
+                    backgroundImage: `url(${urlImage.url})`                    
+                  }}>
+                  </Grid>
+                </Grid>
+              </>
+            ))
+          }
           <Grid item xs={12}>
             <Button variant="outlined" className={stylest.botaoAgendar}>Agendar</Button>
           </Grid>
