@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,8 +14,14 @@ import Select from '@mui/material/Select';
 import styles from "../../styles/dialog.module.css";
 
 export default function DialogAdd() {
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [age, setAge] = useState('');
+  const [user, setUser] = useState('Pedro Augusto');
+
+  const [type, setType] = useState(['Corte de cabelo', 'Desenhar a barba']);
+  const [day, setDay] = useState(['Sexta-feira - 26/08', 'Quinta-feira - 29/09']);
+  const [hour, setHour] = useState(['16:00h', '12:00h']);
+
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -53,12 +59,12 @@ export default function DialogAdd() {
               <path d="M94 6L6 94" stroke="#AFB1B6" stroke-width="2"/>
               <rect x="1" y="1" width="98" height="98" rx="7" stroke="#AFB1B6" stroke-width="2"/>
             </svg>
-            <div style={{marginLeft: 10}}>Pedro Augusto</div>
+            <div style={{marginLeft: 10}}>{user}</div>
           </DialogContentText>
 
           <Box sx={{ minWidth: 453, marginBottom: 2 }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Corte de Cabelo</InputLabel>
+              <InputLabel id="demo-simple-select-label">Tipo de serviço</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -66,9 +72,9 @@ export default function DialogAdd() {
                 label="Age"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {type.map(item => (
+                  <MenuItem value={10}>{item}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -77,7 +83,7 @@ export default function DialogAdd() {
             <div>
               <Box sx={{ minWidth: 226 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Sexta-feira - 26/08</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Dia</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -85,9 +91,9 @@ export default function DialogAdd() {
                     label="Age"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {day.map(item => (
+                      <MenuItem value={10}>{item}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
@@ -95,7 +101,7 @@ export default function DialogAdd() {
             <div>
               <Box sx={{ minWidth: 226 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">16:00h</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Hora</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -103,9 +109,9 @@ export default function DialogAdd() {
                     label="Age"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                     {hour.map(item => (
+                        <MenuItem value={10}>{item}</MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
               </Box>

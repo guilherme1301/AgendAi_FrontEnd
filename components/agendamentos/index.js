@@ -3,29 +3,7 @@ import styles from "../../styles/Agendamentos.module.css";
 import DialogCancel from "../dialogCancel";
 import DialogAdd from "../dialogAdd";
 
-export default function Agendamentos({ usuario }) {
-    const [listService, setListService] = useState(
-        [
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            }
-        ]
-    );
+export default function Agendamentos({ usuario, listServicePending, listServiceConfirmed }) {
 
     return (
         <div className={styles.divContent}>
@@ -45,7 +23,7 @@ export default function Agendamentos({ usuario }) {
 
             <div>
                 <div className={styles.subTitle}>Agendamentos Pendentes</div>
-                {listService.map(item => (
+                {listServicePending.map(item => (
                     <div className={styles.divButton}>
                         {item.service} - {item.name} - {item.day} - {item.hour}
                         <div className={styles.accept}>
@@ -58,7 +36,7 @@ export default function Agendamentos({ usuario }) {
 
             <div>
                 <div className={styles.subTitle}>Agendamentos Confirmados</div>
-                {listService.map(item => (
+                {listServiceConfirmed.map(item => (
                     <div className={styles.divButton}>
                         {item.service} - {item.name} - {item.day} - {item.hour}
                         <div className={styles.accept}>
