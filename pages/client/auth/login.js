@@ -35,7 +35,7 @@ export default function Login({userData}) {
 
   return (
     <>
-        <LoginDialog open={dialogOpen} onSubmit={onSubmit} onClose={handleGoBack}/>
+        <LoginDialog fullScreen={false} open={dialogOpen} onSubmit={onSubmit} onClose={handleGoBack}/>
     </>
   );
 }

@@ -26,8 +26,8 @@ function Footer(props) {
   return (
     <Grid container>
       <footer className={styles.footer}>
-        <Grid container>
-          <Grid container alignContent="center" alignItems={"strech"} justifyContent={"center"}  md={2} className={styles.innerColumn} gap={3}>
+        <Grid container alignItems={"strech"}>
+          <Grid item md={2}>
             <Grid item style={{
               width: '100%',
               height: '100%',
@@ -36,22 +36,26 @@ function Footer(props) {
             </Grid>
           </Grid>
           {COLUMNS.map(col => (
-            <Grid container direction="column" alignContent="center" md={3} className={styles.innerColumn} gap={2}>
-              <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
-              {col.items?.map( item => (
-                  <Grid item textAlign={"center"}>
-                    <Link href={"#"}>
-                      <Typography variant="body1" style={{cursor: "pointer"}} sx={[
-                        (theme) => ({
-                          '&:hover': {
-                            color: theme.palette.primary.main,
-                          },
-                        }),
-                      ]}>{item.text}</Typography>
-                    </Link>
-                  </Grid>
-              ))}
+            <Grid item md={3}>
+              
+              <Grid container direction="column" alignContent="center" className={styles.innerColumn} gap={2}>
+                <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
+                {col.items?.map( item => (
+                    <Grid item textAlign={"center"}>
+                      <Link href={"#"}>
+                        <Typography variant="body1" style={{cursor: "pointer"}} sx={[
+                          (theme) => ({
+                            '&:hover': {
+                              color: theme.palette.primary.main,
+                            },
+                          }),
+                        ]}>{item.text}</Typography>
+                      </Link>
+                    </Grid>
+                ))}
+              </Grid>
             </Grid>
+
             ))}
         </Grid>
       </footer>

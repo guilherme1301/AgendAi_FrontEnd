@@ -29,7 +29,7 @@ export default function servicos() {
       </div>
       <Grid container spacing={2}>
         <Grid item xs={12} className={stylest.tituloEmpresa}>Barbearia do Calvo e Careca</Grid>
-        <Grid xs={12} md={12} lg={7} className={stylest.gridInfo}>
+        <Grid item xs={12} md={12} lg={7} className={stylest.gridInfo}>
           <Grid container spacing={2} >
             <Grid item xs={12} className={stylest.titulosServicos}>Sobre</Grid>
             <Grid item xs={9} className={stylest.boxEscrito}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent venenatis magna magna, a efficitur velit rhoncus ut. Etiam et varius libero. Sed laoreet non erat sed ornare. Donec fringilla lectus sit amet diam facilisis, ut tincidunt risus gravida. Nulla id mauris commodo nisi convallis tempor id at neque. Fusce quis mi condimentum enim commodo posuere nec fermentum dui.</Grid>
