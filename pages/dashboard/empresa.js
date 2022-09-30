@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import router from "next/router";
-import BasePage from "../../components/pageComponents/basePage";
 import styles from "../../styles/Dashboard.module.css";
-import { Typography } from "@mui/material";
 import Agendamentos from "../../components/agendamentos";
 
-export default function dashboardGeneral() {
+export default function dashboardEmpresa() {
 
     return (
         <div className={styles.container}>
@@ -37,7 +32,7 @@ export default function dashboardGeneral() {
                         </div>
                     </div>
                 </div>
-                <Agendamentos/>
+                <Agendamentos usuario={false}/>
             </div>
         </div>
     );
