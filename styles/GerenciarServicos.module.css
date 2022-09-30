@@ -9,6 +9,22 @@
     margin-top: 45px;
 }
 
+.fieldEdit{
+    border:solid 1px gray;
+    color: gray;
+    border-radius: 5px;
+    padding: 15px 15px;  
+    margin-top: 18px;
+}
+
+.fieldAgendamento{
+    border:solid 1px gray;
+    color: gray;
+    border-radius: 5px;
+    padding: 5px 15px;  
+    margin-top: 18px;
+}
+
 .diasSemana{
     font-weight: bold;
 }
