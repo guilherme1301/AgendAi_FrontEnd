@@ -14,6 +14,8 @@ import Slide from '@mui/material/Slide';
 import { useEffect } from 'react';
 import LoginForm from './loginForm';
 import { Grid } from '@mui/material';
+import { useContext } from 'react';
+import { UserContext } from '../../../pages/contexts/userContext';
 
 const Transition = React.forwardRef(function Transition({ref, ...props}) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,6 +24,7 @@ const Transition = React.forwardRef(function Transition({ref, ...props}) {
 export default function LoginDialog({...props}) {
   const [isOpen, setOpen] = React.useState(false);
   const { open, onSubmit, onClose, fullScreen=true, ...others } = props;
+  const userContextValues = useContext(UserContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +44,7 @@ export default function LoginDialog({...props}) {
 
   return (
     <div>
+      {userContextValues}
       <Dialog
         fullScreen={fullScreen}
         open={isOpen}
