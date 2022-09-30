@@ -19,7 +19,57 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "10px"
 }));
 
+const SERVICE_DATA = {
+  nameShop: 'Empresa LTDA',
+  pendingScheduling: [{
+    Service: 'Corte de Cabelo',
+    User: 'Júlio César',
+    Day: 'Quinta-Feira',
+    Date: '25/08',
+    Hours: '15:00'
+  },
+  {
+    Service: 'Tingimento de Cabelo',
+    User: 'Cleberson',
+    Day: 'Sexta-Feira',
+    Date: '26/08',
+    Hours: '18:00'
+  },
+  {
+    Service: 'Corte de Cabelo',
+    User: 'Gabriel',
+    Day: 'Segunda-Feira',
+    Date: '29/08',
+    Hours: '09:00'
+  }
+],
+confirmedScheduling: [{
+  Service: 'Corte de Cabelo',
+  User: 'Júlio César',
+  Day: 'Quinta-Feira',
+  Date: '25/08',
+  Hours: '15:00'
+},
+{
+  Service: 'Tingimento de Cabelo',
+  User: 'Cleberson',
+  Day: 'Sexta-Feira',
+  Date: '26/08',
+  Hours: '18:00'
+},
+{
+  Service: 'Corte de Cabelo',
+  User: 'Gabriel',
+  Day: 'Segunda-Feira',
+  Date: '29/08',
+  Hours: '09:00'
+}
+]
+}
+
 export default function gerenciarServicoComponent() {
+  const [serviceData, setServiceData] = useState(SERVICE_DATA);
+
   return (
     <>
         <div className={styles.return}>
@@ -29,7 +79,7 @@ export default function gerenciarServicoComponent() {
             <h3>Voltar</h3>
         </div>
         <Grid container spacing={2}>
-          <Grid xs={12} className={stylest.tituloEmpresa} mt={5}>Empresa LTDA</Grid>
+          <Grid xs={12} className={stylest.tituloEmpresa} mt={5}>{serviceData.nameShop}</Grid>
           <Grid xs={7} spacing={2}>              
               <Grid item xs={12} className={stylest.titulosServicos}>Gerenciar Serviços</Grid>
               <Grid item xs={9} className={stylest.fieldEdit}> Adicione, edite ou exclua seus serviços no botão ao lado</Grid>
@@ -38,13 +88,21 @@ export default function gerenciarServicoComponent() {
           </Grid>
           <Grid xs={5} spacing={2}>            
             <Grid item xs={12} className={stylest.titulosServicos}>Agendamentos Pendentes</Grid>
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Corte de Cabelo - Júlio César - Quinta - Feira (25/08) - 15:00h</Grid>            
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Tingimento de Cabelo - Cleberson - Sexta - Feira (26/08) - 18:00h</Grid>            
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Corte de Cabelo - Gabriel - Segunda - Feira (29/08) - 09:00h</Grid>
+            {
+              SERVICE_DATA.pendingScheduling.map((infoServiceP, index) => (
+                <>
+                  <Grid item xs={11} className={stylest.fieldAgendamento}> {infoServiceP.Service} - {infoServiceP.User} - {infoServiceP.Day} ({infoServiceP.Date}) - {infoServiceP.Hours}h</Grid>
+                </>
+              ))
+            }
             <Grid item xs={12} className={stylest.titulosServicos}>Agendamentos Confirmados</Grid>
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Corte de Cabelo - Júlio César - Quinta - Feira (25/08) - 15:00h</Grid>            
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Tingimento de Cabelo - Cleberson - Sexta - Feira (26/08) - 18:00h</Grid>
-            <Grid item xs={11} className={stylest.fieldAgendamento}> Corte de Cabelo - Gabriel - Segunda - Feira (29/08) - 09:00h</Grid>
+            {
+              SERVICE_DATA.confirmedScheduling.map((infoServiceC, index) => (
+                <>
+                  <Grid item xs={11} className={stylest.fieldAgendamento}> {infoServiceC.Service} - {infoServiceC.User} - {infoServiceC.Day} ({infoServiceC.Date}) - {infoServiceC.Hours}h</Grid>
+                </>
+              ))
+            }
           </Grid>        
         </Grid>       
     </>
