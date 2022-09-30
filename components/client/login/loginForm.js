@@ -69,7 +69,7 @@ export default function LoginForm({...props}) {
         </Grid>
 
         <Grid item>
-          <Link href={"/forgotPassword"}>
+          <Link href={"/client/auth/recoverPassword"}>
             <Button
               variant="text"
               color="inherit"
