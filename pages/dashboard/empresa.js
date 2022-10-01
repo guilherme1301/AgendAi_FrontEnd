@@ -3,6 +3,50 @@ import styles from "../../styles/Dashboard.module.css";
 import Agendamentos from "../../components/agendamentos";
 
 export default function dashboardEmpresa() {
+    const [listServicePending, setListServicePending] = useState(
+        [
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            }
+        ]
+    );
+    const [listServiceConfirmed, setListServiceConfirmed] = useState(
+        [
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            }
+        ]
+    );
 
     return (
         <div className={styles.container}>
@@ -32,7 +76,7 @@ export default function dashboardEmpresa() {
                         </div>
                     </div>
                 </div>
-                <Agendamentos usuario={false}/>
+                <Agendamentos usuario={false} listServicePending={listServicePending} listServiceConfirmed={listServiceConfirmed}/>
             </div>
         </div>
     );
