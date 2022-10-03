@@ -35,13 +35,13 @@ function Footer(props) {
             }}>
             </Grid>
           </Grid>
-          {COLUMNS.map(col => (
-            <Grid item md={3}>
+          {COLUMNS.map((col, i) => (
+            <Grid item md={3} key={i}>
               
               <Grid container direction="column" alignContent="center" className={styles.innerColumn} gap={2}>
                 <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
-                {col.items?.map( item => (
-                    <Grid item textAlign={"center"}>
+                {col.items?.map( (item, index) => (
+                    <Grid item textAlign={"center"} key={index}>
                       <Link href={"#"}>
                         <Typography variant="body1" style={{cursor: "pointer"}} sx={[
                           (theme) => ({

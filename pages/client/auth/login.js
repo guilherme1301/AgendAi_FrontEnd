@@ -9,17 +9,15 @@ import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import AuthenticateService from "../../../services/authenticate";
 import LoginDialog from "../../../components/client/login/LoginDialog";
-import useAuthenticate from "../../../hooks/useAuthenticate";
 export default function Login({userData}) {
   const [isLogged, setIsLogged] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(true);
   const methods = useForm();
-  const {login: onLogin} = useAuthenticate();
   const onSubmit = async (data) => {
     try {
       const response = await AuthenticateService.login(data);
       console.log("response", response);
-      onLogin && await onLogin(response.access_token, {...response});
+      // onLogin && await onLogin(response.access_token, {...response});
       if(response.type == "client"){
         router.push("/")
       }
