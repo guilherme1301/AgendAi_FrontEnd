@@ -86,13 +86,14 @@ export default () => {
   }, [token]);
 
   useEffect(() => {
-    if(!userData)
+    if(!!userData){
       setUserData(JSON.parse(localStorage.getItem(AUTH_DATA))) 
-    
+    }
+      
   }, [])
 
   return {
-    isLogged: !!token,
+    // isLogged: !!token,
     token,
     userLogged,
     userData,

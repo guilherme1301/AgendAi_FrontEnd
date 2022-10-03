@@ -12,7 +12,6 @@ export default function dashboardGeneral(props) {
   const [isLogged, setIsLogged] = useState(true);
   const {userData} = useAuthenticate();
   useEffect(()=> {
-    console.log("userData", userData);
   }, [])
   return (
     <>

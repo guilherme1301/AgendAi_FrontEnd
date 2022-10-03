@@ -34,6 +34,17 @@
   color: #666666;
 }
 
+.buscar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 32px;
+  background: #FFFFFF;
+  border: 1px solid #666666;
+  border-radius: 8px;
+}
+
 @media (max-width: 1080px) {
   .divContent{
     margin-top: 50px;

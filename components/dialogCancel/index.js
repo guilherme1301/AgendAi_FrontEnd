@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,7 +8,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import styles from "../../styles/dialog.module.css";
 
 export default function DialogCancel() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [user, setUser] = useState({
+    name: 'Pedro Augusto',
+    service: 'Corte de Cabelo',
+    day: 'quinta-feira (25/08)',
+    hour: '15:00h'
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,8 +50,8 @@ export default function DialogCancel() {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <div className={styles.desejaCancelar}>
-              Deseja cancelar o agendamento de Júlio César 
-              (Corte de Cabelo), quinta-feira (25/08), 15:00h?
+              Deseja cancelar o agendamento de {user.name}
+              ({user.service}), {user.day}, {user.hour}?
             </div>
             <br/>
             <div className={styles.desfazer}>

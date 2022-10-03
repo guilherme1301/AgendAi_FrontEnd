@@ -1,13 +1,52 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import router from "next/router";
-import BasePage from "../../components/pageComponents/basePage";
 import styles from "../../styles/Dashboard.module.css";
-import { Typography } from "@mui/material";
 import Agendamentos from "../../components/agendamentos";
 
-export default function dashboardGeneral() {
+export default function dashboardEmpresa() {
+    const [listServicePending, setListServicePending] = useState(
+        [
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            }
+        ]
+    );
+    const [listServiceConfirmed, setListServiceConfirmed] = useState(
+        [
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            },
+            {
+                service: "Corte de Cabelo",
+                name: "Julio Cesar",
+                day: "Quinta feira (25/08)",
+                hour: "15:00h",
+            }
+        ]
+    );
 
     return (
         <div className={styles.container}>
@@ -37,7 +76,7 @@ export default function dashboardGeneral() {
                         </div>
                     </div>
                 </div>
-                <Agendamentos/>
+                <Agendamentos usuario={false} listServicePending={listServicePending} listServiceConfirmed={listServiceConfirmed}/>
             </div>
         </div>
     );

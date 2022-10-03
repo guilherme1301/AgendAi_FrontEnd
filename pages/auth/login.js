@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
+import React, { useContext, useEffect, useState } from "react";
 import router from "next/router";
-import BasePage from "../../../components/pageComponents/basePage";
-import styles from "../../../styles/Home.module.css";
-import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import Link from "next/link";
-import AuthenticateService from "../../../services/authenticate";
-import LoginDialog from "../../../components/client/login/LoginDialog";
-export default function Login({userData}) {
-  const [isLogged, setIsLogged] = useState(true);
+import AuthenticateService from "../../services/authenticate";
+import LoginDialog from "../../components/client/login/LoginDialog";
+import { Context } from "../contexts/userContext";
+export default function Login(props) {
+  const {  login, isLogged, userData } = useContext(Context);
   const [dialogOpen, setDialogOpen] = useState(true);
   const methods = useForm();
   const onSubmit = async (data) => {
     try {
       const response = await AuthenticateService.login(data);
+      login && login(response.access_token, { ...response });
       console.log("response", response);
-      // onLogin && await onLogin(response.access_token, {...response});
+      return;
       if(response.type == "client"){
         router.push("/")
       }

@@ -18,13 +18,15 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { ButtonBase } from "@mui/material";
+import { useContext } from "react";
+import { Context } from "../../pages/contexts/userContext";
 
 const drawerWidth = 240;
 const navItems = [
   { item: "Quem Somos", style: "text", link: "/dashboard" },
   { item: "Contato", style: "text", link: "/dashboard" },
-  { item: "Entrar", style: "outlined", link: "/client/auth/login" },
-  { item: "Inscrição", style: "outlined", link: "/dashboard" },
+  // { item: "Entrar", style: "outlined", link: "/client/auth/login" },
+  // { item: "Inscrição", style: "outlined", link: "/dashboard" },
 ];
 
 const Search = styled("div")(({ theme }) => ({
@@ -74,6 +76,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { isLogged, userData } = useContext(Context);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -86,9 +89,9 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map(({ item }) => (
+        {navItems.map(({ item, index }) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton sx={{ textAlign: "center" }} key={index}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -120,20 +123,22 @@ function DrawerAppBar(props) {
           >
             AgendAí
           </Typography>
-          <Search style={{ flexGrow: 1, alignItems: 'center'}}>
+          <Search style={{ flexGrow: 1, alignItems: "center" }}>
             <StyledInputBase
               placeholder="Busque serviços"
               inputProps={{ "aria-label": "search" }}
             />
             <SearchIconWrapper>
-              <Button color={"inherit"} variant="outlined">Buscar</Button>
+              <Button color={"inherit"} variant="outlined">
+                Buscar
+              </Button>
             </SearchIconWrapper>
           </Search>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map(({ item, style, link }) => (
-              <Link href={link}>
+            {navItems.map(({ item, style, link }, index) => (
+              <Link href={link} key={index}>
                 <Button
-                  key={item}
+                  key={index}
                   style={{ marginRight: 10 }}
                   color="inherit"
                   sx={{ color: "#000" }}
@@ -143,6 +148,44 @@ function DrawerAppBar(props) {
                 </Button>
               </Link>
             ))}
+            {isLogged ? (
+              <Link href={"/"} key={10000}>
+                <Button
+                  key={10000}
+                  style={{ marginRight: 10 }}
+                  color="inherit"
+                  sx={{ color: "#000" }}
+                  variant={"outlined"}
+                >
+                  <Typography variant="body1">Logado</Typography>
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href={"/auth/login"} key={10000}>
+                  <Button
+                    key={10000}
+                    style={{ marginRight: 10 }}
+                    color="inherit"
+                    sx={{ color: "#000" }}
+                    variant={"outlined"}
+                  >
+                    <Typography variant="body1">Entrar</Typography>
+                  </Button>
+                </Link>
+                <Link href={"/dashboard"} key={9999}>
+                  <Button
+                    key={9999}
+                    style={{ marginRight: 10 }}
+                    color="inherit"
+                    sx={{ color: "#000" }}
+                    variant={"outlined"}
+                  >
+                    <Typography variant="body1">Inscrição</Typography>
+                  </Button>
+                </Link>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
