@@ -28,13 +28,16 @@ export default function RecoverPassword({ ...props }) {
 
             <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
                 <Grid item xs={12}>
-                    <h2 className={styles.title}>Recuperar Senha</h2>
+                    <h2 className={styles.title}>Esqueceu a senha?</h2>
+                </Grid>
+                <Grid item xs={12}>
+                    <h2 className={styles.message}>Vamos te enviar um e-mail com as intruções para recuperar a sua senha!</h2>
                 </Grid>
                 <Grid item xs={12}>
                     <Controller
                         name="email"
                         control={methods.control}
-                        defaultValue="a"
+                        defaultValue=""
                         render={({ field }) => (
                             <TextField
                                 {...field}
@@ -53,37 +56,8 @@ export default function RecoverPassword({ ...props }) {
                         )}
                     />
                 </Grid>
-
-                <Grid item>
-                    <Link href={"/forgotPassword"}>
-                        <Button
-                            variant="text"
-                            color="inherit"
-                            style={{ textAlign: "left" }}
-                        >
-                            Esqueceu a senha?
-                        </Button>
-                    </Link>
-                </Grid>
-                {(!!methods.formState.errors.email ||
-                    !!methods.formState.errors.password) && (
-                        <Grid item xs={12}>
-                            <span style={{ color: "red" }}>Senha ou email inválido(s).</span>
-                        </Grid>
-                    )}
                 <Grid container direction="row" style={{ height: "50px" }} mt={2}>
-                    <Grid item xs={6} pr={1}>
-                        <Button
-                            onClick={handleGoBack}
-                            variant="outlined"
-                            fullWidth
-                            style={{ height: "100%" }}
-                            color={"inherit"}
-                        >
-                            Voltar
-                        </Button>
-                    </Grid>
-                    <Grid item xs={6} pl={1}>
+                    <Grid item xs={12} pl={1}>
                         <Button
                             type="submit"
                             variant="outlined"
@@ -91,7 +65,7 @@ export default function RecoverPassword({ ...props }) {
                             style={{ height: "100%" }}
                             color={"inherit"}
                         >
-                            Entrar
+                            Resetar Senha
                         </Button>
                     </Grid>
                 </Grid>
