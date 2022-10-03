@@ -6,6 +6,10 @@ import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import BackButton from "../../../components/buttons/voltar"
 
+const API_BODY = {
+  password: ""
+}
+
 export default function RecoverPassword({ ...props }) {
   const [isLogged, setIsLogged] = useState(true);
   const { onSubmit, onCancel } = props;
