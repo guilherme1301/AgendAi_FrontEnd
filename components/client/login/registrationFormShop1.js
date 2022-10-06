@@ -71,7 +71,7 @@ export default function RegistrationFormShop1({ ...props }) {
             )}
           />
           <Controller
-            name="cep"
+            name="zipcode"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -82,10 +82,10 @@ export default function RegistrationFormShop1({ ...props }) {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                error={!!methods.formState.errors.cep}
+                error={!!methods.formState.errors.zipcode}
                 helperText={
-                  !!methods.formState.errors.cep
-                    ? methods.formState.errors.cep?.message
+                  !!methods.formState.errors.zipcode
+                    ? methods.formState.errors.zipcode?.message
                     : ""
                 }
               />
@@ -115,7 +115,7 @@ export default function RegistrationFormShop1({ ...props }) {
           />
 
           <Controller
-            name="city"
+            name="district"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -126,10 +126,10 @@ export default function RegistrationFormShop1({ ...props }) {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                error={!!methods.formState.errors.city}
+                error={!!methods.formState.errors.district}
                 helperText={
-                  !!methods.formState.errors.city
-                    ? methods.formState.errors.city?.message
+                  !!methods.formState.errors.district
+                    ? methods.formState.errors.district?.message
                     : ""
                 }
               />

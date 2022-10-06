@@ -34,7 +34,7 @@ export default function RegistrationDialog({ ...props }) {
 
   const handleOnSubmit = useCallback((data) => {
     debugger;
-    if ((data && data.empresarial == true) || (displayFormIndex > 0 && displayFormIndex != 2)) {
+    if ((data && data.isShop == true) || (displayFormIndex > 0 && displayFormIndex != 2)) {
       onInputUpdate && onInputUpdate(data);
       debugger
       const newIndex = displayFormIndex+1;

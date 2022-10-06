@@ -110,21 +110,21 @@ export default function RegistrationFormShop2({ ...props }) {
             )}
           />
           <Controller
-            name="cep"
+            name="zipcode"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Cep"
+                label="Zipcode"
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                error={!!methods.formState.errors.cep}
+                error={!!methods.formState.errors.zipcode}
                 helperText={
-                  !!methods.formState.errors.cep
-                    ? methods.formState.errors.cep?.message
+                  !!methods.formState.errors.zipcode
+                    ? methods.formState.errors.zipcode?.message
                     : ""
                 }
               />

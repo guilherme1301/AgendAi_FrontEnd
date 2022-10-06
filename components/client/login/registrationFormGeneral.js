@@ -92,7 +92,7 @@ export default function RegistrationFormGeneral({ ...props }) {
           />
 
           <Controller
-            name="empresarial"
+            name="isShop"
             control={methods.control}
             defaultValue={true}
             rules={{ required: true }}
@@ -100,7 +100,7 @@ export default function RegistrationFormGeneral({ ...props }) {
               <>
                 <Checkbox
                   {...field}
-                  checked={methods.getValues("empresarial")}
+                  checked={methods.getValues("isShop")}
                   // onChange={handleChange1}
                 />
                 Conta Empresaria?
