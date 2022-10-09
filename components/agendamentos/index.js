@@ -13,7 +13,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 <div style={{ marginTop: 40 }}>
                     <div className={styles.subTitle}>Procurar Serviços</div>
                     <div className={styles.divButton}>
-                        Busque serviços
+                    <input className={styles.input} placeholder="Busque serviços"/>
                         <div className={styles.buscar}>
                             buscar
                         </div>
