@@ -6,7 +6,6 @@ import {getTokenSync, emmitLogout} from '../hooks/useAuthenticate';
 export default class AbstractApiService {
   static base = `${Enviroment.get()}`;
 
-
   static async fetch(url, params={}) {
     const response = await fetch(`${this.base}${url}`, {
       ...params,

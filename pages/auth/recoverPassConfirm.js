@@ -4,7 +4,7 @@ import styles from "../../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
-import BackButton from "../../../components/buttons/voltar"
+import BackButton from "../../components/buttons/voltar"
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 export default function RecoverPassConfirm({ ...props }) {
