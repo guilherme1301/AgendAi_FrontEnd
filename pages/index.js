@@ -13,8 +13,7 @@ export default function Home() {
 
   return (
     <>
-    <h1>UserData: {JSON.stringify(userData)}</h1>
-      
+      <h1>Dashbaord Geral</h1>
     </>
   );
 }
