@@ -11,7 +11,9 @@ export default function Login(props) {
   const onSubmit = async (data) => {
     try {
       const response = await AuthenticateService.login(data);
+      debugger
       login && login(response.access_token, { ...response });
+      debugger
       console.log("response", response);
       return;
       if(response.type == "client"){

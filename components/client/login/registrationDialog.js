@@ -33,15 +33,14 @@ export default function RegistrationDialog({ ...props }) {
   const [displayFormIndex, setDisplayFormIndex] = useState(0);
 
   const handleOnSubmit = useCallback((data) => {
+    onInputUpdate && onInputUpdate(data);
     debugger;
     if ((data && data.isShop == true) || (displayFormIndex > 0 && displayFormIndex != 2)) {
-      onInputUpdate && onInputUpdate(data);
       debugger
       const newIndex = displayFormIndex+1;
       setDisplayFormIndex(newIndex);
       return;
-    }else if(displayFormIndex == 2){
-      onInputUpdate(data);
+    }else {
       onSubmit();
     }
   }, [displayFormIndex, inputData]);
@@ -65,30 +64,29 @@ export default function RegistrationDialog({ ...props }) {
     }
   }, [displayFormIndex]);
 
-  const handleDisplayForm = useEffect((form) => {
-    debugger;
+  useEffect(() => {
     switch (displayFormIndex) {
       case 0:
-        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} />);
+        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />);
         // setDisplayFormIndex(0);
         return ;
         break;
 
       case 1:
-        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} />);
+        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />);
         // setDisplayFormIndex(1);
         return;
         break;
 
       case 2:
-        setDisplayForm(<RegistrationFormShop2 onSubmit={handleOnSubmit} onClose={onClose} />);
+        setDisplayForm(<RegistrationFormShop2 onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />);
         // setDisplayFormIndex(2);
         return;
         break;
 
       default:
         // setDisplayFormIndex(0);
-        return <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} />;
+        return <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />;
         break;
     }
   }, [displayFormIndex]);
@@ -121,7 +119,6 @@ export default function RegistrationDialog({ ...props }) {
         </AppBar>
         <Grid container padding={4}>
           {displayForm}
-          {/* <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose}/> */}
         </Grid>
       </Dialog>
     </div>

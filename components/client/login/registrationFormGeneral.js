@@ -7,16 +7,28 @@ import Link from "next/link";
 
 export default function RegistrationFormGeneral({ ...props }) {
   
-  const { onSubmit, onCancel } = props;
+  const { onSubmit, onCancel, inputData} = props;
   const methods = useForm();
 
   const handleOnSubmit = async (data) => {
+    debugger
     onSubmit && onSubmit(data);
   };
 
   const handleGoBack = () => {
     (onCancel && onCancel()) || router.back();
   };
+
+  useEffect(()=>{
+    if(inputData != null && inputData?.data != null){
+      debugger
+      const { name, email, password, isShop } = inputData?.data;
+      methods.setValue('name', name, {shouldValidate: true});
+      methods.setValue('email', email, {shouldValidate: true});
+      methods.setValue('password', password, {shouldValidate: true});
+      methods.setValue('isShop', !!isShop ? "true" : "false");
+    }
+  },[inputData])
 
   return (
     <>
@@ -94,14 +106,12 @@ export default function RegistrationFormGeneral({ ...props }) {
           <Controller
             name="isShop"
             control={methods.control}
-            defaultValue={true}
-            rules={{ required: true }}
+            defaultValue={false}
             render={({ field }) => (
               <>
                 <Checkbox
                   {...field}
-                  checked={methods.getValues("isShop")}
-                  // onChange={handleChange1}
+                  // checked={methods.getValues("isShop")}
                 />
                 Conta Empresaria?
               </>
