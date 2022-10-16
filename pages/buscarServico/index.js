@@ -41,7 +41,6 @@ export default function searchService({data}) {
 
 /* export const getStaticProps = async () => {
   const data = await ServicesService.list();
-  debugger
   // const {data} = await axios.get("https://agendai-api.herokuapp.com/service")
   
   return { props:{data}, revalidate: 60 }

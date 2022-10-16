@@ -7,7 +7,7 @@ const Cadastro1 = (props) => {
   const [telefone, setTelefone] = useState();
   const [name, setName] = useState();
   const [cnpj, setCnpj] = useState();
-  const [cep, setCep] = useState();
+  const [zipcode, setZipcode] = useState();
   const [rua, setRua] = useState();
   const [cidade, setCidade] = useState();
   const [estado, setEstado] = useState();
@@ -43,9 +43,9 @@ const Cadastro1 = (props) => {
           />
           <TextField
             required
-            id="cep"
-            label="Cep"
-            value={cep}
+            id="zipcode"
+            label="Zipcode"
+            value={zipcode}
             fullWidth
             margin="normal"
           />

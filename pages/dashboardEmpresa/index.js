@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import { Typography } from "@mui/material";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,7 +19,57 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "10px"
 }));
 
+const SERVICE_DATA = {
+  nameShop: 'Empresa LTDA',
+  pendingScheduling: [{
+    Service: 'Corte de Cabelo',
+    User: 'Júlio César',
+    Day: 'Quinta-Feira',
+    Date: '25/08',
+    Hours: '15:00'
+  },
+  {
+    Service: 'Tingimento de Cabelo',
+    User: 'Cleberson',
+    Day: 'Sexta-Feira',
+    Date: '26/08',
+    Hours: '18:00'
+  },
+  {
+    Service: 'Corte de Cabelo',
+    User: 'Gabriel',
+    Day: 'Segunda-Feira',
+    Date: '29/08',
+    Hours: '09:00'
+  }
+],
+confirmedScheduling: [{
+  Service: 'Corte de Cabelo',
+  User: 'Júlio César',
+  Day: 'Quinta-Feira',
+  Date: '25/08',
+  Hours: '15:00'
+},
+{
+  Service: 'Tingimento de Cabelo',
+  User: 'Cleberson',
+  Day: 'Sexta-Feira',
+  Date: '26/08',
+  Hours: '18:00'
+},
+{
+  Service: 'Corte de Cabelo',
+  User: 'Gabriel',
+  Day: 'Segunda-Feira',
+  Date: '29/08',
+  Hours: '09:00'
+}
+]
+}
+
 export default function gerenciarServicoComponent() {
+  const [serviceData, setServiceData] = useState(SERVICE_DATA);
+
   return (
     <>
         <div className={styles.return}>
@@ -28,42 +79,30 @@ export default function gerenciarServicoComponent() {
             <h3>Voltar</h3>
         </div>
         <Grid container spacing={2}>
-          <Grid xs={7} spacing={2}>
-              <div className={stylest.tituloEmpresa}>Empresa LTDA</div>
-              <div className={stylest.titulosServicos}>Gerenciar Serviços</div>
-              <Button variant="outlined">Adicione ou exclua seus serviços no botão ao lado</Button>
-              <div className={stylest.titulosServicos}>Agendamentos Pendentes</div>
-              <Stack spacing={1}>
-                <Button variant="outlined">Corte de Cabelo - Júlio César - Quinta - Feira (25/08) - 15:00h</Button>
-                <Button variant="outlined">Tingimento de Cabelo - Cleberson - Sexta - Feira (26/08) - 18:00h</Button>
-                <Button variant="outlined">Corte de Cabelo - Gabriel - Segunda - Feira (29/08) - 09:00h</Button>
-              </Stack>                 
-              <div className={stylest.titulosServicos}>Agendamentos Confirmados</div>
-              <Stack spacing={1}>
-                <Button variant="outlined">Corte de Cabelo - Júlio César - Quinta - Feira (25/08) - 15:00h</Button>
-                <Button variant="outlined">Tingimento de Cabelo - Cleberson - Sexta - Feira (26/08) - 18:00h</Button>
-                <Button variant="outlined">Corte de Cabelo - Gabriel - Segunda - Feira (29/08) - 09:00h</Button>
-              </Stack>
-              
+          <Grid xs={12} className={stylest.tituloEmpresa} mt={5}>{serviceData.nameShop}</Grid>
+          <Grid xs={7} spacing={2}>              
+              <Grid item xs={12} className={stylest.titulosServicos}>Gerenciar Serviços</Grid>
+              <Grid item xs={9} className={stylest.fieldEdit}> Adicione, edite ou exclua seus serviços no botão ao lado</Grid>
+              <Grid item xs={12} className={stylest.titulosServicos}>Editar Perfil</Grid>
+              <Grid item xs={9} className={stylest.fieldEdit}> Edite as informações e fotos da sua empresa no botão ao lado</Grid>   
           </Grid>
-          <Grid xs={5} spacing={2}>
-            
-            
-            <Stack spacing={2}> 
-            <svg viewBox="0 0 1000 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="398" height="248" rx="7" fill="#EFEFF0"/>
-                  <path d="M6 6L394 244" stroke="#AFB1B6" stroke-width="2"/>
-                  <path d="M394 6L5.99999 244" stroke="#AFB1B6" stroke-width="2"/>
-                  <rect x="1" y="1" width="398" height="248" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-            </svg>
-            <div>Alterar logo</div>            
-                <TextField id="outlined-basic" label="Nome da Empresa" variant="outlined" />
-                <TextField id="outlined-basic" label="Email" variant="outlined" />
-                <TextField id="outlined-basic" label="Telefone" variant="outlined" />          
-                <TextField id="outlined-basic" label="Descrição da Empresa" variant="outlined" /> 
-                <Button variant="outlined">Atualizar Perfil</Button>                         
-            </Stack>
-            
+          <Grid xs={5} spacing={2}>            
+            <Grid item xs={12} className={stylest.titulosServicos}>Agendamentos Pendentes</Grid>
+            {
+              SERVICE_DATA.pendingScheduling.map((infoServiceP, index) => (
+                <>
+                  <Grid item xs={11} className={stylest.fieldAgendamento}> {infoServiceP.Service} - {infoServiceP.User} - {infoServiceP.Day} ({infoServiceP.Date}) - {infoServiceP.Hours}h</Grid>
+                </>
+              ))
+            }
+            <Grid item xs={12} className={stylest.titulosServicos}>Agendamentos Confirmados</Grid>
+            {
+              SERVICE_DATA.confirmedScheduling.map((infoServiceC, index) => (
+                <>
+                  <Grid item xs={11} className={stylest.fieldAgendamento}> {infoServiceC.Service} - {infoServiceC.User} - {infoServiceC.Day} ({infoServiceC.Date}) - {infoServiceC.Hours}h</Grid>
+                </>
+              ))
+            }
           </Grid>        
         </Grid>       
     </>
