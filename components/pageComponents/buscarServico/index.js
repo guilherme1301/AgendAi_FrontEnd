@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import styles from'../../../styles/SearchService.module.css'
 import Logo from "/public/logo.png"
 import Image from "next/image";
+import axios from "axios"
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -15,8 +16,12 @@ const Item = styled(Paper)(({ theme }) => ({
     borderRadius: "10px",
   }));
 
-export default function searchServiceComponent({serviceList}) {
-    const [data, setData] = useState(serviceList)
+export default function searchServiceComponent() {
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        axios.get("https://agendai-api.herokuapp.com/service").then(({data}) => setData(data.payload))
+    },[])
 
     return (
     <div>
@@ -34,10 +39,10 @@ export default function searchServiceComponent({serviceList}) {
             <Grid item key={index}>
                 <Item>
                     <Image src={Logo}/>
-                    <h3 className={styles.serviceName}>{item.name}</h3>
-                    <p className={styles.serviceItem}>{item.description}</p>
-                    <p className={styles.serviceItem}>{item.duration}</p>
-                    <p className={styles.serviceItem}>{item.place}</p>
+                    <h3 className={styles.serviceName}>{item?.name}</h3>
+                    <p className={styles.serviceItem}>{item?.description}</p>
+                    <p className={styles.serviceItem}>{item?.shop.finTime}</p>
+                    <p className={styles.serviceItem}>{item?.shop.address.city}, {item?.shop.address.district}, {item?.shop.address.region}</p>
                 </Item>
             </Grid>
         ))}

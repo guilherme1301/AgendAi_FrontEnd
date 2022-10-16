@@ -4,38 +4,9 @@ import SearchServiceComponent from "../../components/pageComponents/buscarServic
 // import axios from "axios"
 
 export default function searchService({data}) {
-  const [serviceList, setServiceList] = useState(
-    [
-      {
-        name: 'Teste1',
-        description: 'teste1',
-        duration: 'teste1',
-        place: 'teste1',
-      },
-      {
-        name: 'Teste1',
-        description: 'teste1',
-        duration: 'teste1',
-        place: 'teste1',
-      },
-      {
-        name: 'Teste1',
-        description: 'teste1',
-        duration: 'teste1',
-        place: 'teste1',
-      },
-      {
-        name: 'Teste1',
-        description: 'teste1',
-        duration: 'teste1',
-        place: 'teste1',
-      },
-
-    ]
-  )
 
   return (
-      <SearchServiceComponent serviceList={serviceList}/>
+      <SearchServiceComponent/>
   );
 }
 
