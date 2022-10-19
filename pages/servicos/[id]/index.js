@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import stylest from '../../styles/GerenciarServicos.module.css';
-import styles from '../../styles/SearchService.module.css';
+import stylest from '../../../styles/GerenciarServicos.module.css';
+import styles from '../../../styles/SearchService.module.css';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import { Typography } from "@mui/material";
+import axios from 'axios'
+import { useRouter } from 'next/router'
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -96,6 +99,17 @@ export default function servicos() {
 
   const [serviceData, setServiceData] = useState(SERVICE_DATA);
 
+
+  const [data, setData] = useState()
+  const {query, isReady} = useRouter()
+  const { id } = query
+
+  useEffect(() => {
+    if(isReady){
+      axios.get(`https://agendai-api.herokuapp.com/service/one?id=${id}`).then(({data}) => setData(data.payload))
+    }
+  },[id])
+
   return (
     <>
       <div className={styles.return}>
@@ -113,14 +127,47 @@ export default function servicos() {
             <Grid item xs={12} className={stylest.titulosServicos}>Endereço</Grid>
             <Grid item xs={12}>{serviceData.address.street}, {serviceData.address.number} - {serviceData.address.neighborhood}, {serviceData.address.city} - {serviceData.address.state}</Grid>
             <Grid item xs={12} className={stylest.titulosServicos}>Horario de Funcionamento</Grid>
-            {
+
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Segunda</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.segunda.open ? data?.shop.times.segunda.ini + '-' + data?.shop.times.segunda.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Terça</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.terca.open ? data?.shop.times.terca.ini + '-' + data?.shop.times.terca.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Quarta</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.quarta.open ? data?.shop.times.quarta.ini + '-' + data?.shop.times.quarta.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Quinta</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.quinta.open ? data?.shop.times.quinta.ini + '-' + data?.shop.times.quinta.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Sexta</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.sexta.open ? data?.shop.times.sexta.ini + '-' + data?.shop.times.sexta.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Sabado</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.sabado.open ? data?.shop.times.sabado.ini + '-' + data?.shop.times.sabado.fim : 'Fechado'}</Grid>
+            </>
+            <>
+              <Grid item xs={6} className={stylest.diasSemana}>Domingo</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.domingo.open ? data?.shop.times.domingo.ini + '-' + data?.shop.times.domingo.fim : 'Fechado'}</Grid>
+            </>
+            
+            {/* <Grid item xs={6}>{SERVICE_DAYS[index].isOpen ? `${SERVICE_DAYS[index].start} - ${SERVICE_DAYS[index].end}` : 'Fechado'}</Grid> */}
+
+
+            {/* {
               WEEK_DAYS.map((weekName, index) => (
                 <>
                   <Grid item xs={6} className={stylest.diasSemana}>{weekName}</Grid>
                   <Grid item xs={6}>{SERVICE_DAYS[index].isOpen ? `${SERVICE_DAYS[index].start} - ${SERVICE_DAYS[index].end}` : 'Fechado'}</Grid>
                 </>
               ))
-            }
+            } */}
           </Grid>
         </Grid>
         <Grid xs={12} lg={5} container spacing={2} mt={3}>          

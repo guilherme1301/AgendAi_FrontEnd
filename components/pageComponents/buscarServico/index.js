@@ -7,6 +7,7 @@ import styles from'../../../styles/SearchService.module.css'
 import Logo from "/public/logo.png"
 import Image from "next/image";
 import axios from "axios"
+import { useRouter } from 'next/router'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -18,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function searchServiceComponent() {
     const [data, setData] = useState()
+    const router = useRouter()
 
     useEffect(() => {
         axios.get("https://agendai-api.herokuapp.com/service").then(({data}) => setData(data.payload))
@@ -37,7 +39,7 @@ export default function searchServiceComponent() {
         {data && data.map((item, index) => (
             // <Grid item sm={4} key={index}>
             <Grid item key={index}>
-                <Item>
+                <Item onClick={() => router.push(`/servicos/${item.id}`)}>
                     <Image src={Logo}/>
                     <h3 className={styles.serviceName}>{item?.name}</h3>
                     <p className={styles.serviceItem}>{item?.description}</p>
