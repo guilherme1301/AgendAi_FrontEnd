@@ -66,7 +66,6 @@ const Provider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
-      debugger;
       logout();
     }
   };
@@ -104,7 +103,6 @@ const Provider = ({ children }) => {
     (tokenArg, data) => {
       try {
         const isTokenValid = jwtDecode(tokenArg);
-        debugger;
 
         // Set token
         setToken(tokenArg);
