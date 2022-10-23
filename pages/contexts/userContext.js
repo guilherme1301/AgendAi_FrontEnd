@@ -73,7 +73,7 @@ const Provider = ({ children }) => {
   const getUserData = async (tokenArg) => {
     // Check if token is available and test it
     const userToken = localStorage.getItem(AUTH_KEY) || token;
-    if (!userToken) logout();
+    if (!userToken){setUser(false), logout()}
     else {
       fetchUserData(userToken);
     }
@@ -164,7 +164,7 @@ const Provider = ({ children }) => {
     () => ({
       login,
       logout,
-      isLogged: !!user,
+      isLogged: user,
       userData: user,
     }),
     [login, logout, token, user]
