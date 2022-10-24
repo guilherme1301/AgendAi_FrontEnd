@@ -1,12 +1,13 @@
 import AbstractApiService from '../abstractApiService';
 
-export default class ServicingService extends AbstractApiService{
-  static basepath = `/servicing`;
+export default class ServicesService extends AbstractApiService{
+  static basepath = `/services`;
 
 
   static async list(filter, page=0, countPerPage=10, orderBy={}) {
 
-    const response = await this.fetch(`${this.basepath}/list?filter=${filter||""}&page=${page}&countPerPage=${countPerPage}&orderBy=${JSON.stringify(orderBy)}`);
+    const response = await this.fetch(`${this.basepath}`);
+    // /list?filter=${filter||""}&page=${page}&countPerPage=${countPerPage}&orderBy=${JSON.stringify(orderBy)}`);
     return response;
   }
 

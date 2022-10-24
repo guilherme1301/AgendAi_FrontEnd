@@ -1,0 +1,51 @@
+.close{
+    float: right;
+}
+
+.desejaCancelar{
+    font-family: 'Work Sans';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.desfazer{
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #666666;
+}
+
+.buttons{
+    width: 50%;
+    background: #F7F5FF;
+    border-radius: 12px;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.4px;
+    padding: 12px 16px;
+    color: #666666;
+}
+
+.title{
+    font-family: 'Work Sans';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+

@@ -4,6 +4,7 @@ import { Grid, Typography } from "@mui/material";
 import styles from "../../styles/Home.module.css";
 import { Box } from "@mui/system";
 import Link from "next/link";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const COLUMNS = [
   { title: "Categorias",  items: [
     {text: "Categoria 1", link: "#"},
@@ -26,32 +27,32 @@ function Footer(props) {
   return (
     <Grid container>
       <footer className={styles.footer}>
-        <Grid container>
-          <Grid container alignContent="center" alignItems={"strech"} justifyContent={"center"}  md={2} className={styles.innerColumn} gap={3}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
+        <Grid container alignItems={"strech"}>
+          <Grid item md={2}>
+          <CalendarMonthIcon sx={{fontSize: 200}} className={styles.IconColor} ></CalendarMonthIcon>
+            
           </Grid>
-          {COLUMNS.map(col => (
-            <Grid container direction="column" alignContent="center" md={3} className={styles.innerColumn} gap={2}>
-              <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
-              {col.items?.map( item => (
-                  <Grid item textAlign={"center"}>
-                    <Link href={"#"}>
-                      <Typography variant="body1" style={{cursor: "pointer"}} sx={[
-                        (theme) => ({
-                          '&:hover': {
-                            color: theme.palette.primary.main,
-                          },
-                        }),
-                      ]}>{item.text}</Typography>
-                    </Link>
-                  </Grid>
-              ))}
+          {COLUMNS.map((col, i) => (
+            <Grid item md={3} key={i}>
+              
+              <Grid container direction="column" alignContent="center" className={styles.innerColumn} gap={2}>
+                <Grid item textAlign={"center"}><Typography variant="h5">{col.title}</Typography></Grid>
+                {col.items?.map( (item, index) => (
+                    <Grid item textAlign={"center"} key={index}>
+                      <Link href={"#"}>
+                        <Typography variant="body1" style={{cursor: "pointer"}} sx={[
+                          (theme) => ({
+                            '&:hover': {
+                              color: theme.palette.primary.main,
+                            },
+                          }),
+                        ]}>{item.text}</Typography>
+                      </Link>
+                    </Grid>
+                ))}
+              </Grid>
             </Grid>
+
             ))}
         </Grid>
       </footer>

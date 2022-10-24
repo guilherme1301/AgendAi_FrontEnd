@@ -1,40 +1,26 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
 import router from "next/router";
-import BasePage from "../../components/pageComponents/basePage";
-import styles from "../../styles/Home.module.css";
+import styles from "../../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
-import AuthenticateService from "../../services/authenticate";
 
-export default function Login({onLogin, userData}) {
+export default function LoginForm({...props}) {
   const [isLogged, setIsLogged] = useState(true);
+  const { onSubmit, onCancel } = props;
   const methods = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const response = await AuthenticateService.login(data);
-      console.log("response", response);
-      await onLogin(response.access_token, {...response});
-      debugger
-      if(response.type == "client"){
-        router.push("/")
-      }
-    } catch (err) {
-      console.log(err);
-      debugger;
-    }
+  const handleOnSubmit = async (data) => {
+    onSubmit && onSubmit(data);
   };
 
   const handleGoBack = () => {
-    router.back();
+    onCancel && onCancel() || router.back();
   };
 
   return (
     <>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
         <Grid item xs={12}>
           <h2 className={styles.title}>Login</h2>
         </Grid>
@@ -83,7 +69,7 @@ export default function Login({onLogin, userData}) {
         </Grid>
 
         <Grid item>
-          <Link href={"/forgotPassword"}>
+          <Link href={"/client/auth/recoverPassword"}>
             <Button
               variant="text"
               color="inherit"

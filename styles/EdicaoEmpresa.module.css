@@ -1,0 +1,95 @@
+.body{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.edicao{
+    width: 30%;
+    height: 100%;
+}
+
+.return{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 80px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #666666;
+    cursor: pointer;
+}
+
+.svgreturn{
+    margin-right: 5px;
+}
+
+.edicaoTitulo{
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 50px;
+    color: #666666;
+    margin-bottom: 50px;
+}
+
+.alterarLogo{
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    color: #666666;
+}
+
+.fotos{
+    width: 35%;
+}
+
+.fotosFlex{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    color: #666666;
+}
+
+.fotoPrincipal{
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    color: #666666;
+    margin-bottom: 50px;
+}
+
+.salvarAlteracoes{
+    position: absolute;
+    bottom: 350px;
+    right: 50px;
+    background: #AFB1B6;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: #FFFFFF;
+}

@@ -1,0 +1,151 @@
+.container{
+  width: 90%;
+  margin: auto;
+}
+
+.body{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.title{
+  width: 90%;
+  font-family: 'Noto Sans';
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 50px;
+  color: #666666;
+  text-align: start;
+
+}
+
+.divContent{
+  width: 45%;
+  text-align: center;
+}
+
+.subTitle{
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 50px;
+  color: #666666;
+}
+
+.divButton{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  isolation: isolate;
+  background: #FFFFFF;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.atualizaPerfil{  
+  border: 1px solid #128C7E;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Work Sans';
+  text-align: center;
+  letter-spacing: 0.4px;
+  /* color: #666666; */
+  
+  color:#128C7E;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.alterarFoto{
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 18px;
+  text-align: center;
+  color: #666666;
+}
+
+.img {
+  max-width: 400px;
+  max-height: 200px;
+}
+
+.BannerPhoto{
+  height: 50vh;
+  width: 105%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: left;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1608666599953-b951163495f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1466&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30% 60%;
+}
+
+.BannerText{
+  color: white;
+  margin-left: 50px;
+  margin-top: 7%;
+  font-size: 45px;
+}
+
+.BannerInput{
+  background-color: white;
+  width: 455px;
+}
+
+.BannerButton{
+  height: 56px;
+  color: black !important;
+  background-color: white !important;
+  margin-top: -6px !important;
+}
+
+.dashboardService{
+  display: flex;
+  align-items: flex-start;
+  justify-content: left;
+}
+
+.dashboardTitleService{
+  color: gray;
+  font-size: 25px;
+  text-align: left;
+}
+
+.dashboardCarrousel{
+  text-align: center;
+}
+
+.arrowCarrousel{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1080px) {
+  .body {
+    flex-direction: column;
+    width: 100%;
+  }
+  .divContent{
+    margin-top: 50px;
+    width: 100%;
+  }
+}

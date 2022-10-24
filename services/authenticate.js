@@ -17,8 +17,16 @@ export default class AuthenticateService extends AbstractApiService{
     return response;
   }
   
-  static async register(data) {
-    const response = await this.fetch(`${this.basepath}/register`, {
+  static async clientRegister(data) {
+    const response = await this.fetch(`${this.basepath}/userClient/create`, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    return response;
+  }
+  
+  static async shopRegister(data) {
+    const response = await this.fetch(`${this.basepath}/userShop/create`, {
       method: "POST",
       body: JSON.stringify(data)
     });
