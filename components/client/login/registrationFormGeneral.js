@@ -4,15 +4,36 @@ import styles from "../../../styles/Home.module.css";
 import { Button, Checkbox, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
+import axios from 'axios'
 
 export default function RegistrationFormGeneral({ ...props }) {
   
   const { onSubmit, onCancel, inputData} = props;
   const methods = useForm();
+  const [name, setName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [phone, setPhone] = useState()
+  const [isShop, setIsShop] = useState(false)
 
-  const handleOnSubmit = async (data) => {
-    debugger
-    onSubmit && onSubmit(data);
+  const handleOnSubmit = async () => {
+    if(isShop){
+      const {data} = await axios.post("https://agendai-api.herokuapp.com/user-client", {
+        name,
+        email,
+        password,
+        phone
+      })
+      console.log(data)
+    }else{
+      const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", {
+        name,
+        email,
+        password,
+        phone
+      })
+      console.log(data)
+    }
   };
 
   const handleGoBack = () => {
@@ -21,7 +42,6 @@ export default function RegistrationFormGeneral({ ...props }) {
 
   useEffect(()=>{
     if(inputData != null && inputData?.data != null){
-      debugger
       const { name, email, password, isShop } = inputData?.data;
       methods.setValue('name', name, {shouldValidate: true});
       methods.setValue('email', email, {shouldValidate: true});
@@ -32,7 +52,7 @@ export default function RegistrationFormGeneral({ ...props }) {
 
   return (
     <>
-      <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <Grid item xs={12}>
           <h2 className={styles.title}>Vamos Começar?</h2>
         </Grid>
@@ -45,9 +65,9 @@ export default function RegistrationFormGeneral({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Nome"
                 variant="outlined"
+                onChange={(e) => setName(e.target.value)}
                 fullWidth
                 margin="normal"
                 error={!!methods.formState.errors.name}
@@ -66,9 +86,9 @@ export default function RegistrationFormGeneral({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="E-mail"
                 type={"email"}
+                onChange={(e) => setEmail(e.target.value)}
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -88,15 +108,37 @@ export default function RegistrationFormGeneral({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Senha"
                 fullWidth
+                onChange={(e) => setPassword(e.target.value)}
                 type={"password"}
                 margin="normal"
                 error={!!methods.formState.errors.password}
                 helperText={
                   !!methods.formState.errors.password
                     ? methods.formState.errors.password?.message
+                    : ""
+                }
+              />
+            )}
+          />
+          <Controller
+            name="phone"
+            control={methods.control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                label="Phone"
+                type={"number"}
+                onChange={(e) => setPhone(e.target.value)}
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                error={!!methods.formState.errors.phone}
+                helperText={
+                  !!methods.formState.errors.phone
+                    ? methods.formState.errors.phone?.message
                     : ""
                 }
               />
@@ -110,7 +152,8 @@ export default function RegistrationFormGeneral({ ...props }) {
             render={({ field }) => (
               <>
                 <Checkbox
-                  {...field}
+                  // {...field}
+                  onChange={(e) => setIsShop(e.target.checked)}
                   // checked={methods.getValues("isShop")}
                 />
                 Conta Empresaria?
@@ -125,6 +168,7 @@ export default function RegistrationFormGeneral({ ...props }) {
               type="submit"
               variant="outlined"
               fullWidth
+              onClick={() => handleOnSubmit()}
               style={{ height: "100%" }}
               color={"inherit"}
             >

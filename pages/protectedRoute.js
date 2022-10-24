@@ -9,7 +9,7 @@ export const ProtectedRoute = ({ children }) => {
 
   if(isLogged != undefined){
     if (!isLogged) {
-      if(router && router.pathname != "/auth/login" && router.pathname != "/auth/registration" && router.pathname != "/"){
+      if(router && !router.pathname.startsWith('/auth') && router.pathname != "/"){
           console.log("Router pathname: ", router && router.pathname);
           if(router.isReady){
             router.push("/");

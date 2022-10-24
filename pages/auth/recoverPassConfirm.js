@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import router from "next/router";
-import styles from "../../../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
