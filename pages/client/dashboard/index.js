@@ -63,12 +63,9 @@ export default function dashboarUsuario() {
                 <Agendamentos usuario={true} listServicePending={listServicePending} listServiceConfirmed={listServiceConfirmed}/>
 
                     <div className={styles.divContent}>
-                        <svg  width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="248" height="248" rx="7" fill="#EFEFF0"/>
-                            <path d="M6 6L244 244" stroke="#AFB1B6" stroke-width="2"/>
-                            <path d="M244 6L5.99999 244" stroke="#AFB1B6" stroke-width="2"/>
-                            <rect x="1" y="1" width="248" height="248" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-                        </svg>
+                    <img src="https://i.pinimg.com/564x/8e/6d/ee/8e6deed92dc84de3e9212fd56a0d0a97--johnny-bravo-cartoon-network.jpg" className={styles.img}></img>
+
+                       
                         <p className={styles.alterarFoto}>Alterar Foto</p>
 
                         <TextField
@@ -107,7 +104,7 @@ export default function dashboarUsuario() {
                             onChange={() => setUser(user.telefone)}
                         />
 
-                    <div onClick={() => updateProfile(user)} className={styles.atualizaPerfil}>Atualizar Perfil</div>
+                    <div onClick={() => updateProfile(user)} className={styles.atualizaPerfil}>Editar Perfil</div>
                 </div>
             </div>
         </div>
