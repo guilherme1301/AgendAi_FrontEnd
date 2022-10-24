@@ -6,7 +6,7 @@
 
 .main {
   /* min-height: 100vh; */
-  padding: 4rem 0;
+  padding: 0 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -111,6 +111,10 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.IconColor{
+  color: #128C7E;
 }
 
 @media (max-width: 600px) {

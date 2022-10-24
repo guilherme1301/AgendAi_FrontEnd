@@ -4,6 +4,7 @@ import { Grid, Typography } from "@mui/material";
 import styles from "../../styles/Home.module.css";
 import { Box } from "@mui/system";
 import Link from "next/link";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const COLUMNS = [
   { title: "Categorias",  items: [
     {text: "Categoria 1", link: "#"},
@@ -28,12 +29,8 @@ function Footer(props) {
       <footer className={styles.footer}>
         <Grid container alignItems={"strech"}>
           <Grid item md={2}>
-            <Grid item style={{
-              width: '100%',
-              height: '100%',
-              background: '#cdcdcd'
-            }}>
-            </Grid>
+          <CalendarMonthIcon sx={{fontSize: 200}} className={styles.IconColor} ></CalendarMonthIcon>
+            
           </Grid>
           {COLUMNS.map((col, i) => (
             <Grid item md={3} key={i}>
