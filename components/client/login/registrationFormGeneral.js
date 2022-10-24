@@ -56,6 +56,7 @@ export default function RegistrationFormGeneral({ ...props }) {
                     ? methods.formState.errors.name?.message
                     : ""
                 }
+                
               />
             )}
           />
@@ -113,7 +114,7 @@ export default function RegistrationFormGeneral({ ...props }) {
                   {...field}
                   // checked={methods.getValues("isShop")}
                 />
-                Conta Empresaria?
+                Conta Empresarial?
               </>
             )}
           />

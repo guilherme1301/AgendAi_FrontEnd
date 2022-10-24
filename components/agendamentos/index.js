@@ -27,7 +27,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.service} - {item.name} - {item.day} - {item.hour}
                         <div className={styles.accept}>
-                            <DialogAdd />
+                            <div></div>
                             <DialogCancel />
                         </div>
                     </div>
