@@ -12,12 +12,11 @@ const Cadastro1 = (props)=> {
 
   return (
     <>
-    
     <Grid container>  
       <h2 className={styles.title}>Vamos começar?</h2>
       <p>Primeiro defina as informações de acesso da sua conta.</p>
       <Grid item xs={12}>
-        <TextField required id="name" label="Nome" value={name} fullWidth margin='normal'/>
+        <TextField required id="name" label="Nome" value={name} fullWidth margin='normal' />
         <TextField required id="email" label="E-mail" value={name} fullWidth margin='normal'/>
         <TextField required id="password" label="Senha" value={name} fullWidth margin='normal'/>
       </Grid>

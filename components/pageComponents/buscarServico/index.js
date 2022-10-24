@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import styles from'../../../styles/SearchService.module.css'
 import Logo from "/public/logo.png"
+import Jon from "/public/JohnnyBravo.png"
 import Image from "next/image";
 import axios from "axios"
 import { useRouter } from 'next/router'
@@ -13,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(2),
     textAlign: 'start',
-    border: "solid 1px black",
+    border: "1px solid #128C7E;",
     borderRadius: "10px",
   }));
 
@@ -34,13 +35,12 @@ export default function searchServiceComponent() {
             <h3>Voltar</h3>
         </div>
         <div className={styles.service}>Serviço XXXXX</div>
-        {/* <Box sx={{ marginTop: "100px", justifyContent: 'center'}}> */}
-        <Grid spacing={7} sx={{ marginTop: "100px", justifyContent: 'center'}} container>
+        
+        <Grid spacing={7} sx={{ marginTop: "100px", justifyContent: 'center', }} container>
         {data && data.map((item, index) => (
-            // <Grid item sm={4} key={index}>
             <Grid item key={index}>
                 <Item onClick={() => router.push(`/servicos/${item.id}`)}>
-                    <Image src={Logo}/>
+                    <Image src={Jon}/>
                     <h3 className={styles.serviceName}>{item?.name}</h3>
                     <p className={styles.serviceItem}>{item?.description}</p>
                     <p className={styles.serviceItem}>{item?.shop.finTime}</p>
