@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import styles from'../../../styles/SearchService.module.css'
-import Logo from "/public/logo.png"
-import Jon from "/public/JohnnyBravo.png"
 import Image from "next/image";
 import axios from "axios"
 import { useRouter } from 'next/router'
@@ -40,7 +37,7 @@ export default function searchServiceComponent() {
         {data && data.map((item, index) => (
             <Grid item key={index}>
                 <Item onClick={() => router.push(`/servicos/${item.id}`)}>
-                    <Image src={Jon}/>
+                    <Image width={'300px'} height={'300px'} src={item?.shop.logo}/>
                     <h3 className={styles.serviceName}>{item?.name}</h3>
                     <p className={styles.serviceItem}>{item?.description}</p>
                     <p className={styles.serviceItem}>{item?.shop.finTime}</p>
@@ -49,7 +46,6 @@ export default function searchServiceComponent() {
             </Grid>
         ))}
         </Grid>
-        {/* </Box> */}
     </div>
   );
 }

@@ -12,14 +12,6 @@ import { Typography } from "@mui/material";
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'start',
-  border: "solid 1px black",
-  borderRadius: "10px"
-}));
-
 const SERVICE_DATA = {
   nameShop: 'Barbearia do Calvo e Careca',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent venenatis magna magna, a efficitur velit rhoncus ut. Etiam et varius libero. Sed laoreet non erat sed ornare. Donec fringilla lectus sit amet diam facilisis, ut tincidunt risus gravida. Nulla id mauris commodo nisi convallis tempor id at neque. Fusce quis mi condimentum enim commodo posuere nec fermentum dui.',
@@ -44,55 +36,6 @@ const SERVICE_DATA = {
   }
 ]
 }
-
-const SERVICE_DAYS = [
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '09:00',
-    end: '21:30',
-    isOpen: true
-  },
-  {
-    start: '',
-    end: '',
-    isOpen: false
-  }
-]
-
-const WEEK_DAYS = [
-  'Segunda-Feira',
-  'Terça-Feira',
-  'Quarta-Feira',
-  'Quinta-Feira',
-  'Sexta-Feira',
-  'Sábado',
-  'Domingo'
-]
-
 
 export default function servicos() {
 
@@ -155,28 +98,17 @@ export default function servicos() {
               <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.domingo.open ? data?.shop.times.domingo.ini + '-' + data?.shop.times.domingo.fim : 'Fechado'}</Grid>
             </>
 
-            {/* <Grid item xs={6}>{SERVICE_DAYS[index].isOpen ? `${SERVICE_DAYS[index].start} - ${SERVICE_DAYS[index].end}` : 'Fechado'}</Grid> */}
-
-            {/* {
-              WEEK_DAYS.map((weekName, index) => (
-                <>
-                  <Grid item xs={6} className={stylest.diasSemana}>{weekName}</Grid>
-                  <Grid item xs={6}>{SERVICE_DAYS[index].isOpen ? `${SERVICE_DAYS[index].start} - ${SERVICE_DAYS[index].end}` : 'Fechado'}</Grid>
-                </>
-              ))
-            } */}
-            
           </Grid>
         </Grid>
         <Grid xs={12} lg={5} container spacing={2} mt={3}>          
           {
-            SERVICE_DATA.images.map((urlImage, index) => (
+            data?.shop.photos.map((urlImage, index) => (
               <>
                 <Grid item xs={12} lg={index == 0 ? 12 : 4}>
                   <Grid item style={{
                     width: '100%',
                     height: '200px',
-                    backgroundImage: `url(${urlImage.url})`                    
+                    backgroundImage: `url(${urlImage})`                    
                   }}>
                   </Grid>
                 </Grid>

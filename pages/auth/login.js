@@ -10,6 +10,9 @@ export default function Login(props) {
 
   const { login, isLogged, userData } = useContext(Context);
   const [dialogOpen, setDialogOpen] = useState(true);
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
   const methods = useForm();
 
   const onSubmit = async (data) => {
@@ -17,10 +20,9 @@ export default function Login(props) {
       // const response = await AuthenticateService.login(data);
 
       const {data} = await axios.post("https://agendai-api.herokuapp.com/auth/login", {
-        username: 'string',
-        password: 'string'
+        username,
+        password
       })
-
 
       // login && login(data.access_token, { ...data });
       
@@ -46,7 +48,7 @@ export default function Login(props) {
 
   return (
     <>
-        <LoginDialog fullScreen={false} open={dialogOpen} onSubmit={onSubmit} onClose={handleGoBack}/>
+        <LoginDialog fullScreen={false} open={dialogOpen} onSubmit={onSubmit} setUsername={setUsername} setPassword={setPassword} onClose={handleGoBack}/>
     </>
   );
 }
