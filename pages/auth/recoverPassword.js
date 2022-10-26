@@ -7,10 +7,6 @@ import Link from "next/link";
 import BackButton from "../../components/buttons/voltar";
 import axios from 'axios'
 
-const API_BODY = {
-  email: "",
-};
-
 export default function RecoverPassword({ ...props }) {
   const [isLogged, setIsLogged] = useState(true);
   const { onSubmit, onCancel } = props;
@@ -18,9 +14,11 @@ export default function RecoverPassword({ ...props }) {
   const methods = useForm();
 
   const handleOnSubmit = async () => {
-    const {data} = await axios.post("https://agendai-api.herokuapp.com/recover-password", {
-      phone,
-    })
+    if(phone.toString().length == 11){
+      const {data} = await axios.post("https://agendai-api.herokuapp.com/recover-password", {
+        phone,
+      })
+    }
   };
 
   const handleGoBack = () => {
@@ -55,11 +53,13 @@ export default function RecoverPassword({ ...props }) {
               <TextField
                 {...field}
                 label="Celular"
-                // type={"email"}
                 variant="outlined"
-                onChangeCapture={(e) => setPhone(e.target.value)}
                 fullWidth
-                type="number"
+                type='number'
+                onInput={(e)=>{ 
+                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,11)
+                }}
+                onChangeCapture={(e) => setPhone(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.email}
                 helperText={
