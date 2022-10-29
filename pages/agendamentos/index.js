@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import stylest from '../../styles/GerenciarServicos.module.css';
 import styles from '../../styles/SearchService.module.css'
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import { DataGrid } from "@mui/x-data-grid";
 import { Table, Space } from "antd";
 import 'antd/dist/antd.variable.min.css';
 
@@ -18,27 +9,22 @@ function finalizarAgendamento(id) {
 
 const columns = [
   {
-    title: "Id",
+    title: "Escolha um Serviço",
     dataIndex: "id",
     key: "id"
   },
   {
-    title: 'Name',
+    title: 'Serviço',
     dataIndex: 'name',
     key: 'name'
   },
   {
-    title: 'Age',
+    title: 'Hora',
     dataIndex: 'age',
     key: 'age',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Action',
+    title: 'Ação',
     key: 'action',
     render: (_, record) => (
 
@@ -55,7 +41,6 @@ const dataa = [
     id: '1',
     name: 'John Brown',
     age: 32,
-    address: 'New York No. 1 Lake Park',
     tags: ['nice', 'developer'],
   },
   {
@@ -63,7 +48,6 @@ const dataa = [
     id: '2',
     name: 'Jim Green',
     age: 42,
-    address: 'London No. 1 Lake Park',
     tags: ['loser'],
   },
   {
@@ -71,7 +55,6 @@ const dataa = [
     id: '3',
     name: 'Joe Black',
     age: 32,
-    address: 'Sidney No. 1 Lake Park',
     tags: ['cool', 'teacher'],
   },
 ];
