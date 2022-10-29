@@ -13,9 +13,8 @@ export default function Login(props) {
 
   const handleInputUpdate = useCallback(
     (data) => {
-      debugger;
       setInputUserData({ ...inputUserData, data });
-      console.log("inputUserData", inputUserData);
+      // console.log("inputUserData", inputUserData);
     },
     [inputUserData]
   );
@@ -23,11 +22,9 @@ export default function Login(props) {
   const onSubmit = useCallback((data) => {
     async function submitForm() {
       try {
-        debugger;
         const response = await AuthenticateService.clientRegister(
           inputUserData
         );
-        debugger;
         login && login(response.access_token, { ...inputUserData });
         console.log("response", response);
         return;
