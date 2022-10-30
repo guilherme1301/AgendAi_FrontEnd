@@ -152,17 +152,14 @@ function DrawerAppBar(props) {
               </Link>
             ))}
             {isLogged ? (
+            <>
               <Link href={"/"} key={10000}>
-                <Button
-                  key={10000}
-                  style={{ marginRight: 10 }}
-                  color="inherit"
-                  sx={{ color: "#000" }}
-                  variant={"outlined"}
-                >
-                  <Typography variant="body1">Logado</Typography>
+                <Button key={10000}>               
+                  <img  className={styles.perfilLogado} src="https://t.ctcdn.com.br/63V25kDFoZnMMF2WjQavNUcoawY=/400x400/smart/filters:format(webp)/i618809.png"></img> 
+                  <Typography variant="body1">Zap Construções</Typography>
                 </Button>
               </Link>
+            </>
             ) : (
               <>
                 <Link href={"/auth/login"} key={10000}>
@@ -173,7 +170,7 @@ function DrawerAppBar(props) {
                     sx={{ color: "#000" }}
                     variant={"outlined"}
                   >
-                    <Typography variant="body1">Entrar</Typography>
+                    <Typography variant="body1">Login</Typography>
                   </Button>
                 </Link>
                 <Link href={"/dashboard"} key={9999}>

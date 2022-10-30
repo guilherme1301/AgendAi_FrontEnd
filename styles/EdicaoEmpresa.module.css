@@ -42,12 +42,12 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 18px;
-    text-align: center;
     color: #666666;
 }
 
 .fotos{
     width: 35%;
+    margin-top: 65px;
 }
 
 .fotosFlex{
@@ -92,4 +92,11 @@
     align-items: center;
     letter-spacing: 0.2px;
     color: #FFFFFF;
+}
+
+.imagemPerfil{
+    width: 200px;
+    height: 200px;
+    display: inline-flex;
+    border-radius: 100%;
 }

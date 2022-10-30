@@ -13,9 +13,10 @@ export default function Home() {
 
   return (
     <>
-        <Grid className={styles.BannerPhoto}>          
-            <Grid className={styles.BannerText}>Encontre os melhores <br></br>serviços para você! <p></p>
-              <TextField className={styles.BannerInput} placeholder="Nome do serviço ou Cidade" variant="outlined"/><Button className={styles.BannerButton} variant="contained">Buscar</Button>
+        <Grid className={styles.BannerPhoto} >          
+            <Grid className={styles.BannerText}>Encontre os melhores <br></br>serviços para você! <p></p>            
+              <TextField className={styles.BannerInput} placeholder="Nome do serviço ou Cidade" variant="outlined"/>
+                <Button className={styles.BannerButton} variant="contained">Buscar</Button>
             </Grid>                      
         </Grid>
         <Grid className={styles.dashboardService} mt={7}>

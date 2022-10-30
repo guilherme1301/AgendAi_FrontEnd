@@ -85,8 +85,9 @@
 }
 
 .BannerPhoto{
+  margin-top: -60px;
   height: 50vh;
-  width: 105%;
+  width: 104.4%;
   display: flex;
   align-items: flex-start;
   justify-content: left;

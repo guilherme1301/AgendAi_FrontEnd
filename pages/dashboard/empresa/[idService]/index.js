@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../../../styles/EdicaoEmpresa.module.css";
-
 import TextField from '@mui/material/TextField';
+import { Grid } from "@mui/material";
 
 export default function idService() {
  
@@ -19,12 +19,9 @@ export default function idService() {
           <p className={styles.edicaoTitulo}>Edição de Perfil</p>
 
           <div className={styles.alterarLogo}>
-            <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="178" height="178" rx="7" fill="#EFEFF0"/>
-              <path d="M6 6L174 174" stroke="#AFB1B6" stroke-width="2"/>
-              <path d="M174 6L6 174" stroke="#AFB1B6" stroke-width="2"/>
-              <rect x="1" y="1" width="178" height="178" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-            </svg>
+            <div >
+                <img className={styles.imagemPerfil} src="https://t.ctcdn.com.br/63V25kDFoZnMMF2WjQavNUcoawY=/400x400/smart/filters:format(webp)/i618809.png"></img>
+            </div>
             <p>Alterar Logo</p>
           </div>
 
@@ -75,42 +72,24 @@ export default function idService() {
         </div>
         <div className={styles.fotos}>
           <div className={styles.fotoPrincipal}>
-            <svg width="475" height="263" viewBox="0 0 475 263" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="473" height="261" rx="7" fill="#EFEFF0"/>
-              <path d="M6 6L469 257" stroke="#AFB1B6" stroke-width="2"/>
-              <path d="M469 6L5.99999 257" stroke="#AFB1B6" stroke-width="2"/>
-              <rect x="1" y="1" width="473" height="261" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-            </svg>
+            <div >
+                <img width="475" height="263" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80"></img>
+            </div>
             <p>Alterar Foto</p>
           </div>
           <div className={styles.fotosFlex}>
             <div>
-              <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="178" height="178" rx="7" fill="#EFEFF0"/>
-                  <path d="M6 6L174 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <path d="M174 6L6 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <rect x="1" y="1" width="178" height="178" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-              </svg>
-              <p>Alterar Foto</p>
+              <img width="180" height="180" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"></img> 
+              <p>Alterar Foto</p> 
             </div>
-            <div>
-              <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="178" height="178" rx="7" fill="#EFEFF0"/>
-                  <path d="M6 6L174 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <path d="M174 6L6 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <rect x="1" y="1" width="178" height="178" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-              </svg>
-              <p>Alterar Foto</p>
-            </div>
-            <div>
-              <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="178" height="178" rx="7" fill="#EFEFF0"/>
-                  <path d="M6 6L174 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <path d="M174 6L6 174" stroke="#AFB1B6" stroke-width="2"/>
-                  <rect x="1" y="1" width="178" height="178" rx="7" stroke="#AFB1B6" stroke-width="2"/>
-              </svg>
-              <p>Alterar Foto</p>
-            </div>
+          <div>
+            <img width="180" height="180" src="https://images.unsplash.com/photo-1532710093739-9470acff878f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"></img>
+            <p>Alterar Foto</p>
+          </div>
+          <div>
+            <img width="180" height="180" src="https://plus.unsplash.com/premium_photo-1664455462852-a23fef8aeb94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80"></img>
+            <p>Alterar Foto</p>
+          </div>
           </div>
         </div>
       </div>

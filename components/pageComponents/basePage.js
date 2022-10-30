@@ -22,7 +22,7 @@ export default function BasePage({ children }) {
 
         <Header userData={userData}/>
 
-        <main className={styles.main} style={{ minHeight: "56vh" }}>
+        <main className={styles.main} style={{ minHeight: "56vh"}}>
           {children}
         </main>
 
