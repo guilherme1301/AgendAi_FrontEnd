@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export default function RegistrationFormGeneral({ ...props }) {
   
-  const { onSubmit, onCancel, inputData} = props;
+  const { onSubmit, onCancel, inputData, setStepShop, setShopJson} = props;
   const methods = useForm();
   const [name, setName] = useState()
   const [email, setEmail] = useState()
@@ -18,21 +18,15 @@ export default function RegistrationFormGeneral({ ...props }) {
 
   const handleOnSubmit = async () => {
     if(isShop){
+      setShopJson({name, email, password, phone})
+      setStepShop(1)
+    }else{
       const {data} = await axios.post("https://agendai-api.herokuapp.com/user-client", {
         name,
         email,
         password,
         phone
       })
-      console.log(data)
-    }else{
-      const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", {
-        name,
-        email,
-        password,
-        phone
-      })
-      console.log(data)
     }
   };
 
@@ -131,7 +125,10 @@ export default function RegistrationFormGeneral({ ...props }) {
             render={({ field }) => (
               <TextField
                 label="Phone"
-                type={"number"}
+                type='number'
+                onInput={(e)=>{ 
+                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,11)
+                }}
                 onChange={(e) => setPhone(e.target.value)}
                 variant="outlined"
                 fullWidth

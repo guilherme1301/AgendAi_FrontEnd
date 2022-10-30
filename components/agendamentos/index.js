@@ -2,15 +2,24 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/Agendamentos.module.css";
 import DialogCancel from "../dialogCancel";
 import DialogAdd from "../dialogAdd";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
 
 export default function Agendamentos({ usuario, listServicePending, listServiceConfirmed }) {
 
     const [dadosAgendados, setDadosAgendados] = useState()
     const [dadosConfirmados, setdadosConfirmados] = useState()
+
     useEffect(() => {
+        updateList()
+    }, [])
+
+
+    function updateList() {
         getDadosAgendados()
         getDadosConfirmados()
-    }, [])
+    }
 
     console.log("agendados:", dadosAgendados)
     console.log("confirmdoados:", dadosConfirmados)
@@ -30,6 +39,25 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 setdadosConfirmados(data.payload)
             })
     }
+
+
+    async function confirmarAgendamentos(id) {
+
+        const response = await axios.patch(`https://agendai-api.herokuapp.com/schedule?id=${id}`, { status: 'confirmed' });
+
+
+        updateList()
+        return response;
+    }
+
+    async function cancelarAgendamentos(id) {
+
+        const response = await axios.patch(`https://agendai-api.herokuapp.com/schedule?id=${id}`, { status: 'awaiting' });
+
+        updateList()
+        return response;
+    }
+
     return (
         <div className={styles.divContent}>
 
@@ -52,8 +80,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
-                            <div></div>
-                            <DialogCancel />
+                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} />
+                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} />
                         </div>
                     </div>
                 ))}
@@ -65,8 +93,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
-                            <div></div>
-                            <DialogCancel />
+                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} />
+                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} />
                         </div>
                     </div>
                 ))}

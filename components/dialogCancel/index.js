@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styles from "../../styles/dialog.module.css";
 
-export default function DialogCancel() {
+export default function DialogCancel(props) {
   const [open, setOpen] = useState(false);
 
   const [user, setUser] = useState({
@@ -16,6 +16,20 @@ export default function DialogCancel() {
     day: 'quinta-feira (25/08)',
     hour: '15:00h'
   });
+
+  // useEffect(() => {
+  //   getById()
+  // },[])
+
+  // function getById(id) {
+  //   fetch(`https://agendai-api.herokuapp.com/schedule/one?id=${id}`)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setUser(data.payload)
+  //     console.log("data:", data)
+  //   })
+    
+  // }
 
   const handleClickOpen = () => {
     setOpen(true);

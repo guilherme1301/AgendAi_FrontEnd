@@ -1,23 +1,63 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import stylest from '../../styles/GerenciarServicos.module.css';
 import styles from '../../styles/SearchService.module.css'
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import { TableBody, TableCell, TableContainer, TableHead, Typography, Table, TableRow } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Table, Space } from "antd";
+import 'antd/dist/antd.variable.min.css';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'start',
-  border: "solid 1px black",
-  borderRadius: "10px"
-}));
+function finalizarAgendamento(id) {
+  console.log(`Finalizar agendamento id=${id}`)
+}
+
+const columns = [
+  {
+    title: "Escolha um Serviço",
+    dataIndex: "id",
+    key: "id"
+  },
+  {
+    title: 'Serviço',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Hora',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Ação',
+    key: 'action',
+    render: (_, record) => (
+
+      <Space size="middle">
+        <a onClick={() => finalizarAgendamento(record.id)}>Finalizar Agendamento</a>
+
+      </Space>
+    ),
+  },
+];
+const dataa = [
+  {
+    key: '1',
+    id: '1',
+    name: 'John Brown',
+    age: 32,
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '2',
+    id: '2',
+    name: 'Jim Green',
+    age: 42,
+    tags: ['loser'],
+  },
+  {
+    key: '3',
+    id: '3',
+    name: 'Joe Black',
+    age: 32,
+    tags: ['cool', 'teacher'],
+  },
+];
 
 export default function agendamentos() {
   const [dataSource, setDataSource] = useState()
@@ -26,14 +66,16 @@ export default function agendamentos() {
     updateList()
   }, [])
 
-  function updateList() {
-    fetch('https://agendai-api.herokuapp.com/schedule')
-      .then(res => res.json())
-      .then(data => {
-        setDataSource(data.payload)
+  async function updateList() {
+    // await fetch('https://agendai-api.herokuapp.com/schedule')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     setDataSource(data.payload)
 
-      })
+    //   })
   }
+
+
 
   console.log("datasource:", dataSource)
   return (
@@ -44,40 +86,17 @@ export default function agendamentos() {
         </svg>
         <h3>Voltar</h3>
       </div>
-      <Grid container spacing={2}>
-        <Grid item spacing={2} className={stylest.gridInfo}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} className={stylest.tituloEmpresa}>Barbearia do Calvo e Careca</Grid>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Escolha um Serviço:</TableCell>
-                    <TableCell>Serviço 1</TableCell>
-                    <TableCell>Hora</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {dataSource?.map((row) => (
-                    <TableRow
-                      key={row.id}>
-                      <TableCell>{row.schedules.serviceDefault.name}</TableCell>
-                      <TableCell>{row.time.day}</TableCell>
-                      <TableCell>{row.time.time}</TableCell>
-                    </TableRow>
+      <br />
+      <br />
+      <br />
+      <br />
+      <div style={{ height: 400, width: '100%' }}>
 
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-
-            <Grid container xs={12} justifyContent="flex-end" mr={10}>
-              <Button variant="outlined" className={stylest.botaoAgendar}>Finalizar Agendamento</Button>
-            </Grid>
-          </Grid>
-
-        </Grid>
-      </Grid>
+        <Table
+          dataSource={dataa}
+          columns={columns}
+        />
+      </div>
     </>
   );
 }

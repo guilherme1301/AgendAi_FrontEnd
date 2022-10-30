@@ -5,53 +5,37 @@ import { useRouter } from 'next/router'
 
 export default function dashboardEmpresa() {
     const router = useRouter()
-    const [listServicePending, setListServicePending] = useState(
-        [
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            }
-        ]
-    );
-    const [listServiceConfirmed, setListServiceConfirmed] = useState(
-        [
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            },
-            {
-                service: "Corte de Cabelo",
-                name: "Julio Cesar",
-                day: "Quinta feira (25/08)",
-                hour: "15:00h",
-            }
-        ]
-    );
+    const [dadosAgendados, setDadosAgendados] = useState()
+    const [dadosConfirmados, setdadosConfirmados] = useState()
+
+    useEffect(() => {
+        getDadosAgendados()
+        getDadosConfirmados()
+    }, [])
+
+    console.log("agendados:", dadosAgendados)
+    console.log("confirmdoados:", dadosConfirmados)
+
+    async function getDadosAgendados() {
+        fetch('https://agendai-api.herokuapp.com/schedule?status=awaiting')
+            .then(res => res.json())
+            .then(data => {
+                setDadosAgendados(data.payload)
+            })
+    }
+
+    async function getDadosConfirmados() {
+        fetch('https://agendai-api.herokuapp.com/schedule?status=confirmed')
+            .then(res => res.json())
+            .then(data => {
+                setdadosConfirmados(data.payload)
+            })
+    }
+
 
     return (
         <div className={styles.container}>
+
             <div className={styles.title}>Empresa LTDA</div>
             <div className={styles.body}>
                 <div className={styles.divContent}>
@@ -78,7 +62,7 @@ export default function dashboardEmpresa() {
                         </div>
                     </div>
                 </div>
-                <Agendamentos usuario={false} listServicePending={listServicePending} listServiceConfirmed={listServiceConfirmed}/>
+                <Agendamentos usuario={false} listServicePending={dadosAgendados} listServiceConfirmed={dadosConfirmados} />
             </div>
         </div>
     );
