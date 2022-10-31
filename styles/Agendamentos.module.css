@@ -2,7 +2,14 @@
   width: 45%;
 }
 
-  
+.buttonConfirmar {
+  color: #128C7E;
+}
+
+.buttonCancelar {
+  color: #EB5757;
+}
+
 .divButton{
   display: flex;
   align-items: center;
@@ -56,6 +63,7 @@
   border: 1px solid #128C7E;
   border-radius: 8px;
   cursor: pointer;
+  color: #128C7E;
 }
 
 @media (max-width: 1080px) {

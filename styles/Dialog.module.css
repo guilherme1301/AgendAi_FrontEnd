@@ -38,6 +38,22 @@
     color: #666666;
 }
 
+.buttonCancel {
+    width: 50%;
+    background: #EB5757;
+    border-radius: 12px;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.4px;
+    padding: 12px 16px;
+    color: #EEE;
+}
+
 .title{
     font-family: 'Work Sans';
     font-weight: 400;
@@ -48,4 +64,3 @@
     text-align: center;
     margin-bottom: 30px;
 }
-

@@ -29,11 +29,11 @@ export default function RecoverPassConfirm({ ...props }) {
             <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
                 <Grid container justifyContent={"center"}>
                     <Grid item >
-                        <DoneRoundedIcon fontSize="large" style={{fontSize:100}} />
+                        <DoneRoundedIcon fontSize="large" style={{fontSize:100}} className={styles.campo}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <h2 className={styles.message}>Enviamos as instruções de recuperação de senha para o seu e-mail!</h2>
+                    <h2 className={styles.campo}>Enviamos as instruções de recuperação de senha para o seu e-mail!</h2>
                 </Grid>
 
                 <Grid container direction="row" style={{ height: "50px" }} mt={2}>
@@ -44,6 +44,7 @@ export default function RecoverPassConfirm({ ...props }) {
                             fullWidth
                             style={{ height: "100%" }}
                             color={"inherit"}
+                            className={styles.campo}
                         >
                             Fechar
                         </Button>

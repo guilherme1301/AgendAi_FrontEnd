@@ -21,9 +21,9 @@ const Cadastro1 = (props) => {
 
       <Grid container>
         <h2 className={styles.title} style={{ textAlign: "left" }}>
-          Perfeito!
+          Otimo!
         </h2>
-        <p>Agora nos diga mais sobre a sua empresa.</p>
+        <p className={styles.textAlgo}>Agora nos diga mais sobre a sua empresa.</p>
         <Grid item xs={12}>
           <TextField
             required
@@ -32,6 +32,7 @@ const Cadastro1 = (props) => {
             value={telefone}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
           <TextField
             required
@@ -40,6 +41,7 @@ const Cadastro1 = (props) => {
             value={cnpj}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
           <TextField
             required
@@ -48,6 +50,7 @@ const Cadastro1 = (props) => {
             value={zipcode}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
           <TextField
             required
@@ -56,6 +59,7 @@ const Cadastro1 = (props) => {
             value={rua}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
           <TextField
             required
@@ -64,6 +68,7 @@ const Cadastro1 = (props) => {
             value={cidade}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
           <TextField
             required
@@ -72,6 +77,7 @@ const Cadastro1 = (props) => {
             value={estado}
             fullWidth
             margin="normal"
+            className={styles.campo}
           />
         </Grid>
 

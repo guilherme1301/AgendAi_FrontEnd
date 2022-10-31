@@ -16,7 +16,7 @@ const HorarioFuncionamento = (props) => {
                         label={day}
                         onChange={(e) => setDia({ ...dia, [day]: { ...dia[day], [day]: e.target.checked }})}
                         control={
-                            <Checkbox size='small'
+                            <Checkbox size='small' className={styles.campo2}
                             // checked={checked[0] && checked[1]}
                             // indeterminate={checked[0] !== checked[1]}
                             // onChange={handleChange1}
@@ -32,7 +32,7 @@ const HorarioFuncionamento = (props) => {
                                 labelId="start"
                                 id="start_select"
                                 onChange={(e) => setDia({ ...dia, [day]: { ...dia[day], ['ini']: e.target.value }})}
-
+                                className={styles.campo}
                             // value={hour}
                             //label="Hora"
                             >
@@ -46,6 +46,7 @@ const HorarioFuncionamento = (props) => {
                                 fullWidth
                                 labelId="start"
                                 id="start_select"
+                                className={styles.campo}
                             // value={hour}
                             //label="Hora"
                                 onChange={(e) => setDia({ ...dia, [day]: { ...dia[day], ['fim']: e.target.value }})}

@@ -10,6 +10,11 @@
   color: #666666;
 }
 
+.campo {
+  border: 1px solid #128C7E;
+  color: #128C7E;
+}
+
 .svgreturn{
   margin-right: 5px;
 }
@@ -58,4 +63,5 @@
 .tituloEmpresa{
   font-size: 45px;
   font-weight: bold;
+  color: #128C7E;
 }

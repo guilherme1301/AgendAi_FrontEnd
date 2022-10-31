@@ -10,6 +10,15 @@
     text-align: center;
 }
 
+.campo {
+    border: 1px solid #128C7E;
+    color: #128C7E;
+}
+
+.campo2 {
+    color: #128C7E;
+}
+
 .container > svg {
     margin: auto;
 }
@@ -87,4 +96,17 @@
 .nextBtn{
     margin: 25px 0 10px 0;
     border: 1px solid #128C7E;
+    color: #128C7E;
+}
+
+.textAlgo {
+    margin-left: 350px;
+    padding-top: 50px;
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.textAlgo2 {
+    font-size: 20px;
+    line-height: 30px;
 }

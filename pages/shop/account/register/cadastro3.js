@@ -26,12 +26,12 @@ const Cadastro1 = (props) => {
 
       <Grid container>
         <h2 className={styles.title}>Quase la...</h2>
-        <p>
+        <p className={styles.textAlgo}>
           Registre o(s) tipo(s) de serviço(s) e os horários de funcionamento:{" "}
         </p>
         <Grid item xs={12} mt={1}>
-          <label style={{ float: "left" }}>Serviços oferecidos:</label>
-          <FormControl fullWidth>
+          <label className={styles.textAlgo2}>Serviços oferecidos:</label>
+          <FormControl fullWidth className={styles.campo}>
             <InputLabel id="demo-simple-select-label">
               Escolha uma opção:
             </InputLabel>
@@ -40,6 +40,7 @@ const Cadastro1 = (props) => {
               id="demo-simple-select"
               label="Age"
               onChange={handleChange}
+              className={styles.campo}
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
@@ -48,13 +49,13 @@ const Cadastro1 = (props) => {
           </FormControl>
         </Grid>
         <Grid item xs={12} mt={1}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined"  className={styles.campo}>
             +
           </Button>
         </Grid>
 
         <Grid item xs={12} mt={3}>
-          <label style={{ float: "left" }}>Horário de funcionamento:</label>
+          <label className={styles.textAlgo2}>Horário de funcionamento:</label>
           <HorarioFuncionamento day="segunda" />
           <HorarioFuncionamento day="terça" />
           <HorarioFuncionamento day="quarta" />

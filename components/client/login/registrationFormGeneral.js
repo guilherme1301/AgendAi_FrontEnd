@@ -50,7 +50,7 @@ export default function RegistrationFormGeneral({ ...props }) {
         <Grid item xs={12}>
           <h2 className={styles.title}>Vamos Começar?</h2>
         </Grid>
-        <p>Primeiro defina as informações de acesso da sua conta.</p>
+        <p className={styles.campo}>Primeiro defina as informações de acesso da sua conta.</p>
         <Grid item xs={12}>
           <Controller
             name="name"
@@ -70,7 +70,6 @@ export default function RegistrationFormGeneral({ ...props }) {
                     ? methods.formState.errors.name?.message
                     : ""
                 }
-                
               />
             )}
           />

@@ -136,7 +136,7 @@ export default function DialogAdd(props) {
         </DialogContent>
         <DialogActions>
           <Button className={styles.buttons} onClick={handleClose}>Cancelar Agendamento</Button>
-          <Button className={styles.buttons} onClick={handleClose} autoFocus>Salvar Alterações</Button>
+          <Button className={styles.buttonCancel} onClick={handleClose} autoFocus>Salvar Alterações</Button>
         </DialogActions>
       </Dialog>
     </div>

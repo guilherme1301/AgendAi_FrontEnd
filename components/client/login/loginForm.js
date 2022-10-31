@@ -28,7 +28,7 @@ export default function LoginForm({...props}) {
               <TextField
                 {...field}
                 label="E-mail"
-                // type={"email"}
+                className={styles.campo}
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setUsername(e.target.value)}
@@ -50,6 +50,7 @@ export default function LoginForm({...props}) {
               <TextField
                 {...field}
                 label="Senha"
+                className={styles.campo}
                 fullWidth
                 onChange={(e) => setPassword(e.target.value)}
                 type={"password"}
@@ -71,6 +72,7 @@ export default function LoginForm({...props}) {
               variant="text"
               color="inherit"
               style={{ textAlign: "left" }}
+              className={styles.campo}
             >
               Esqueceu a senha?
             </Button>
@@ -90,6 +92,7 @@ export default function LoginForm({...props}) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              className={styles.campo}
             >
               Voltar
             </Button>
@@ -102,6 +105,7 @@ export default function LoginForm({...props}) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              className={styles.campo}
             >
               Entrar
             </Button>

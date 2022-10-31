@@ -62,7 +62,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
         <div className={styles.divContent}>
 
             {usuario &&
-
+            
                 <div style={{ marginTop: 40 }}>
                     <div className={styles.subTitle}>Procurar Serviços</div>
                     <div className={styles.divButton}>
@@ -80,8 +80,10 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
-                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} />
-                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} />
+                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} 
+                            className={styles.buttonConfirmar}/>
+                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} 
+                            className={styles.buttonCancelar}/>
                         </div>
                     </div>
                 ))}
@@ -93,8 +95,10 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
-                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} />
-                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} />
+                            <CheckIcon onClick={() => confirmarAgendamentos(item.id)} 
+                            className={styles.buttonConfirmar}/>
+                            <CloseIcon onClick={() => cancelarAgendamentos(item.id)} 
+                            className={styles.buttonCancelar}/>
                         </div>
                     </div>
                 ))}
