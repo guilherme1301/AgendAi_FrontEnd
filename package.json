@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@devexpress/dx-core": "^3.0.6",
+    "@devexpress/dx-react-core": "^3.0.6",
     "@devexpress/dx-react-grid": "^3.0.5",
     "@devexpress/dx-react-grid-material-ui": "^3.0.5",
     "@emotion/react": "^11.10.4",
