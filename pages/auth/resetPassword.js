@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import router from "next/router";
-import styles from "../../../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
-import BackButton from "../../../components/buttons/voltar"
+import BackButton from "../../components/buttons/voltar";
 
 const API_BODY = {
   password: ""
@@ -45,6 +45,7 @@ export default function RecoverPassword({ ...props }) {
               <TextField
                 {...field}
                 label="Senha"
+                className={styles.campo}
                 fullWidth
                 type={"password"}
                 margin="normal"
@@ -67,6 +68,7 @@ export default function RecoverPassword({ ...props }) {
               <TextField
                 {...field}
                 label="Confirme a senha"
+                className={styles.campo}
                 fullWidth
                 type={"password"}
                 margin="normal"
@@ -88,6 +90,7 @@ export default function RecoverPassword({ ...props }) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              className={styles.campo}
             >
               Definir senha
             </Button>

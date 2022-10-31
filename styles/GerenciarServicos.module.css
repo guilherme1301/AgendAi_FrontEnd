@@ -37,11 +37,13 @@
 }
 .botaoAgendar{
     margin-top: 35px;
-    background-color: gray;
-    color: white;
+    /* background-color: gray;
+    color: white; */
     border: none;
     padding: 5px 50px ;
-    
+    color: #656;
+    border: 1px solid #128C7E;
+    float: right;
 }
 .botaoAgendar:hover{
     background-color: darkgrey;

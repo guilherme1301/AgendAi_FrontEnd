@@ -53,6 +53,7 @@ export default function RecoverPassword({ ...props }) {
               <TextField
                 {...field}
                 label="Celular"
+                className={styles.campo}
                 variant="outlined"
                 fullWidth
                 type='number'
@@ -80,6 +81,7 @@ export default function RecoverPassword({ ...props }) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              className={styles.campo}
             >
               Resetar Senha
             </Button>

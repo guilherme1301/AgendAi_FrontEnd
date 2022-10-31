@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import router from "next/router";
-import styles from "../../../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
-import BackButton from "../../../components/buttons/voltar"
+import BackButton from "../../components/buttons/voltar"
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 export default function RecoverPassConfirm({ ...props }) {
@@ -30,12 +30,12 @@ export default function RecoverPassConfirm({ ...props }) {
             <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
                 <Grid container justifyContent={"center"}>
                     <Grid item >
-                        <DoneRoundedIcon fontSize="large" style={{fontSize:100}} />
+                        <DoneRoundedIcon fontSize="large" style={{fontSize:100}} className={styles.campo}/>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <h2 className={styles.message}>Senha alterada com sucesso!</h2>
+                    <h2 className={styles.campo}>Senha alterada com sucesso!</h2>
                 </Grid>
 
                 <Grid container direction="row" style={{ height: "50px" }} mt={2}>
@@ -46,6 +46,7 @@ export default function RecoverPassConfirm({ ...props }) {
                             fullWidth
                             style={{ height: "100%" }}
                             color={"inherit"}
+                            className={styles.campo}
                         >
                             Fechar
                         </Button>

@@ -78,6 +78,7 @@ export default function dashboarUsuario() {
                             variant="standard"
                             placeholder="Cássio"
                             onChange={() => setUser(user.name)}
+                            className={styles.inputborder}
                         />
 
                         <TextField
@@ -90,6 +91,7 @@ export default function dashboarUsuario() {
                             variant="standard"
                             placeholder="cassio@uvv.br"
                             onChange={() => setUser(user.email)}
+                            className={styles.inputborder}
                         />
 
                         <TextField
@@ -102,6 +104,7 @@ export default function dashboarUsuario() {
                             variant="standard"
                             placeholder="(27) 99999-9999"
                             onChange={() => setUser(user.telefone)}
+                            className={styles.inputborder}
                         />
 
                     <div onClick={() => updateProfile(user)} className={styles.atualizaPerfil}>Editar Perfil</div>

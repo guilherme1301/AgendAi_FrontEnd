@@ -76,7 +76,7 @@ export default function DialogCancel(props) {
         </DialogContent>
         <DialogActions>
           <Button className={styles.buttons} onClick={handleClose}>Voltar</Button>
-          <Button className={styles.buttons} onClick={handleClose} autoFocus>Confirmar</Button>
+          <Button className={styles.buttonCancel} onClick={handleClose} autoFocus>Confirmar</Button>
         </DialogActions>
       </Dialog>
     </div>
