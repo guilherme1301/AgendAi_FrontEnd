@@ -10,7 +10,7 @@
 }
 
 .fieldEdit{
-    border:solid 1px gray;
+    border: 1px solid #128C7E;
     color: gray;
     border-radius: 5px;
     padding: 15px 15px;  
@@ -18,7 +18,7 @@
 }
 
 .fieldAgendamento{
-    border:solid 1px gray;
+    border: 1px solid #128C7E;
     color: gray;
     border-radius: 5px;
     padding: 5px 15px;  
@@ -68,6 +68,6 @@
 }
 
 .boxDataTable{
-    border:solid 1px;
+    border: 1px solid #128C7E;
     padding: 15px 65px;
 }

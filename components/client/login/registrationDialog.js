@@ -21,6 +21,7 @@ import { useContext } from "react";
 import { Context } from "../../../pages/contexts/userContext";
 import { useState } from "react";
 import { useCallback } from "react";
+import axios from "axios"
 
 const Transition = React.forwardRef(function Transition({ ref, ...props }) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -31,17 +32,18 @@ export default function RegistrationDialog({ ...props }) {
   const { open, onSubmit, onClose, fullScreen, inputData, onInputUpdate, ...others } = props;
   const { isLogged, userData } = useContext(Context);
   const [displayFormIndex, setDisplayFormIndex] = useState(0);
+  const [stepShop, setStepShop] = useState(0)
+  const [shopJson, setShopJson] = useState({})
+  const [finish, setFinish] = useState(false)
+
 
   const handleOnSubmit = useCallback((data) => {
-    debugger;
+    onInputUpdate && onInputUpdate(data);
     if ((data && data.isShop == true) || (displayFormIndex > 0 && displayFormIndex != 2)) {
-      onInputUpdate && onInputUpdate(data);
-      debugger
       const newIndex = displayFormIndex+1;
       setDisplayFormIndex(newIndex);
       return;
-    }else if(displayFormIndex == 2){
-      onInputUpdate(data);
+    }else {
       onSubmit();
     }
   }, [displayFormIndex, inputData]);
@@ -53,7 +55,7 @@ export default function RegistrationDialog({ ...props }) {
     setIsOpen(true);
   };
 
-  const handleClose = useCallback(() => {
+/*   const handleClose = useCallback(() => {
     debugger
     if (displayFormIndex == 0) {
       setIsOpen(false);
@@ -63,35 +65,23 @@ export default function RegistrationDialog({ ...props }) {
       setDisplayFormIndex(displayFormIndex - 1);
       return;
     }
-  }, [displayFormIndex]);
+  }, [displayFormIndex]); */
 
-  const handleDisplayForm = useEffect((form) => {
-    debugger;
-    switch (displayFormIndex) {
+  useEffect(() => {
+    switch (stepShop) {
       case 0:
-        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} />);
-        // setDisplayFormIndex(0);
+        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson}/>);
         return ;
-        break;
-
       case 1:
-        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} />);
-        // setDisplayFormIndex(1);
+        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson}/>);
         return;
-        break;
-
       case 2:
-        setDisplayForm(<RegistrationFormShop2 onSubmit={handleOnSubmit} onClose={onClose} />);
-        // setDisplayFormIndex(2);
+        setDisplayForm(<RegistrationFormShop2 setFinish={setFinish} onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} shopJson={shopJson} setStepShop={setStepShop} setShopJson={setShopJson}/>);
         return;
-        break;
-
       default:
-        // setDisplayFormIndex(0);
-        return <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} />;
-        break;
+        return <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />;
     }
-  }, [displayFormIndex]);
+  }, [stepShop]);
 
   useEffect(() => {
     if (open != undefined) {
@@ -99,12 +89,19 @@ export default function RegistrationDialog({ ...props }) {
     }
   }, []);
 
+  useEffect(() => {
+    if(stepShop == 2 && finish == true){
+      (async function finalizar(){
+        const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", shopJson)
+      })();
+    }
+  }, [shopJson]);
+
   return (
     <div>
       <Dialog
         fullScreen={fullScreen}
         open={isOpen}
-        onClose={handleClose}
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: "relative" }} color="inherit">
@@ -112,7 +109,6 @@ export default function RegistrationDialog({ ...props }) {
             <IconButton
               edge="start"
               color="inherit"
-              onClick={handleClose}
               aria-label="close"
             >
               <CloseIcon />
@@ -121,7 +117,6 @@ export default function RegistrationDialog({ ...props }) {
         </AppBar>
         <Grid container padding={4}>
           {displayForm}
-          {/* <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose}/> */}
         </Grid>
       </Dialog>
     </div>

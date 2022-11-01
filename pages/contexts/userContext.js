@@ -8,7 +8,7 @@ import {
   useMemo,
 } from "react";
 // import { user } from "../../reducers/user";
-import AuthenticateService from "../../services/authenticate";
+// import AuthenticateService from "../../services/authenticate";
 import ServicesService from "../../services/models/services";
 // import { EventEmitter } from "../../services/emitter";
 
@@ -23,22 +23,19 @@ const AUTH_DATA = "auth_data";
 const Context = createContext(initialState);
 
 // combine reducer function
-const combineReducers =
-  (...reducers) =>
-  (state, action) => {
-    for (let i = 0; i < reducers.length; i++)
-      state = reducers[i](state, action);
-    return state;
-  };
+// const combineReducers =
+//   (...reducers) =>
+//   (state, action) => {
+//     for (let i = 0; i < reducers.length; i++)
+//       state = reducers[i](state, action);
+//     return state;
+//   };
 
 // context provider
 const Provider = ({ children }) => {
 //   const [state, dispatch] = useReducer(combineReducers(user), initialState); // pass more reducers combineReducers(user, blogs, products)
   const [user, setUser ] = useState();
   const [token, setToken] = useState();
-
-  console.log("Context Provider: user", user);
-  console.log("Context Provider: token", token);
 
   // JSON.parse(localStorage.getItem(AUTH_DATA))
   // localStorage.getItem(AUTH_KEY)
@@ -69,7 +66,6 @@ const Provider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
-      debugger;
       logout();
     }
   };
@@ -77,7 +73,7 @@ const Provider = ({ children }) => {
   const getUserData = async (tokenArg) => {
     // Check if token is available and test it
     const userToken = localStorage.getItem(AUTH_KEY) || token;
-    if (!userToken) logout();
+    if (!userToken){setUser(false), logout()}
     else {
       fetchUserData(userToken);
     }
@@ -107,7 +103,6 @@ const Provider = ({ children }) => {
     (tokenArg, data) => {
       try {
         const isTokenValid = jwtDecode(tokenArg);
-        debugger;
 
         // Set token
         setToken(tokenArg);
@@ -122,7 +117,7 @@ const Provider = ({ children }) => {
         }
         //storeUserData(tokenArg)
       } catch (err) {
-        return;
+        return err;
       }
     },
     [token, user]
@@ -169,12 +164,14 @@ const Provider = ({ children }) => {
     () => ({
       login,
       logout,
-      isLogged: !!user,
+      isLogged: user,
       userData: user,
     }),
     [login, logout, token, user]
   );
-
+  
+  console.log("Context Provider: user", user);
+  console.log("Context Provider: token", token);
   console.log("ProviderValue: ", contextValue);
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };

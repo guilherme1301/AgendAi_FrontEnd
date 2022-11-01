@@ -20,6 +20,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ButtonBase } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../../pages/contexts/userContext";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import styles from "../../styles/Home.module.css";
 
 const drawerWidth = 240;
 const navItems = [
@@ -116,12 +118,13 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <CalendarMonthIcon sx={{fontSize: 49}} className={styles.IconColor} ></CalendarMonthIcon>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            AgendAí
+             AgendAí
           </Typography>
           <Search style={{ flexGrow: 1, alignItems: "center" }}>
             <StyledInputBase

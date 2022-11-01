@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition({ ref, ...props }) {
 
 export default function LoginDialog({ ...props }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { open, onSubmit, onClose, fullScreen, ...others } = props;
+  const { open, onSubmit, onClose, fullScreen, setUsername, setPassword,...others } = props;
   const { isLogged, userData } = useContext(Context);
   const { router } = useRouter();
 
@@ -78,7 +78,7 @@ export default function LoginDialog({ ...props }) {
           ) : (
             <>
             <Grid item>
-              <LoginForm onSubmit={onSubmit} onCancel={handleClose} />
+              <LoginForm onSubmit={onSubmit} onCancel={handleClose} setUsername={setUsername} setPassword={setPassword}/>
             </Grid>
               {/* <Grid container> */}
             <Grid item pt={3} alignSelf="center">

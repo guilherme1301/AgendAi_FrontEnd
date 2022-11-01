@@ -7,8 +7,23 @@ import Link from "next/link";
 
 export default function RegistrationFormShop1({ ...props }) {
   const [inputUserData, setInputUserData] = useState(true);
-  const { onSubmit, onCancel } = props;
+  const { onSubmit, onCancel, setStepShop, setShopJson } = props;
+
+  const [cnpj, setCNPJ] = useState('');
+  const [zipcode, setCEP] = useState('');
+  const [street, setRua] = useState('');
+  const [city, setCidade] = useState('');
+  const [state, setEstado] = useState('');
+  const [number, setNumber] = useState('');
+  const [district, setDistrict] = useState('');
+  const [complement, setComplement] = useState('');
+
   const methods = useForm();
+
+  const finish = () => {
+    setShopJson((prev) => ({...prev, "address": {zipcode: +zipcode, street, city, state, number: +number, district, complement}, cnpj, logo:'as'}))
+    setStepShop(2)
+  }
 
   const handleOnSubmit = async (data) => {
     onSubmit && onSubmit(data);
@@ -29,58 +44,85 @@ export default function RegistrationFormShop1({ ...props }) {
         
         <Grid item xs={12}>
           <Controller
-            name="phone"
-            control={methods.control}
-            defaultValue=""
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Telefone"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                error={!!methods.formState.errors.phone}
-                helperText={
-                  !!methods.formState.errors.phone
-                    ? methods.formState.errors.phone?.message
-                    : ""
-                }
-              />
-            )}
-          />
-          <Controller
             name="cnpj"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
-                label="Cnpj"
+                label="cnpj"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setCNPJ(e.target.value)}
                 margin="normal"
-                error={!!methods.formState.errors.cnpj}
+              />
+            )}
+          />
+
+          <Controller
+            name="complement"
+            control={methods.control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                label="complement"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => setComplement(e.target.value)}
+                margin="normal"
+              />
+            )}
+          />
+
+        <Controller
+            name="district"
+            control={methods.control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                label="district"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => setDistrict(e.target.value)}
+                margin="normal"
+              />
+            )}
+          />
+          <Controller
+            name="number"
+            control={methods.control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                label="Number"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => setNumber(e.target.value)}
+                margin="normal"
+                error={!!methods.formState.errors.zipcode}
                 helperText={
-                  !!methods.formState.errors.cnpj
-                    ? methods.formState.errors.cnpj?.message
+                  !!methods.formState.errors.zipcode
+                    ? methods.formState.errors.zipcode?.message
                     : ""
                 }
               />
             )}
           />
-          <Controller
+
+        <Controller
             name="zipcode"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Cep"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setCEP(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.zipcode}
                 helperText={
@@ -99,10 +141,10 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Rua"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setRua(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.street}
                 helperText={
@@ -121,10 +163,10 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Cidade"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setCidade(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.district}
                 helperText={
@@ -143,10 +185,10 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                {...field}
                 label="Estado"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setEstado(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.state}
                 helperText={
@@ -168,6 +210,7 @@ export default function RegistrationFormShop1({ ...props }) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              onClick={() => finish()}
             >
               Avançar
             </Button>

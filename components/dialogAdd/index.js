@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect   } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,18 +10,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Agendamentos from '../agendamentos';
 
 import styles from "../../styles/dialog.module.css";
 
-export default function DialogAdd() {
+export default function DialogAdd(props) {
   const [open, setOpen] = useState(false);
-  const [age, setAge] = useState('');
+  const [age, setAge] = useState();
   const [user, setUser] = useState('Pedro Augusto');
 
   const [type, setType] = useState(['Corte de cabelo', 'Desenhar a barba']);
   const [day, setDay] = useState(['Sexta-feira - 26/08', 'Quinta-feira - 29/09']);
   const [hour, setHour] = useState(['16:00h', '12:00h']);
 
+  
+
+  console.log(props.name)
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -35,8 +39,20 @@ export default function DialogAdd() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    fetch('https://agendai-api.herokuapp.com/service')
+      .then(res => res.json())
+      .then(data => {
+        setType(data.payload)
+        console.log("services default", data.payload.serviceDefault)
+
+      })
+  }, [])
+
+
   return (
     <div>
+
       <div variant="outlined" onClick={handleClickOpen}>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M4.2835 1.33334C2.59684 1.33334 1.50684 2.48868 1.50684 4.27734V9.72268C1.50684 11.5113 2.59684 12.6667 4.2835 12.6667H10.0622C11.7495 12.6667 12.8402 11.5113 12.8402 9.72268V4.27734C12.8402 2.48868 11.7495 1.33334 10.0628 1.33334H4.2835ZM10.0622 13.6667H4.2835C2.02417 13.6667 0.506836 12.0813 0.506836 9.72268V4.27734C0.506836 1.91868 2.02417 0.333344 4.2835 0.333344H10.0628C12.3222 0.333344 13.8402 1.91868 13.8402 4.27734V9.72268C13.8402 12.0813 12.3222 13.6667 10.0622 13.6667Z" fill="#666666" />

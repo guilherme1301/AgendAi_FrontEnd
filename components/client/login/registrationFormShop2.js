@@ -5,29 +5,32 @@ import { Button, Checkbox, FormControl, Grid, InputLabel, MenuItem, Select, Text
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import HorarioFuncionamento from "../../buttons/horarioFuncionamento";
+import axios from 'axios'
 
 export default function RegistrationFormShop2({ ...props }) {
-  const [inputUserData, setInputUserData] = useState(true);
+  // const [inputUserData, setInputUserData] = useState(true);
   const { onSubmit, onCancel } = props;
   const methods = useForm();
   const [name, setName] = useState();
-  const { type, nextPage, previousPage, children } = props;
+  const { type, nextPage, previousPage, children, setStepShop, setShopJson, shopJson, setFinish } = props;
 
-  const handleChange = () => {
-    //setAge(event.target.value);
-  };
+  const [dia, setDia] = useState({
+      "segunda": {segunda: false, ini: '', fim: ''},
+      "terça": {terça: false, ini: '', fim: ''},
+      "quarta": {quarta: false, ini: '', fim: ''},
+      "quinta": {quinta: false, ini: '', fim: ''},
+      "sexta": {sexta: false, ini: '', fim: ''},
+    }
+  )
 
-  const handleOnSubmit = async (data) => {
-    onSubmit && onSubmit(data);
-  };
-
-  const handleGoBack = () => {
-    (onCancel && onCancel()) || router.back();
+  const finish = async () => {
+    setShopJson((prev) => ({...prev, "times": {...dia}}))
+    setFinish(true)
   };
 
   return (
     <>
-      <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
+      <form onSubmit={(e) => e.preventDefault()}>
         
       <h2 className={styles.title}>Quase la...</h2>
         <p>
@@ -43,7 +46,6 @@ export default function RegistrationFormShop2({ ...props }) {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Age"
-              onChange={handleChange}
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
@@ -59,11 +61,11 @@ export default function RegistrationFormShop2({ ...props }) {
 
         <Grid item xs={12} mt={3}>
           <label style={{ float: "left" }}>Horário de funcionamento:</label>
-          <HorarioFuncionamento day="segunda" />
-          <HorarioFuncionamento day="terça" />
-          <HorarioFuncionamento day="quarta" />
-          <HorarioFuncionamento day="quinta" />
-          <HorarioFuncionamento day="sexta" />
+          <HorarioFuncionamento setDia={setDia} dia={dia} day="segunda" />
+          <HorarioFuncionamento setDia={setDia} dia={dia} day="terça" />
+          <HorarioFuncionamento setDia={setDia} dia={dia} day="quarta" />
+          <HorarioFuncionamento setDia={setDia} dia={dia} day="quinta" />
+          <HorarioFuncionamento setDia={setDia} dia={dia} day="sexta" />
         </Grid>
 {/* 
         <Grid item xs={12}>
@@ -207,8 +209,9 @@ export default function RegistrationFormShop2({ ...props }) {
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
+              onClick={() => finish()}
             >
-              Avançar
+              Finalizar
             </Button>
           </Grid>
         </Grid>

@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import styles from'../../../styles/SearchService.module.css'
-import Logo from "/public/logo.png"
 import Image from "next/image";
+import axios from "axios"
+import { useRouter } from 'next/router'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(2),
     textAlign: 'start',
-    border: "solid 1px black",
+    border: "1px solid #128C7E;",
     borderRadius: "10px",
   }));
 
-export default function searchServiceComponent({serviceList}) {
-    const [data, setData] = useState(serviceList)
+export default function searchServiceComponent() {
+    const [data, setData] = useState()
+    const router = useRouter()
+
+    useEffect(() => {
+        axios.get("https://agendai-api.herokuapp.com/service").then(({data}) => setData(data.payload))
+    },[])
 
     return (
     <div>
@@ -27,22 +32,20 @@ export default function searchServiceComponent({serviceList}) {
             <h3>Voltar</h3>
         </div>
         <div className={styles.service}>Serviço XXXXX</div>
-        {/* <Box sx={{ marginTop: "100px", justifyContent: 'center'}}> */}
-        <Grid spacing={7} sx={{ marginTop: "100px", justifyContent: 'center'}} container>
+        
+        <Grid spacing={7} sx={{ marginTop: "100px", justifyContent: 'center', }} container>
         {data && data.map((item, index) => (
-            // <Grid item sm={4} key={index}>
             <Grid item key={index}>
-                <Item>
-                    <Image src={Logo}/>
-                    <h3 className={styles.serviceName}>{item.name}</h3>
-                    <p className={styles.serviceItem}>{item.description}</p>
-                    <p className={styles.serviceItem}>{item.duration}</p>
-                    <p className={styles.serviceItem}>{item.place}</p>
+                <Item onClick={() => router.push(`/servicos/${item.id}`)}>
+                    <Image width={'300px'} height={'300px'} src={item?.shop.logo}/>
+                    <h3 className={styles.serviceName}>{item?.name}</h3>
+                    <p className={styles.serviceItem}>{item?.description}</p>
+                    <p className={styles.serviceItem}>{item?.shop.finTime}</p>
+                    <p className={styles.serviceItem}>{item?.shop.address.city}, {item?.shop.address.district}, {item?.shop.address.region}</p>
                 </Item>
             </Grid>
         ))}
         </Grid>
-        {/* </Box> */}
     </div>
   );
 }

@@ -7,12 +7,8 @@ import Link from "next/link";
 
 export default function LoginForm({...props}) {
   const [isLogged, setIsLogged] = useState(true);
-  const { onSubmit, onCancel } = props;
+  const { onSubmit, onCancel, setUsername, setPassword } = props;
   const methods = useForm();
-
-  const handleOnSubmit = async (data) => {
-    onSubmit && onSubmit(data);
-  };
 
   const handleGoBack = () => {
     onCancel && onCancel() || router.back();
@@ -20,7 +16,7 @@ export default function LoginForm({...props}) {
 
   return (
     <>
-      <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <Grid item xs={12}>
           <h2 className={styles.title}>Login</h2>
         </Grid>
@@ -28,7 +24,6 @@ export default function LoginForm({...props}) {
           <Controller
             name="username"
             control={methods.control}
-            defaultValue="a"
             render={({ field }) => (
               <TextField
                 {...field}
@@ -36,6 +31,7 @@ export default function LoginForm({...props}) {
                 // type={"email"}
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setUsername(e.target.value)}
                 margin="normal"
                 error={!!methods.formState.errors.email}
                 helperText={
@@ -55,6 +51,7 @@ export default function LoginForm({...props}) {
                 {...field}
                 label="Senha"
                 fullWidth
+                onChange={(e) => setPassword(e.target.value)}
                 type={"password"}
                 margin="normal"
                 error={!!methods.formState.errors.password}
@@ -101,6 +98,7 @@ export default function LoginForm({...props}) {
             <Button
               type="submit"
               variant="outlined"
+              onClick={() => onSubmit()}
               fullWidth
               style={{ height: "100%" }}
               color={"inherit"}
