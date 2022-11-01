@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from '../../styles/SearchService.module.css'
-import { Table, Space } from "antd";
+import { Table, Input, Drawer, Button, Modal, Card } from "antd";
 import 'antd/dist/antd.variable.min.css';
 
 function finalizarAgendamento(id) {
@@ -9,75 +9,67 @@ function finalizarAgendamento(id) {
 
 const columns = [
   {
-    title: "Escolha um Serviço",
-    dataIndex: "id",
-    key: "id"
-  },
-  {
-    title: 'Serviço',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: 'Hora',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Ação',
-    key: 'action',
-    render: (_, record) => (
-
-      <Space size="middle">
-        <a onClick={() => finalizarAgendamento(record.id)}>Finalizar Agendamento</a>
-
-      </Space>
-    ),
-  },
-];
-const dataa = [
-  {
-    key: '1',
-    id: '1',
-    name: 'John Brown',
-    age: 32,
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    id: '2',
-    name: 'Jim Green',
-    age: 42,
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    id: '3',
-    name: 'Joe Black',
-    age: 32,
-    tags: ['cool', 'teacher'],
+    title: 'Escolha um Serviço',
+    dataIndex: 'id',
+    render: (_, record) =>
+      <div style={{ display: "flex", justifyContent: 'space-between' }}>
+        <div>
+          <span> {record.description}</span>
+        </div>
+        <div >
+          <p>R$ {record.price}</p>
+          <p> +/- {record.duration}</p>
+        </div>
+      </div>
   },
 ];
 
 export default function agendamentos() {
   const [dataSource, setDataSource] = useState()
+  const [open, setOpen] = useState(false);
+  const [busca, setBusca] = useState('')
+  const { Search } = Input;
 
   useEffect(() => {
     updateList()
   }, [])
 
   async function updateList() {
-    // await fetch('https://agendai-api.herokuapp.com/schedule')
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setDataSource(data.payload)
-
-    //   })
+    await fetch('https://agendai-api.herokuapp.com/service')
+      .then(res => res.json())
+      .then(data => {
+        setDataSource(data.payload)
+      })
   }
 
+  const showModal = () => {
+    setOpen(true);
+  };
 
+  const handleOk = () => {
+    setOpen(false);
+  };
 
+  const handleCancel = () => {
+    setOpen(false);
+  };
   console.log("datasource:", dataSource)
+
+  const modifiedData = dataSource?.map(({ body, ...item }) => ({
+    ...item,
+    key: item.id
+  }))
+
+  function onSearch(busca) {
+    fetch(`https://agendai-api.herokuapp.com/service?description=${busca}`)
+      .then(res => res.json())
+      .then(data => {
+        setDataSource(data.payload)
+        console.log(data)
+      })
+
+  }
+
   return (
     <>
       <div className={styles.return}>
@@ -86,17 +78,37 @@ export default function agendamentos() {
         </svg>
         <h3>Voltar</h3>
       </div>
+ 
       <br />
       <br />
       <br />
-      <br />
-      <div style={{ height: 400, width: '100%' }}>
-
+      <Card style={{ width: '100%', height: '100%' }}>
+        <h3>props.name</h3>
+      <Search placeholder="Busque serviços" onSearch={onSearch} enterButton />
         <Table
-          dataSource={dataa}
+          size="small"
           columns={columns}
+          expandable={{
+            expandedRowRender: (record) => (
+              record.schedules.map((e) => {
+                return (
+                  <>
+                    <p>Dia: {e.time.day}</p>
+                    <p>Horário: {e.time.time}</p>
+                  </>
+                )
+              })
+            ),
+            rowExpandable: (record) => record.name !== 'Not Expandable',
+          }}
+          dataSource={modifiedData}
         />
-      </div>
+        <Modal open={open} onOk={handleOk} onCancel={handleCancel}>
+          <p>Deseja finalizar o agendamento de {name} em ?</p>
+          <p>Caso finalize o agendamento, você poderá cancelá-lo na sua Área do Cliente</p>
+        </Modal>
+        <Button onClick={showModal}>Finalizar Agendamento</Button>
+      </Card>
     </>
   );
 }
