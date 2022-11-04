@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../../../../styles/EdicaoEmpresa.module.css";
 import TextField from '@mui/material/TextField';
 import { Grid } from "@mui/material";
+import { Context } from "../../../../pages/contexts/userContext";
+import axios from 'axios'
 
 export default function idService() {
- 
+  const { isLogged, userData } = useContext(Context);
+  const [user, setUser] = useState({name: '', email: '', telefone: '', description: ''})
+
+  const updateProfile = async () => {
+    const {data} = await axios.put("https://agendai-api.herokuapp.com/user-shop?id="+JSON.parse(userData).id, user)
+  }
+
   return (
       <div className={styles.body}>
         <div className={styles.return}>
@@ -18,7 +26,7 @@ export default function idService() {
           <p className={styles.edicaoTitulo}>Edição de Perfil</p>
 
           <div className={styles.alterarLogo}>
-            <div >
+            <div>
                 <img className={styles.imagemPerfil} src="https://t.ctcdn.com.br/63V25kDFoZnMMF2WjQavNUcoawY=/400x400/smart/filters:format(webp)/i618809.png"></img>
             </div>
             <p>Alterar Logo</p>
@@ -33,7 +41,7 @@ export default function idService() {
               fullWidth
               variant="standard"
               placeholder="Cássio"
-              // onChange={() => setUser(user.name)}
+              onChange={(e) => setUser((prevState) => ({...prevState, name: e.target.value}))}
               className={styles.campo}
           />
           <TextField
@@ -45,7 +53,7 @@ export default function idService() {
               fullWidth
               variant="standard"
               placeholder="Cássio"
-              // onChange={() => setUser(user.name)}
+              onChange={(e) => setUser((prevState) => ({...prevState, email: e.target.value}))}
               className={styles.campo}
           />
           <TextField
@@ -57,7 +65,7 @@ export default function idService() {
               fullWidth
               variant="standard"
               placeholder="Cássio"
-              // onChange={() => setUser(user.name)}
+              onChange={(e) => setUser((prevState) => ({...prevState, telefone: e.target.value}))}
               className={styles.campo}
           />
           <TextField
@@ -69,7 +77,7 @@ export default function idService() {
               fullWidth
               variant="standard"
               placeholder="Cássio"
-              // onChange={() => setUser(user.name)}
+              onChange={(e) => setUser((prevState) => ({...prevState, description: e.target.value}))}
               className={styles.campo}
           />
         </div>
@@ -78,24 +86,24 @@ export default function idService() {
             <div >
                 <img width="475" height="263" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80"></img>
             </div>
-            <p>Alterar Foto</p>
+            {/* <p>Alterar Foto</p> */}
           </div>
           <div className={styles.fotosFlex}>
             <div>
               <img width="180" height="180" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"></img> 
-              <p>Alterar Foto</p> 
+              {/* <p>Alterar Foto</p>  */}
             </div>
           <div>
             <img width="180" height="180" src="https://images.unsplash.com/photo-1532710093739-9470acff878f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"></img>
-            <p>Alterar Foto</p>
+            {/* <p>Alterar Foto</p> */}
           </div>
           <div>
             <img width="180" height="180" src="https://plus.unsplash.com/premium_photo-1664455462852-a23fef8aeb94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80"></img>
-            <p>Alterar Foto</p>
+            {/* <p>Alterar Foto</p> */}
           </div>
           </div>
         </div>
-        <div className={styles.salvarAlteracoes}>Salvar Alterações</div>
+        <div className={styles.salvarAlteracoes} onClick={() => updateProfile()}>Salvar Alterações</div>
       </div>
       
   );

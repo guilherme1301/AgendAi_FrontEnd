@@ -6,17 +6,30 @@ import styles from "../styles/Dashboard.module.css";
 import Button from '@mui/material/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const {userData} = useContext(Context);
+  const [ findService, setFindService ] = useState()
+  const router = useRouter();
 
+  const services = async () => {
+    const { data } = await axios.get(`https://agendai-api.herokuapp.com/service?serviceName=`, findService)
+    if(data.status == 200){
+      router.push({
+        pathname: 'buscarServico',
+        query: { param: findService },
+      })
+    }
+  }
+  
   return (
     <>
         <Grid className={styles.BannerPhoto} >          
             <Grid className={styles.BannerText}>Encontre os melhores <br></br>serviços para você! <p></p>            
-              <TextField className={styles.BannerInput} placeholder="Nome do serviço ou Cidade" variant="outlined"/>
-                <Button className={styles.BannerButton} variant="contained">Buscar</Button>
+              <TextField className={styles.BannerInput} onChange={(e) => setFindService(e.target.value)} placeholder="Nome do serviço ou Cidade" variant="outlined"/>
+                <Button className={styles.BannerButton} onClick={() => services()} variant="contained">Buscar</Button>
             </Grid>                      
         </Grid>
         <Grid className={styles.dashboardService} mt={7}>
