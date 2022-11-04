@@ -1,46 +1,88 @@
 import React, { useEffect, useState } from "react";
 import styles from '../../styles/SearchService.module.css'
-import { Table, Input, Drawer, Button, Modal, Card } from "antd";
 import 'antd/dist/antd.variable.min.css';
+import { Radio, Form, Divider, Button, Modal, Collapse, Card } from "antd";
+import { useRouter } from "next/router";
+import axios from "../axios";
+
+
+const { Panel } = Collapse;
+
 
 function finalizarAgendamento(id) {
   console.log(`Finalizar agendamento id=${id}`)
 }
 
-const columns = [
-  {
-    title: 'Escolha um Serviço',
-    dataIndex: 'id',
-    render: (_, record) =>
-      <div style={{ display: "flex", justifyContent: 'space-between' }}>
-        <div>
-          <span> {record.description}</span>
-        </div>
-        <div >
-          <p>R$ {record.price}</p>
-          <p> +/- {record.duration}</p>
-        </div>
-      </div>
-  },
+const horario = [
+  "08:00",
+  "08:30",
+  "09:00",
+  "09:30",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
+  "19:00",
+  "19:30",
+  "20:00"
+];
+
+const dias = [
+  "Segunda",
+  "Terça",
+  "Quarta",
+  "Quinta",
+  "Sexta",
+  "Sábado",
+  "Domingo"
 ];
 
 export default function agendamentos() {
   const [dataSource, setDataSource] = useState()
   const [open, setOpen] = useState(false);
-  const [busca, setBusca] = useState('')
-  const { Search } = Input;
+  const [findService, setFindService] = useState()
+  const router = useRouter();
+
 
   useEffect(() => {
     updateList()
   }, [])
 
+
+async  function pegar() {
+    const { data } = await axios.get(`https://agendai-api.herokuapp.com/servicos/${findService}`)
+    router.push({
+      pathname: 'servicos',
+      query: { param: findService }
+    })
+
+    console.log("query: ", router.query)
+  }
+
   async function updateList() {
-    await fetch('https://agendai-api.herokuapp.com/service')
-      .then(res => res.json())
-      .then(data => {
+    await axios.get('/service').
+      then(({ data }) => {
         setDataSource(data.payload)
       })
   }
+
+  console.log("datasource:", dataSource)
+
+  const onFinish = (fieldsValue) => {
+    console.log(fieldsValue);
+  };
 
   const showModal = () => {
     setOpen(true);
@@ -53,21 +95,13 @@ export default function agendamentos() {
   const handleCancel = () => {
     setOpen(false);
   };
-  console.log("datasource:", dataSource)
 
-  const modifiedData = dataSource?.map(({ body, ...item }) => ({
-    ...item,
-    key: item.id
-  }))
-
-  function onSearch(busca) {
-    fetch(`https://agendai-api.herokuapp.com/service?description=${busca}`)
-      .then(res => res.json())
-      .then(data => {
+  async function onSearch(busca) {
+    await axios.get(`/service?description=${busca}`).
+      then(({ data }) => {
         setDataSource(data.payload)
-        console.log(data)
+        console.log(data.payload)
       })
-
   }
 
   return (
@@ -78,36 +112,56 @@ export default function agendamentos() {
         </svg>
         <h3>Voltar</h3>
       </div>
- 
       <br />
       <br />
       <br />
       <Card style={{ width: '100%', height: '100%' }}>
-        <h3>props.name</h3>
-      <Search placeholder="Busque serviços" onSearch={onSearch} enterButton />
-        <Table
-          size="small"
-          columns={columns}
-          expandable={{
-            expandedRowRender: (record) => (
-              record.schedules.map((e) => {
-                return (
-                  <>
-                    <p>Dia: {e.time.day}</p>
-                    <p>Horário: {e.time.time}</p>
-                  </>
-                )
-              })
-            ),
-            rowExpandable: (record) => record.name !== 'Not Expandable',
-          }}
-          dataSource={modifiedData}
-        />
-        <Modal open={open} onOk={handleOk} onCancel={handleCancel}>
-          <p>Deseja finalizar o agendamento de {name} em ?</p>
-          <p>Caso finalize o agendamento, você poderá cancelá-lo na sua Área do Cliente</p>
-        </Modal>
-        <Button onClick={showModal}>Finalizar Agendamento</Button>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ remember: true }}
+          autoComplete="off"
+          onFinish={onFinish}
+        >
+          {dataSource?.map((e) => {
+            return (
+              <Collapse>
+                <Panel header={e.serviceDefault.name} key={e.serviceDefault.name}>
+                  <Form.Item name="horario">
+                    <Radio.Group >
+                      {horario.map((e) => {
+                        return <Radio.Button value={e}>{e}</Radio.Button>;
+                      })}
+                    </Radio.Group>
+                  </Form.Item>
+
+                  <Divider />
+                  <Form.Item name="dia">
+                    <Radio.Group >
+                      {dias.map((e) => {
+                        return <Radio.Button value={e}>{e}</Radio.Button>;
+                      })}
+                    </Radio.Group>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Finalizar Agendamento
+                    </Button>
+                  </Form.Item>
+                </Panel>
+              </Collapse>
+            );
+          })}
+        </Form>
+
+        <Card bordered={false}>
+          <Modal open={open} onOk={handleOk} onCancel={handleCancel}>
+            <p>Deseja finalizar o agendamento de em ?</p>
+            <p>Caso finalize o agendamento, você poderá cancelá-lo na sua Área do Cliente</p>
+          </Modal>
+          <Button onClick={() => showModal}>Finalizar Agendamento</Button>
+        </Card>
       </Card>
     </>
   );
