@@ -36,6 +36,7 @@ const Provider = ({ children }) => {
 //   const [state, dispatch] = useReducer(combineReducers(user), initialState); // pass more reducers combineReducers(user, blogs, products)
   const [user, setUser ] = useState();
   const [token, setToken] = useState();
+  const [type, setType] = useState()
 
   // JSON.parse(localStorage.getItem(AUTH_DATA))
   // localStorage.getItem(AUTH_KEY)
@@ -166,8 +167,10 @@ const Provider = ({ children }) => {
       logout,
       isLogged: user,
       userData: user,
+      setType,
+      type 
     }),
-    [login, logout, token, user]
+    [login, logout, token, user, type]
   );
   
   console.log("Context Provider: user", user);

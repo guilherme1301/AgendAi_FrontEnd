@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export default function Login(props) {
 
-  const { login, isLogged, userData } = useContext(Context);
+  const { login, isLogged, userData, setType, type } = useContext(Context);
   const [dialogOpen, setDialogOpen] = useState(true);
 
   const [username, setUsername] = useState();
@@ -23,6 +23,8 @@ export default function Login(props) {
         username,
         password
       })
+
+      setType(data.type)
 
       // login && login(data.access_token, { ...data });
       

@@ -4,10 +4,20 @@ import TextField from '@mui/material/TextField';
 import { Grid } from "@mui/material";
 import { Context } from "../../../../pages/contexts/userContext";
 import axios from 'axios'
+import { useRouter } from "next/router";
 
 export default function idService() {
-  const { isLogged, userData } = useContext(Context);
+  const { isLogged, userData, type } = useContext(Context);
   const [user, setUser] = useState({name: '', email: '', telefone: '', description: ''})
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.isReady) {
+      if(type !== "shop"){
+        router.push('/')
+      }
+    }
+  }, [type])
 
   const updateProfile = async () => {
     const {data} = await axios.put("https://agendai-api.herokuapp.com/user-shop?id="+JSON.parse(userData).id, user)
