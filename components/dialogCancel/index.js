@@ -27,8 +27,7 @@ export default function DialogCancel(props) {
   //   .then(data => {
   //     setUser(data.payload)
   //     console.log("data:", data)
-  //   })
-    
+  //   })  
   // }
 
   const handleClickOpen = () => {

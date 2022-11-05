@@ -15,9 +15,13 @@ export default function RecoverPassword({ ...props }) {
 
   const handleOnSubmit = async () => {
     if(phone.toString().length == 11){
-      const {data} = await axios.post("https://agendai-api.herokuapp.com/recover-password", {
-        phone,
-      })
+      try{
+        const {data} = await axios.post("https://agendai-api.herokuapp.com/recover-password", {
+          phone,
+        })
+      }catch(e){
+        console.log(e);
+      }
     }
   };
 

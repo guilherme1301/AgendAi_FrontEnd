@@ -15,7 +15,12 @@ export default function Home() {
   const router = useRouter();
 
   const services = async () => {
-    const { data } = await axios.get(`https://agendai-api.herokuapp.com/service?serviceName=`, findService)
+    try{
+      const { data } = await axios.get(`https://agendai-api.herokuapp.com/service?serviceName=`, findService)
+    }catch(e){
+      console.log(e);
+    }
+    
     if(data.status == 200){
       router.push({
         pathname: 'buscarServico',
