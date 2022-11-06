@@ -62,7 +62,7 @@ export default function agendamentos() {
 
 
 async  function pegar() {
-    const { data } = await axios.get(`https://agendai-api.herokuapp.com/servicos/${findService}`)
+    const { data } = await axios.get(`/servicos/${findService}`)
     router.push({
       pathname: 'servicos',
       query: { param: findService }

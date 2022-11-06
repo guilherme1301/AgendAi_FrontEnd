@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Dashboard.module.css";
 import Agendamentos from "../../../components/agendamentos";
 import { useRouter } from 'next/router'
+import axios from "../../axios";
 
 export default function dashboardEmpresa() {
     const router = useRouter()
@@ -17,21 +18,18 @@ export default function dashboardEmpresa() {
     console.log("confirmdoados:", dadosConfirmados)
 
     async function getDadosAgendados() {
-        fetch('https://agendai-api.herokuapp.com/schedule?status=awaiting')
-            .then(res => res.json())
-            .then(data => {
+        await axios.get(`/schedule?status=awaiting`).
+            then(({ data }) => {
                 setDadosAgendados(data.payload)
             })
     }
 
     async function getDadosConfirmados() {
-        fetch('https://agendai-api.herokuapp.com/schedule?status=confirmed')
-            .then(res => res.json())
-            .then(data => {
+        await axios.get(`/schedule?status=confirmed`).
+            then(({ data }) => {
                 setdadosConfirmados(data.payload)
             })
     }
-
 
     return (
         <div className={styles.container}>
