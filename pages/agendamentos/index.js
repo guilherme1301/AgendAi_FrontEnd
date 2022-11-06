@@ -112,7 +112,6 @@ export default function agendamentos() {
         userClientId: 2
       }).then((res) => {
         notification.success({
-          top: 24,
           message: `Agendamento criado com sucesso`,
           placement: 'bottomRight'
         });
@@ -139,6 +138,9 @@ export default function agendamentos() {
 
   console.log("dados", dados)
   console.log("dataSource", dataSource)
+
+  console.log("serviceid:",serviceId)
+  console.log("shopid", shopId)
 
   function setter(serviceName,serviceId, shopId, shopName) {
     
@@ -172,7 +174,7 @@ export default function agendamentos() {
         >
           {dataSource?.map((e) => {
             return (
-              <Collapse onChange={() => setter(e.serviceDefault.name, e.serviceDefault.id, e.shop.id, e.shop.name)}>
+              <Collapse onChange={() => setter(e.serviceDefault.name, e.id, e.shop.id, e.shop.name)}>
                 <Panel header={e.serviceDefault.name} key={e.serviceDefault.name} >
                   <Form.Item name="horario">
                     <Radio.Group >
