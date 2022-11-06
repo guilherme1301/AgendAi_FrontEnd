@@ -23,6 +23,11 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     const [dia, setDia] = useState();
     const [hora, setHora] = useState();
 
+    const [nomeClient, setNomeClient] = useState();
+    const [nomeServico, setNomeServico] = useState();
+    const [diaServico, setDiaServico] = useState();
+    const [horaServico, setHoraServico] = useState();
+
     useEffect(() => {
         updateList()
         // console.log("usedata", JSON.parse(userData).id);
@@ -126,15 +131,15 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
 
     ////// ALERTA DE GAMBIARRA 
     //// ALERTA DE GAMBIARRA!!!!!!!!!!!!!!!!!
-    const showModalCancel = (id) => {
-        setId(id)
-        setIsModalCancelOpen(true);
-    };
+    // const showModalCancel = (id) => {
+    //     setId(id)
+    //     setIsModalCancelOpen(true);
+    // };
 
-    const showModalConfirmed = (id) => {
-        setId(id)
-        setIsModalConfirmedOpen(true);
-    };
+    // const showModalConfirmed = (id) => {
+    //     setId(id)
+    //     setIsModalConfirmedOpen(true);
+    // };
 
     const showModalEdit = (id, dia, hora) => {
         setId(id)
@@ -157,6 +162,25 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
         console.log("Success:", values);
         setIsModalEdit(false);
     };
+
+    function setterConfirm(id, nameService, clientName, diaServico, horaServico) {
+        setId(id)
+        setNomeClient(nameService)
+        setNomeServico(clientName)
+        setDiaServico(diaServico)
+        setHoraServico(horaServico)
+        setIsModalConfirmedOpen(true);
+    }
+
+    function setterCancel(id, nameService, clientName, diaServico, horaServico) {
+        setId(id)
+        setNomeClient(nameService)
+        setNomeServico(clientName)
+        setDiaServico(diaServico)
+        setHoraServico(horaServico)
+        setIsModalCancelOpen(true);
+    }
+
 
     console.log(id)
     console.log("daodos", dados)
@@ -183,9 +207,9 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
-                            <CheckIcon onClick={() => showModalConfirmed(item.id)}
+                            <CheckIcon onClick={() => setterConfirm(item.id, item.schedules.serviceDefault.name, item.userClient.name, item.time.day, item.time.time)}
                                 className={styles.buttonConfirmar} />
-                            <CloseIcon onClick={() => showModalCancel(item.id)}
+                            <CloseIcon onClick={() => setterCancel(item.id, item.schedules.serviceDefault.name, item.userClient.name, item.time.day, item.time.time)}
                                 className={styles.buttonCancelar} />
                         </div>
                     </div>
@@ -211,7 +235,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 footer={null}
                 closable={false}
             >
-                Deseja COFINRMAR o agendamento de 'xxxx', 'ddd', ''?
+                Deseja CONFIRMAR o agendamento de  <b>{nomeClient}</b> - <b>{nomeServico}</b> , <b>{diaServico}</b> ás <b>{horaServico}</b>?
                 <br />
                 <br />
                 <b>
@@ -235,7 +259,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 footer={null}
                 closable={false}
             >
-                Deseja CANCELAR o agendamento de 'xxxx', 'ddd', ''?
+                Deseja CANCELAR o agendamento de  <b>{nomeClient}</b> - <b>{nomeServico}</b> , <b>{diaServico}</b> ás <b>{horaServico}</b>?
+
                 <br />
                 <br />
                 <b>
