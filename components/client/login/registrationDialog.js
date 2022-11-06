@@ -92,7 +92,12 @@ export default function RegistrationDialog({ ...props }) {
   useEffect(() => {
     if(stepShop == 2 && finish == true){
       (async function finalizar(){
-        const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", shopJson)
+        try{
+          const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", shopJson);
+        }catch(e){
+          console.log(e);
+        }
+        
       })();
     }
   }, [shopJson]);

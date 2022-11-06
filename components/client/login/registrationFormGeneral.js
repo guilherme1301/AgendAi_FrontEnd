@@ -21,12 +21,16 @@ export default function RegistrationFormGeneral({ ...props }) {
       setShopJson({name, email, password, phone})
       setStepShop(1)
     }else{
-      const {data} = await axios.post("https://agendai-api.herokuapp.com/user-client", {
-        name,
-        email,
-        password,
-        phone
-      })
+      try{
+        const {data} = await axios.post("https://agendai-api.herokuapp.com/user-client", {
+          name,
+          email,
+          password,
+          phone
+        })
+      }catch(e){
+        console.log(e);
+      }
     }
   };
 
