@@ -100,29 +100,29 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
     async function editarAgendamento(id) {
-        const response = await axios.put(`/schedule?id=${id}`,
-            {
-                time: {
-                    day: "Domingo",
-                    time: "23:30"
-                },
-                status: "confirmed"
-            }
-        ).then((res) => {
-            notification.success({
-                message: `Agendamento atualizado com sucesso`,
-                placement: 'bottomRight'
-            });
-            return res.data;
-        }).catch((err) => {
-            notification.error({
-                message: err.response.data.message,
-                placement: 'bottomRight'
-            });
-            throw err.response.data.message;
-        });
-        updateList()
-        return response;
+        // const response = await axios.put(`/schedule?id=${id}`,
+        //     {
+        //         time: {
+        //             day: "Domingo",
+        //             time: "23:30"
+        //         },
+        //         status: "confirmed"
+        //     }
+        // ).then((res) => {
+        //     notification.success({
+        //         message: `Agendamento atualizado com sucesso`,
+        //         placement: 'bottomRight'
+        //     });
+        //     return res.data;
+        // }).catch((err) => {
+        //     notification.error({
+        //         message: err.response.data.message,
+        //         placement: 'bottomRight'
+        //     });
+        //     throw err.response.data.message;
+        // });
+        // updateList()
+        // return response;
     }
 
     const handleCancel = () => {
@@ -142,6 +142,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     // };
 
     const showModalEdit = (id, dia, hora) => {
+        form.resetFields();
         setId(id)
         setDia(dia)
         setHora(hora)
@@ -153,14 +154,37 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     };
 
     const handleEditCancel = () => {
-        form.resetFields()
+        form.resetFields();
         setIsModalEdit(false);
     };
 
-    const onFinish = (values) => {
-        setDados(values);
+    async function onFinish(values) {
         console.log("Success:", values);
+        //////////////
+        const response = await axios.put(`/schedule?id=${id}`,
+            {
+                time: {
+                    day: values.day,
+                    time: values.time
+                },
+                status: "confirmed"
+            }
+        ).then((res) => {
+            notification.success({
+                message: `Agendamento atualizado com sucesso`,
+                placement: 'bottomRight'
+            });
+            return res.data;
+        }).catch((err) => {
+            notification.error({
+                message: err.response.data.message,
+                placement: 'bottomRight'
+            });
+            throw err.response.data.message;
+        });
+        updateList()
         setIsModalEdit(false);
+        return response;
     };
 
     function setterConfirm(id, nameService, clientName, diaServico, horaServico) {
@@ -182,7 +206,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
 
-    console.log(id)
+    console.log("ID EU SOU O ID HAHAHAHA", id)
     console.log("daodos", dados)
     console.log("dia", dia)
     console.log("dhroara", hora)
@@ -288,16 +312,14 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                     name="basic"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
                     autoComplete="off"
+                    onFinish={onFinish}
                     form={form}
                 >
                     <Form.Item
                         label="Dia"
                         name="day"
                         rules={[{ required: true, message: "Por favor selecione um dia!" }]}
-                        initialValue={dia}
                     >
                         <Select allowClear >
                             <Option value="Segunda">Segunda-feira</Option>
@@ -314,7 +336,6 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                         label="Horário"
                         name="time"
                         rules={[{ required: true, message: "Por favor selecione um horário!" }]}
-                        initialValue={hora}
                     >
                         <Select allowClear >
                             <Option value="08:00">08:00</Option>
@@ -349,7 +370,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                             <Button type="primary" htmlType="submit" onClick={() => editarAgendamento(id)}>
                                 Submit
                             </Button>
-                            <Button htmlType="submit" onClick={handleEditCancel}>
+                            <Button htmlType="submit" onClick={() => setIsModalEdit(false)}>
                                 Cancelar
                             </Button>
                         </Space>

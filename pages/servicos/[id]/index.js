@@ -12,34 +12,8 @@ import { Typography } from "@mui/material";
 import axios from "../../axios";
 import { useRouter } from 'next/router'
 
-const SERVICE_DATA = {
-  nameShop: 'Barbearia do Calvo e Careca',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent venenatis magna magna, a efficitur velit rhoncus ut. Etiam et varius libero. Sed laoreet non erat sed ornare. Donec fringilla lectus sit amet diam facilisis, ut tincidunt risus gravida. Nulla id mauris commodo nisi convallis tempor id at neque. Fusce quis mi condimentum enim commodo posuere nec fermentum dui.',
-  address: {
-    street: 'Rua Luiza Grinalda',
-    number: '37',
-    neighborhood: 'Centro',
-    city: 'Vila Velha',
-    state: 'ES'
-  },
-  images: [{
-    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
-  },
-  {
-    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
-  },
-  {
-    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
-  },
-  {
-    url: 'https://d2zdpiztbgorvt.cloudfront.net/region1/br/38452/biz_photo/563cea3808f541f0b2f47f74ab6991-barbearia-hermanos-santa-cecil-biz-photo-6b0913eef64c445dab647b6a9a2199-booksy.jpeg?size=640x427'
-  }
-]
-}
-
 export default function servicos() {
 
-  const [serviceData, setServiceData] = useState(SERVICE_DATA);
   const router = useRouter()
   const [data, setData] = useState()
   const {query, isReady} = useRouter()
@@ -116,7 +90,7 @@ export default function servicos() {
             ))
           }
           <Grid item xs={12}>
-            <Button variant="outlined" className={stylest.botaoAgendar}>Agendar</Button>
+            <Button variant="outlined" className={stylest.botaoAgendar} onClick={() => router.push(`/agendamentos/${id}`)}>Agendar</Button>
           </Grid>
         </Grid>
       </Grid>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from '../../styles/SearchService.module.css'
+import styles from '../../../styles/SearchService.module.css'
 import 'antd/dist/antd.variable.min.css';
 import { Radio, Form, Divider, Button, Modal, Collapse, Card, Space, notification } from "antd";
 import { useRouter } from "next/router";
-import axios from "../axios";
+import axios from "../../axios";
 import { useContext } from "react";
-import { Context } from "../../pages/contexts/userContext";
+import { Context } from "../../contexts/userContext";
 
 const { Panel } = Collapse;
 
@@ -58,31 +58,44 @@ export default function agendamentos() {
   const [serviceName, setServiceName] = useState();
   const [shopId, setShopId] = useState();
   const [shopName, setShopName] = useState();
+  const {query, isReady} = useRouter()
+  const [data,setData] = useState()
+  const { idService } = query
+
   useEffect(() => {
     setDataId(userData)
     updateList()
-  }, [])
+    console.log("caceta", idService)
+  }, [idService])
 
   // console.log("oi oi oi oi oi oi oi  oi", JSON.parse(userData).id)
 
-  async function pegar() {
-    const { data } = await axios.get(`/servicos/${findService}`)
-    router.push({
-      pathname: 'servicos',
-      query: { param: findService }
-    })
+  // async function pegar() {
+  //   const { data } = await axios.get(`/servicos/${findService}`)
+  //   router.push({
+  //     pathname: 'servicos',
+  //     query: { param: findService }
+  //   })
 
-    console.log("query: ", router.query)
+  //   console.log("query: ", router.query)
+  // }
+
+  async function getShopId() {
+    if(isReady){
+      axios.get(`/service?userShopId=${idService}`).then(({data}) => setData(data.payload))
+    }
   }
 
   async function updateList() {
     await axios.get('/service').
-      then(({ data }) => {
-        setDataSource(data.payload)
-      })
+        then(({ data }) => {
+          setDataSource(data.payload)
+          console.log(data.payload)
+        })
   }
 
   console.log("datasource:", dataSource)
+  console.log("data:", data)
 
   const onFinish = (fieldsValue) => {
     setDados(fieldsValue)
