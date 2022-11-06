@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from '../../styles/SearchService.module.css'
 import 'antd/dist/antd.variable.min.css';
-import { Radio, Form, Divider, Button, Modal, Collapse, Card } from "antd";
+import { Radio, Form, Divider, Button, Modal, Collapse, Card, notification } from "antd";
 import { useRouter } from "next/router";
 import axios from "../axios";
 
@@ -56,7 +56,7 @@ export default function agendamentos() {
   const [dados, setDados] = useState({})
   const router = useRouter();
 
-
+  const placement = 'bottomRight'
   useEffect(() => {
     updateList()
   }, [])
@@ -107,8 +107,21 @@ export default function agendamentos() {
         serviceId: 2,
         userShopId: 2,
         userClientId: 2
+      }).then((res) => {
+        notification.success({
+          top: 24,
+          message: `Agendamento criado com sucesso`,
+          placement: 'bottomRight'
+        });
+        return res.data;
+      }).catch((err) => {
+        notification.error({
+          message: err.response.data.message,
+          placement: 'bottomRight'
+        });
+        throw err.response.data.message;
       });
-
+      setOpen(false);
     updateList()
     return response;
   }

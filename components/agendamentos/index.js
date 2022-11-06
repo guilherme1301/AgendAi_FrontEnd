@@ -4,10 +4,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import axios from "../../pages/axios";
-import { Button, Modal, Space, Form, Select } from "antd";
+import { Button, Modal, Space, Form, Select, notification } from "antd";
 import "antd/dist/antd.css";
-import { formControlClasses } from "@mui/material";
-import { set } from "react-hook-form";
 
 const { Option } = Select;
 
@@ -50,14 +48,45 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
     async function confirmarAgendamentos(id) {
-        const response = await axios.patch(`/schedule?id=${id}`, { status: 'confirmed' });
-        updateList()
+        const response = await axios.patch(`/schedule?id=${id}`,
+            {
+                status: 'confirmed'
+            }).then((res) => {
+                notification.success({
+                    message: `Agendamento confirmado!!`,
+                    placement: 'bottomRight'
+                });
+                return res.data;
+            }).catch((err) => {
+                notification.error({
+                    message: err.response.data.message,
+                    placement: 'bottomRight'
+                });
+                throw err.response.data.message;
+            });
         setIsModalConfirmedOpen(false);
+        updateList()
         return response;
     }
 
     async function cancelarAgendamentos(id) {
-        const response = await axios.patch(`/schedule?id=${id}`, { status: 'awaiting' });
+        const response = await axios.patch(`/schedule?id=${id}`,
+            {
+                status: 'canceled'
+            }).then((res) => {
+                notification.info({
+                    message: `Agendamento cancelado!!`,
+                    placement: 'bottomRight'
+                });
+                return res.data;
+            }).catch((err) => {
+                notification.error({
+                    message: err.response.data.message,
+                    placement: 'bottomRight'
+                });
+                throw err.response.data.message;
+            });
+        setIsModalCancelOpen(false);
         updateList()
         return response;
     }
@@ -66,12 +95,24 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
         const response = await axios.put(`/schedule?id=${id}`,
             {
                 time: {
-                    day: dados.day,
-                    time: dados.time
+                    day: "Domingo",
+                    time: "23:30"
                 },
                 status: "confirmed"
             }
-        );
+        ).then((res) => {
+            notification.success({
+                message: `Agendamento atualizado com sucesso`,
+                placement: 'bottomRight'
+            });
+            return res.data;
+        }).catch((err) => {
+            notification.error({
+                message: err.response.data.message,
+                placement: 'bottomRight'
+            });
+            throw err.response.data.message;
+        });
         updateList()
         return response;
     }
@@ -143,7 +184,6 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                                 className={styles.buttonConfirmar} />
                             <CloseIcon onClick={() => showModalCancel(item.id)}
                                 className={styles.buttonCancelar} />
-
                         </div>
                     </div>
                 ))}
@@ -159,7 +199,6 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                                 className={styles.buttonConfirmar} />
                         </div>
                     </div>
-
                 ))}
             </div>
             {/* confirmar */}
@@ -204,7 +243,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 <br />
                 <Space style={{ justifyContent: "center" }}>
                     <Button onClick={handleCancel}>Voltar</Button>
-                    <Button type="primary" onClick={() => cancelarAgendamentos(id)}>
+                    <Button type="primary" danger onClick={() => cancelarAgendamentos(id)}>
                         Cancelar Agendamento
                     </Button>
                 </Space>
