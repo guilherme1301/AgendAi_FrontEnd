@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from '../../styles/SearchService.module.css'
 import 'antd/dist/antd.variable.min.css';
-import { Radio, Form, Divider, Button, Modal, Collapse, Card, notification } from "antd";
+import { Radio, Form, Divider, Button, Modal, Collapse, Card, Space, notification } from "antd";
 import { useRouter } from "next/router";
 import axios from "../axios";
-
+import { useContext } from "react";
+import { Context } from "../../pages/contexts/userContext";
 
 const { Panel } = Collapse;
-
-
-function finalizarAgendamento(id) {
-  console.log(`Finalizar agendamento id=${id}`)
-}
 
 const horario = [
   "08:00",
@@ -55,12 +51,19 @@ export default function agendamentos() {
   const [findService, setFindService] = useState()
   const [dados, setDados] = useState({})
   const router = useRouter();
-
-  const placement = 'bottomRight'
+  const { isLogged, userData } = useContext(Context);
+  const [dataId, setDataId] = useState();
+  
+  const [serviceId, setServiceId] = useState();
+  const [serviceName, setServiceName] = useState();
+  const [shopId, setShopId] = useState();
+  const [shopName, setShopName] = useState();
   useEffect(() => {
+    setDataId(userData)
     updateList()
   }, [])
 
+  // console.log("oi oi oi oi oi oi oi  oi", JSON.parse(userData).id)
 
   async function pegar() {
     const { data } = await axios.get(`/servicos/${findService}`)
@@ -104,8 +107,8 @@ export default function agendamentos() {
           day: dados.dia,
           time: dados.horario
         },
-        serviceId: 2,
-        userShopId: 2,
+        serviceId: serviceId,
+        userShopId: shopId,
         userClientId: 2
       }).then((res) => {
         notification.success({
@@ -121,7 +124,7 @@ export default function agendamentos() {
         });
         throw err.response.data.message;
       });
-      setOpen(false);
+    setOpen(false);
     updateList()
     return response;
   }
@@ -135,6 +138,17 @@ export default function agendamentos() {
   // }
 
   console.log("dados", dados)
+  console.log("dataSource", dataSource)
+
+  function setter(serviceName,serviceId, shopId, shopName) {
+    
+    setServiceName(serviceName)
+    setServiceId(serviceId)
+    setShopId(shopId)
+    setShopName(shopName)
+  }
+
+  console.log(shopId)
 
   return (
     <>
@@ -158,8 +172,8 @@ export default function agendamentos() {
         >
           {dataSource?.map((e) => {
             return (
-              <Collapse>
-                <Panel header={e.serviceDefault.name} key={e.serviceDefault.name}>
+              <Collapse onChange={() => setter(e.serviceDefault.name, e.serviceDefault.id, e.shop.id, e.shop.name)}>
+                <Panel header={e.serviceDefault.name} key={e.serviceDefault.name} >
                   <Form.Item name="horario">
                     <Radio.Group >
                       {horario.map((e) => {
@@ -189,10 +203,12 @@ export default function agendamentos() {
 
         <Card bordered={false}>
           <Modal open={open} footer={null}>
-            <p>Deseja finalizar o agendamento de /aaaaaaaaaaa/ em {dados?.dia} ás {dados?.horario}?</p>
+            <p>Deseja finalizar o agendamento de <b>{serviceName}</b> em <b>{dados?.dia}</b> ás <b>{dados?.horario}</b> na <b>{shopName}</b>?</p>
             <p>Caso finalize o agendamento, você poderá cancelá-lo na sua Área do Cliente</p>
-            <Button onClick={handleCancel}>Voltar</Button>
-            <Button type="primary" onClick={finalizarAgendamento}>Finalizar Agendamento</Button>
+            <Space >
+              <Button onClick={handleCancel}>Voltar</Button>
+              <Button type="primary" onClick={finalizarAgendamento}>Finalizar Agendamento</Button>
+            </Space>
           </Modal>
         </Card>
       </Card>

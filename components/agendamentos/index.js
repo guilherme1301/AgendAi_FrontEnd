@@ -6,7 +6,8 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import axios from "../../pages/axios";
 import { Button, Modal, Space, Form, Select, notification } from "antd";
 import "antd/dist/antd.css";
-
+import { useContext } from "react";
+import { Context } from "../../pages/contexts/userContext";
 const { Option } = Select;
 
 export default function Agendamentos({ usuario, listServicePending, listServiceConfirmed }) {
@@ -16,6 +17,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     const [isModalCancelOpen, setIsModalCancelOpen] = useState(false);
     const [isModalConfirmedOpen, setIsModalConfirmedOpen] = useState(false);
     const [isModalEdit, setIsModalEdit] = useState(false);
+    const { isLogged, userData } = useContext(Context);
     const [id, setId] = useState(null);
     const [dados, setDados] = useState({});
     const [dia, setDia] = useState();
@@ -23,6 +25,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
 
     useEffect(() => {
         updateList()
+        // console.log("usedata", JSON.parse(userData).id);
     }, [])
 
     function updateList() {

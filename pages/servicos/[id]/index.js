@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import { Typography } from "@mui/material";
-import axios from 'axios'
+import axios from "../../axios";
 import { useRouter } from 'next/router'
 
 const SERVICE_DATA = {
@@ -47,7 +47,7 @@ export default function servicos() {
 
   useEffect(() => {
     if(isReady){
-      axios.get(`https://agendai-api.herokuapp.com/service/one?id=${id}`).then(({data}) => setData(data.payload))
+      axios.get(`service/one?id=${id}`).then(({data}) => setData(data.payload))
     }
   },[id])
 

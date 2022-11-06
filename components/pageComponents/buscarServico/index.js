@@ -4,7 +4,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import styles from '../../../styles/SearchService.module.css'
 import Image from "next/image";
-import axios from "axios"
+import axios from "../../../pages/axios";
+
 import { useRouter } from 'next/router'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,9 +23,9 @@ export default function searchServiceComponent() {
     useEffect(() => {
         if (router.isReady) {
             if (router.query.param !== undefined) {
-                axios.get("https://agendai-api.herokuapp.com/service?serviceName=" + router.query.param).then(({ data }) => setData(data.payload))
+                axios.get("service?serviceName=" + router.query.param).then(({ data }) => setData(data.payload))
             } else {
-                axios.get("https://agendai-api.herokuapp.com/service").then(({ data }) => setData(data.payload))
+                axios.get("service").then(({ data }) => setData(data.payload))
             }
         }
     }, [router])
