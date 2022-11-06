@@ -53,6 +53,7 @@ export default function agendamentos() {
   const [dataSource, setDataSource] = useState()
   const [open, setOpen] = useState(false);
   const [findService, setFindService] = useState()
+  const [dados, setDados] = useState({})
   const router = useRouter();
 
 
@@ -61,7 +62,7 @@ export default function agendamentos() {
   }, [])
 
 
-async  function pegar() {
+  async function pegar() {
     const { data } = await axios.get(`/servicos/${findService}`)
     router.push({
       pathname: 'servicos',
@@ -81,7 +82,7 @@ async  function pegar() {
   console.log("datasource:", dataSource)
 
   const onFinish = (fieldsValue) => {
-    console.log(fieldsValue);
+    setDados(fieldsValue)
   };
 
   const showModal = () => {
@@ -96,13 +97,31 @@ async  function pegar() {
     setOpen(false);
   };
 
-  async function onSearch(busca) {
-    await axios.get(`/service?description=${busca}`).
-      then(({ data }) => {
-        setDataSource(data.payload)
-        console.log(data.payload)
-      })
+  async function finalizarAgendamento(data) {
+    const response = await axios.post('/schedule',
+      {
+        time: {
+          day: dados.dia,
+          time: dados.horario
+        },
+        serviceId: 2,
+        userShopId: 2,
+        userClientId: 2
+      });
+
+    updateList()
+    return response;
   }
+
+  // async function onSearch(busca) {
+  //   await axios.get(`/service?description=${busca}`).
+  //     then(({ data }) => {
+  //       setDataSource(data.payload)
+  //       console.log(data.payload)
+  //     })
+  // }
+
+  console.log("dados", dados)
 
   return (
     <>
@@ -145,8 +164,8 @@ async  function pegar() {
                     </Radio.Group>
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Finalizar Agendamento
+                    <Button type="primary" htmlType="submit" onClick={showModal}>
+                      Finalizar Agendamentos
                     </Button>
                   </Form.Item>
                 </Panel>
@@ -156,11 +175,12 @@ async  function pegar() {
         </Form>
 
         <Card bordered={false}>
-          <Modal open={open} onOk={handleOk} onCancel={handleCancel}>
-            <p>Deseja finalizar o agendamento de em ?</p>
+          <Modal open={open} footer={null}>
+            <p>Deseja finalizar o agendamento de /aaaaaaaaaaa/ em {dados?.dia} ás {dados?.horario}?</p>
             <p>Caso finalize o agendamento, você poderá cancelá-lo na sua Área do Cliente</p>
+            <Button onClick={handleCancel}>Voltar</Button>
+            <Button type="primary" onClick={finalizarAgendamento}>Finalizar Agendamento</Button>
           </Modal>
-          <Button onClick={() => showModal}>Finalizar Agendamento</Button>
         </Card>
       </Card>
     </>
