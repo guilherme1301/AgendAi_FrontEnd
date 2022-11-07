@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import router from "next/router";
 import styles from "../../../styles/Home.module.css";
-import { Button, Checkbox, Grid, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import Link from "next/link";
-import axios from 'axios'
+import axios from "../../../pages/axios";
+import { Input, notification } from 'antd';
+import "antd/dist/antd.css";
+
 
 export default function RegistrationFormGeneral({ ...props }) {
   
@@ -21,16 +23,26 @@ export default function RegistrationFormGeneral({ ...props }) {
       setShopJson({name, email, password, phone})
       setStepShop(1)
     }else{
-      try{
-        const {data} = await axios.post("https://agendai-api.herokuapp.com/user-client", {
+    
+        const {data} = await axios.post("/user-client", {
           name,
           email,
           password,
           phone
-        })
-      }catch(e){
-        console.log(e);
-      }
+        }).then((res) => {
+          notification.success({
+              message: 'Cliente registrado',
+              placement: 'bottomRight'
+          });
+          return res.data;
+      }).catch((err) => {
+          notification.error({
+              message: err.response.data.message,
+              placement: 'bottomRight'
+          });
+          throw err.response.data.message;
+      })
+      
     }
   };
 

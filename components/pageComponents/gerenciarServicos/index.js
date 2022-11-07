@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Space, Table, Modal, Form, Button, Card } from 'antd';
+import { Input, Space, Table, Modal, Form, Button, notification } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
 
@@ -30,7 +30,19 @@ export default () => {
 
     async function deleteService(id) {
         await axios.delete(`/service?id=${id}`)
-            .then(() => console.log("DELETADOOOOOOOOOOOOOOOOOOO"));
+            .then((res) => {
+                notification.success({
+                    message: 'Serviço deletado com sucesso',
+                    placement: 'bottomRight'
+                });
+                return res.data;
+            }).catch((err) => {
+                notification.error({
+                    message: err.response.data.message,
+                    placement: 'bottomRight'
+                });
+                throw err.response.data.message;
+            });
 
         updateList()
     }
@@ -66,7 +78,19 @@ export default () => {
                 duration: values.duration,
                 price: values.price
             }
-        )
+        ).then((res) => {
+            notification.success({
+                message: 'Serviço editado com sucesso',
+                placement: 'bottomRight'
+            });
+            return res.data;
+        }).catch((err) => {
+            notification.error({
+                message: err.response.data.message,
+                placement: 'bottomRight'
+            });
+            throw err.response.data.message;
+        });
         setIsModalEdit(false);
         updateList()
         return response;
@@ -76,14 +100,14 @@ export default () => {
         console.log("Success:", values);
         editService();
         const response = await axios.put(`/service?id=${id}`,
-        {
-            description: values.description,
-            duration: values.duration,
-            price: values.price,
-            userShopId: 0,
-            serviceDefaultId: 0
-          }
-        )
+            {
+                description: values.description,
+                duration: values.duration,
+                price: values.price,
+                userShopId: 0,
+                serviceDefaultId: 0
+            }
+        );
         setIsModalEdit(false);
         updateList()
         return response;
@@ -166,7 +190,7 @@ export default () => {
                                     Editar
                                 </Button>
                                 :
-                                <Button type="primary" htmlType='submit'    onClick={() => createService}>
+                                <Button type="primary" htmlType='submit' onClick={() => createService}>
                                     Criar
                                 </Button>}
                             <Button onClick={() => setIsModalEdit(false)}>

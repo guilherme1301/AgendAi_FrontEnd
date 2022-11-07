@@ -21,7 +21,9 @@ import { useContext } from "react";
 import { Context } from "../../../pages/contexts/userContext";
 import { useState } from "react";
 import { useCallback } from "react";
-import axios from "axios"
+import axios from "../../../pages/axios";
+import { notification } from 'antd';
+import "antd/dist/antd.css";
 
 const Transition = React.forwardRef(function Transition({ ref, ...props }) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -40,10 +42,10 @@ export default function RegistrationDialog({ ...props }) {
   const handleOnSubmit = useCallback((data) => {
     onInputUpdate && onInputUpdate(data);
     if ((data && data.isShop == true) || (displayFormIndex > 0 && displayFormIndex != 2)) {
-      const newIndex = displayFormIndex+1;
+      const newIndex = displayFormIndex + 1;
       setDisplayFormIndex(newIndex);
       return;
-    }else {
+    } else {
       onSubmit();
     }
   }, [displayFormIndex, inputData]);
@@ -55,28 +57,28 @@ export default function RegistrationDialog({ ...props }) {
     setIsOpen(true);
   };
 
-/*   const handleClose = useCallback(() => {
-    debugger
-    if (displayFormIndex == 0) {
-      setIsOpen(false);
-      onClose && onClose();
-      return;
-    } else {
-      setDisplayFormIndex(displayFormIndex - 1);
-      return;
-    }
-  }, [displayFormIndex]); */
+  /*   const handleClose = useCallback(() => {
+      debugger
+      if (displayFormIndex == 0) {
+        setIsOpen(false);
+        onClose && onClose();
+        return;
+      } else {
+        setDisplayFormIndex(displayFormIndex - 1);
+        return;
+      }
+    }, [displayFormIndex]); */
 
   useEffect(() => {
     switch (stepShop) {
       case 0:
-        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson}/>);
-        return ;
+        setDisplayForm(<RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson} />);
+        return;
       case 1:
-        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson}/>);
+        setDisplayForm(<RegistrationFormShop1 onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} setStepShop={setStepShop} setShopJson={setShopJson} />);
         return;
       case 2:
-        setDisplayForm(<RegistrationFormShop2 setFinish={setFinish} onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} shopJson={shopJson} setStepShop={setStepShop} setShopJson={setShopJson}/>);
+        setDisplayForm(<RegistrationFormShop2 setFinish={setFinish} onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} shopJson={shopJson} setStepShop={setStepShop} setShopJson={setShopJson} />);
         return;
       default:
         return <RegistrationForm onSubmit={handleOnSubmit} onClose={onClose} inputData={inputData} />;
@@ -90,14 +92,25 @@ export default function RegistrationDialog({ ...props }) {
   }, []);
 
   useEffect(() => {
-    if(stepShop == 2 && finish == true){
-      (async function finalizar(){
-        try{
-          const {data} = await axios.post("https://agendai-api.herokuapp.com/user-shop", shopJson);
-        }catch(e){
-          console.log(e);
-        }
-        
+    if (stepShop == 2 && finish == true) {
+      (async function finalizar() {
+
+        const { data } = await axios.post("/user-shop", shopJson)
+          .then((res) => {
+            notification.success({
+              message: 'Empresa cadastrada!',
+              placement: 'bottomRight'
+            });
+            return res.data;
+          }).catch((err) => {
+            notification.error({
+              message: err.response.data.message,
+              placement: 'bottomRight'
+            });
+            throw err.response.data.message;
+          })
+
+
       })();
     }
   }, [shopJson]);
