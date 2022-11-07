@@ -38,7 +38,7 @@ export default function searchServiceComponent() {
                 </svg>
                 <h3 onClick={() => router.back()}>Voltar</h3>
             </div>
-            <div className={styles.service}>Serviço XXXXX</div>
+            <div className={styles.service}>Serviços</div>
 
             <Grid spacing={7} sx={{ marginTop: "100px", justifyContent: 'center', }} container>
                 {data && data.map((item, index) => (

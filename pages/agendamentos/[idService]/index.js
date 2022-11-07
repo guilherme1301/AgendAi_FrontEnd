@@ -51,24 +51,33 @@ export default function agendamentos() {
   const [findService, setFindService] = useState()
   const [dados, setDados] = useState({})
   const router = useRouter();
-  const { isLogged, userData } = useContext(Context);
   const [dataId, setDataId] = useState();
-  
+
   const [serviceId, setServiceId] = useState();
   const [serviceName, setServiceName] = useState();
   const [shopId, setShopId] = useState();
   const [shopName, setShopName] = useState();
-  const {query, isReady} = useRouter()
-  const [data,setData] = useState()
+  const { query, isReady } = useRouter()
+  const [data, setData] = useState()
+  const [usuarioId, setUsuarioId] = useState();
   const { idService } = query
+  const { isLogged, userData } = useContext(Context);
 
   useEffect(() => {
     setDataId(userData)
     updateList()
-    console.log("caceta", idService)
-  }, [idService])
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa ID SERVICEEEEEEEEEEEE", idService)
+    console.log("hihihihihihihihihihi", isLogged)
+    if(userData){ 
+      console.log("HAHAHAHAHAHHAHA CORINGUEI", JSON.parse(userData).id);
+     setUsuarioId(JSON.parse(userData).id)
+    }
+  }, [userData])
 
-  // console.log("oi oi oi oi oi oi oi  oi", JSON.parse(userData).id)
+
+  // var objeto = JSON.parse(userData);
+
+  // console.log("HAHAHAHAHHAHAHA", objeto);
 
   // async function pegar() {
   //   const { data } = await axios.get(`/servicos/${findService}`)
@@ -81,17 +90,18 @@ export default function agendamentos() {
   // }
 
   async function getShopId() {
-    if(isReady){
-      axios.get(`/service?userShopId=${idService}`).then(({data}) => setData(data.payload))
+    if (isReady) {
+      axios.get(`/service?userShopId=${idService}`).then(({ data }) => setData(data.payload))
     }
   }
 
+
   async function updateList() {
     await axios.get('/service').
-        then(({ data }) => {
-          setDataSource(data.payload)
-          console.log(data.payload)
-        })
+      then(({ data }) => {
+        setDataSource(data.payload)
+        console.log(data.payload)
+      })
   }
 
   console.log("datasource:", dataSource)
@@ -122,7 +132,7 @@ export default function agendamentos() {
         },
         serviceId: serviceId,
         userShopId: shopId,
-        userClientId: 2
+        userClientId: usuarioId
       }).then((res) => {
         notification.success({
           message: `Agendamento criado com sucesso`,
@@ -152,11 +162,11 @@ export default function agendamentos() {
   console.log("dados", dados)
   console.log("dataSource", dataSource)
 
-  console.log("serviceid:",serviceId)
+  console.log("serviceid:", serviceId)
   console.log("shopid", shopId)
 
-  function setter(serviceName,serviceId, shopId, shopName) {
-    
+  function setter(serviceName, serviceId, shopId, shopName) {
+
     setServiceName(serviceName)
     setServiceId(serviceId)
     setShopId(shopId)
@@ -187,31 +197,34 @@ export default function agendamentos() {
         >
           {dataSource?.map((e) => {
             return (
-              <Collapse onChange={() => setter(e.serviceDefault.name, e.id, e.shop.id, e.shop.name)}>
-                <Panel header={e.serviceDefault.name} key={e.serviceDefault.name} >
-                  <Form.Item name="horario">
-                    <Radio.Group >
-                      {horario.map((e) => {
-                        return <Radio.Button value={e}>{e}</Radio.Button>;
-                      })}
-                    </Radio.Group>
-                  </Form.Item>
+              <>
+                <h3>{e.shop.name}</h3>
+                <Collapse onChange={() => setter(e.serviceDefault.name, e.id, e.shop.id, e.shop.name)}>
+                  <Panel header={e.serviceDefault.name} key={e.serviceDefault.name} >
+                    <Form.Item name="horario">
+                      <Radio.Group >
+                        {horario.map((e) => {
+                          return <Radio.Button value={e}>{e}</Radio.Button>;
+                        })}
+                      </Radio.Group>
+                    </Form.Item>
 
-                  <Divider />
-                  <Form.Item name="dia">
-                    <Radio.Group >
-                      {dias.map((e) => {
-                        return <Radio.Button value={e}>{e}</Radio.Button>;
-                      })}
-                    </Radio.Group>
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={showModal}>
-                      Finalizar Agendamentos
-                    </Button>
-                  </Form.Item>
-                </Panel>
-              </Collapse>
+                    <Divider />
+                    <Form.Item name="dia">
+                      <Radio.Group >
+                        {dias.map((e) => {
+                          return <Radio.Button value={e}>{e}</Radio.Button>;
+                        })}
+                      </Radio.Group>
+                    </Form.Item>
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit" onClick={showModal}>
+                        Finalizar Agendamentos
+                      </Button>
+                    </Form.Item>
+                  </Panel>
+                </Collapse>
+              </>
             );
           })}
         </Form>

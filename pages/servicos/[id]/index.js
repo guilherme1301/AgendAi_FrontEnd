@@ -25,6 +25,7 @@ export default function servicos() {
     }
   },[id])
 
+  console.log(data)
   return (
     <>
       <div className={styles.return}>
@@ -34,7 +35,7 @@ export default function servicos() {
         <h3 onClick={() => router.back()}>Voltar</h3>
       </div>
       <Grid container spacing={2}>
-        <Grid item xs={12} className={stylest.tituloEmpresa}>{data?.serviceDefault.name}</Grid>
+        <Grid item xs={12} className={stylest.tituloEmpresa}>{data?.shop.name}</Grid>
         <Grid xs={12} md={12} lg={7} className={stylest.gridInfo}>
           <Grid container spacing={2} >
             <Grid item xs={12} className={stylest.titulosServicos}>Sobre</Grid>

@@ -49,7 +49,7 @@ export default function dashboardEmpresa() {
                         <div className={styles.subTitle}>Editar Perfil</div>
                         <div className={styles.divButton}>
                             Edite as informações e fotos da sua empresa no botão ao lado
-                            <ModeEditIcon />
+                            <ModeEditIcon onClick={() => router.push('/dashboard/empresa/123')}/>
                         </div>
                     </div>
                 </div>

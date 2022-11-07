@@ -30,7 +30,6 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
 
     useEffect(() => {
         updateList()
-        // console.log("usedata", JSON.parse(userData).id);
     }, [])
 
     function updateList() {
