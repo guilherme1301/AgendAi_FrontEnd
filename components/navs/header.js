@@ -101,7 +101,7 @@ function DrawerAppBar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -174,8 +174,8 @@ function DrawerAppBar(props) {
             <>
               <Link href={"/"} key={10000}>
                 <Button key={10000}>               
-                  <img  className={styles.perfilLogado} src="https://t.ctcdn.com.br/63V25kDFoZnMMF2WjQavNUcoawY=/400x400/smart/filters:format(webp)/i618809.png"></img> 
-                  <Typography variant="body1">Zap Construções</Typography>
+                  <img  className={styles.perfilLogado} src={JSON.parse(userData).logo}></img> 
+                  <Typography variant="body1">{JSON.parse(userData).name}</Typography>
                 </Button>
               </Link>
             </>
