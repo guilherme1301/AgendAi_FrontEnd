@@ -43,10 +43,12 @@ export default () => {
         }
         if (changed) {
             changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+            console.log("Buceta");
         }
         if (deleted) {
             const deletedSet = new Set(deleted);
             changedRows = rows.filter(row => !deletedSet.has(row.id));
+            console.log("Cu do Cassiano");
         }
         setRows(changedRows);
     };
