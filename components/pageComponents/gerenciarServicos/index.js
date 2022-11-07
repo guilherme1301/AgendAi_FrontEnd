@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Space, Table, Modal, Form, Button } from 'antd';
+import { Input, Space, Table, Modal, Form, Button, Card } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
 
@@ -7,8 +7,10 @@ export default () => {
 
     const [dataSource, setDataSource] = useState();
     const [isModalEdit, setIsModalEdit] = useState(false);
+    const [isModalCreate, setIsModalCreate] = useState(false);
     const [id, setId] = useState();
     const [form] = Form.useForm();
+    const { TextArea } = Input;
 
     useEffect(() => {
         updateList()
@@ -34,7 +36,7 @@ export default () => {
     }
 
     async function createService() {
-
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa")
     }
 
     const showModalEdit = () => {
@@ -42,13 +44,22 @@ export default () => {
     };
 
     const handleCancel = () => {
-        form.resetFields()
         setIsModalEdit(false);
+        form.resetFields()
     }
 
-    async function onFinish(values) {
+    const showModalCreate = () => {
+        setIsModalCreate(true);
+    };
+
+    const handleCancelCreate = () => {
+        form.resetFields()
+        setIsModalCreate(false);
+    }
+
+    async function onFinishEdit(values) {
         console.log("Success:", values);
-        editService()
+        editService();
         const response = await axios.put(`/service?id=${id}`,
             {
                 description: values.description,
@@ -56,11 +67,26 @@ export default () => {
                 price: values.price
             }
         )
-
         setIsModalEdit(false);
         updateList()
         return response;
+    }
 
+    async function onFinishCreate(values) {
+        console.log("Success:", values);
+        editService();
+        const response = await axios.put(`/service?id=${id}`,
+        {
+            description: values.description,
+            duration: values.duration,
+            price: values.price,
+            userShopId: 0,
+            serviceDefaultId: 0
+          }
+        )
+        setIsModalEdit(false);
+        updateList()
+        return response;
     }
 
     const columns = [
@@ -99,11 +125,9 @@ export default () => {
 
     return (
         <>
-
             <Table columns={columns} dataSource={dataSource} />
-
             <Modal
-                title="EDITAR AGENDAMENTO"
+                title={id ? "Editar" : "Criar"}
                 open={isModalEdit}
                 footer={null}
                 closable={false}
@@ -113,22 +137,18 @@ export default () => {
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     autoComplete="off"
-                    onFinish={onFinish}
+                    onFinish={onFinishEdit}
                 >
                     <Form.Item
                         label="Descrição"
                         name="description"
-                        rules={[{ required: true, message: "Por favor selecione um campo!" }]}
                     >
-                        <Input />
-
-
+                        <TextArea rows={4} />
 
                     </Form.Item>
                     <Form.Item
                         label="Duração"
                         name="duration"
-                        rules={[{ required: true, message: "Por favor selecione um campo!" }]}
                     >
                         <Input />
 
@@ -136,7 +156,57 @@ export default () => {
                     <Form.Item
                         label="Preço"
                         name="price"
-                        rules={[{ required: true, message: "Por favor selecione um campo!" }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Space>
+                            {id ?
+                                <Button type="primary" htmlType='submit' onClick={() => editService}>
+                                    Editar
+                                </Button>
+                                :
+                                <Button type="primary" htmlType='submit'    onClick={() => createService}>
+                                    Criar
+                                </Button>}
+                            <Button onClick={() => setIsModalEdit(false)}>
+                                Cancelar
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Modal>
+
+            {/* ///////////////////////////////////// */}
+            {/* <Modal
+                title="Criar novo"
+                open={isModalCreate}
+                footer={null}
+                closable={false}
+            >
+                <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Descrição"
+                        name="description"
+                    >
+                        <TextArea rows={4} />
+
+                    </Form.Item>
+                    <Form.Item
+                        label="Duração"
+                        name="duration"
+                    >
+                        <Input />
+
+                    </Form.Item>
+                    <Form.Item
+                        label="Preço"
+                        name="price"
                     >
                         <Input />
                     </Form.Item>
@@ -145,13 +215,13 @@ export default () => {
                             <Button type="primary" htmlType="submit" onClick={() => editService}>
                                 Submit
                             </Button>
-                            <Button htmlType="submit" onClick={() => handleCancel}>
-                                Cancelar
+                            <Button htmlType="submit" onClick={() => handleCancelCreate}>
+                                Cancelar!
                             </Button>
                         </Space>
                     </Form.Item>
                 </Form>
-            </Modal>
+            </Modal> */}
         </>
     );
 };
