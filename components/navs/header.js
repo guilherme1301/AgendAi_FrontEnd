@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "../../pages/axios";
 import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -18,10 +19,10 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { ButtonBase } from "@mui/material";
-import { useContext } from "react";
 import { Context } from "../../pages/contexts/userContext";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import styles from "../../styles/Home.module.css";
+import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 const navItems = [
@@ -77,8 +78,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function DrawerAppBar(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
   const { isLogged, userData } = useContext(Context);
+
+  const [findService, setFindService] = useState()
+
+  const services = async () => {
+    try {
+      const { data } = await axios.get(`/service?serviceName=`, findService)
+      if (data.status == 200) {
+        router.push({
+          pathname: 'buscarServico',
+          query: { param: findService },
+        })
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -128,11 +146,12 @@ function DrawerAppBar(props) {
           </Typography>
           <Search style={{ flexGrow: 1, alignItems: "center" }}>
             <StyledInputBase
+              onChange={(e) => setFindService(e.target.value)}
               placeholder="Busque serviços"
               inputProps={{ "aria-label": "search" }}
             />
             <SearchIconWrapper>
-              <Button color={"inherit"} variant="outlined">
+              <Button color={"inherit"} variant="outlined" onClick={() => services()}>
                 Buscar
               </Button>
             </SearchIconWrapper>
