@@ -3,6 +3,7 @@ import styles from "../../styles/Agendamentos.module.css";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import axios from "../../pages/axios";
 import { Button, Modal, Space, Form, Select, notification } from "antd";
 import "antd/dist/antd.css";
@@ -29,30 +30,30 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     const [horaServico, setHoraServico] = useState();
 
     useEffect(() => {
-        updateList()
-    }, [])
+        if(userData){
+            updateList()
+        }
+    }, [userData])
 
     function updateList() {
         getDadosAgendados()
         getDadosConfirmados()
     }
 
-    console.log("agendados:", dadosAgendados)
-    console.log("confirmdoados:", dadosConfirmados)
-
     async function getDadosAgendados() {
-        await axios.get(`/schedule?status=awaiting`).
+        await axios.get(`/schedule?status=awaiting&userShopId=`+JSON.parse(userData).id).
             then(({ data }) => {
                 setDadosAgendados(data.payload)
             })
     }
 
     async function getDadosConfirmados() {
-        await axios.get(`/schedule?status=confirmed`).
+        await axios.get(`/schedule?status=confirmed&userShopId=`+JSON.parse(userData).id).
             then(({ data }) => {
                 setdadosConfirmados(data.payload)
             })
     }
+
 
     async function confirmarAgendamentos(id) {
         const response = await axios.patch(`/schedule?id=${id}`,
@@ -204,12 +205,6 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
         setIsModalCancelOpen(true);
     }
 
-
-    console.log("ID EU SOU O ID HAHAHAHA", id)
-    console.log("daodos", dados)
-    console.log("dia", dia)
-    console.log("dhroara", hora)
-
     return (
         <div className={styles.divContent}>
 
@@ -225,8 +220,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 </div>
             }
             <div>
-                <div className={styles.subTitle}>Agendamentos Pendentes</div>
-                {dadosAgendados?.map(item => (
+                <div className={styles.subTitle}>Agendamentos Pendentes</div>                
+                {dadosAgendados?.map(item => (                        
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
@@ -234,6 +229,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                                 className={styles.buttonConfirmar} />
                             <CloseIcon onClick={() => setterCancel(item.id, item.schedules.serviceDefault.name, item.userClient.name, item.time.day, item.time.time)}
                                 className={styles.buttonCancelar} />
+                            <WhatsAppIcon className={styles.buttonUaizapi}></WhatsAppIcon>
                         </div>
                     </div>
                 ))}
