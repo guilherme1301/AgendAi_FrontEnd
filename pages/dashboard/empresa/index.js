@@ -4,20 +4,20 @@ import Agendamentos from "../../../components/agendamentos";
 import { useRouter } from 'next/router'
 import axios from "../../axios";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { useContext } from "react";
+import { Context } from "../../contexts/userContext";
 
 export default function dashboardEmpresa() {
     const router = useRouter()
     const [dadosAgendados, setDadosAgendados] = useState()
     const [dadosConfirmados, setdadosConfirmados] = useState()
+    const { isLogged, userData } = useContext(Context);
 
     useEffect(() => {
         getDadosAgendados()
         getDadosConfirmados()
-    }, [])
-
-    console.log("agendados:", dadosAgendados)
-    console.log("confirmdoados:", dadosConfirmados)
-
+    }, [userData])
+    
     async function getDadosAgendados() {
         await axios.get(`/schedule?status=awaiting`).
             then(({ data }) => {
@@ -35,7 +35,7 @@ export default function dashboardEmpresa() {
     return (
         <div className={styles.container}>
 
-            <div className={styles.title}>Empresa LTDA</div>
+            <div className={styles.title}>{JSON.parse(userData).name}</div>
             <div className={styles.body}>
                 <div className={styles.divContent}>
                     <div>

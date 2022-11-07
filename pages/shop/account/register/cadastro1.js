@@ -16,9 +16,37 @@ const Cadastro1 = (props)=> {
       <h2 className={styles.title}>Vamos começar?</h2>
       <p className={styles.textAlgo}>Primeiro defina as informações de acesso da sua conta.</p>
       <Grid item xs={12}>
-        <TextField required id="name" label="Nome" value={name} fullWidth margin='normal' className={styles.campo}/>
-        <TextField required id="email" label="E-mail" value={name} fullWidth margin='normal' className={styles.campo}/>
-        <TextField required id="password" label="Senha" value={name} fullWidth margin='normal' className={styles.campo}/>
+
+        <TextField 
+          required 
+          id="name" 
+          label="Nome" 
+          value={name} 
+          fullWidth 
+          margin='normal' 
+          className={styles.campo} 
+        />
+
+        <TextField 
+          required 
+          id="email" 
+          label="E-mail" 
+          value={name} 
+          fullWidth 
+          margin='normal' 
+          className={styles.campo}
+        />
+        
+        <TextField 
+          required 
+          id="password" 
+          label="Senha" 
+          value={name} 
+          fullWidth 
+          margin='normal' 
+          className={styles.campo}
+        />
+        
       </Grid>
 
       <Grid item xs={12}>

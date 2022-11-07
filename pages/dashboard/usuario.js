@@ -62,13 +62,13 @@ export default function dashboarUsuario() {
         const {data} = await axios.put("https://agendai-api.herokuapp.com/user-client?id="+JSON.parse(userData).id, user)
     }
 
-    useEffect(() => {
-        if (router.isReady) {
-          if(type !== "user"){
-            router.push('/')
-          }
-        }
-      }, [type])
+    // useEffect(() => {
+    //     if (router.isReady) {
+    //       if(type !== "user"){
+    //         router.push('/')
+    //       }
+    //     }
+    //   }, [type])
 
     return (
         <div className={styles.container}>
@@ -85,38 +85,35 @@ export default function dashboarUsuario() {
                         </svg>
                         {/* <p className={styles.alterarFoto}>Alterar Foto</p> */}
 
-                        <TextField
-                            autoFocus
+                        <TextField                                                    
                             margin="dense"
-                            id="name"
-                            label="Nome Completo"
-                            type="email"
+                            id="name" 
+                            type="text"
                             fullWidth
-                            variant="standard"
+                            label="Nome Completo" 
+                            variant="outlined" 
                             placeholder="Cássio"
                             onChange={(e) => setUser((prevState) => ({...prevState, name: e.target.value}))}
                         />
 
-                        <TextField
-                            autoFocus
+                        <TextField                             
                             margin="dense"
-                            id="email"
-                            label="E-mail"
+                            id="email" 
                             type="email"
                             fullWidth
-                            variant="standard"
-                            placeholder="cassio@uvv.br"
+                            label="E-mail" 
+                            variant="outlined" 
+                            placeholder="cassio@uvv.br"                            
                             onChange={(e) => setUser((prevState) => ({...prevState, email: e.target.value}))}
                         />
 
-                        <TextField
-                            autoFocus
+                        <TextField                             
                             margin="dense"
-                            id="phone"
-                            label="Telefone"
+                            id="phone" 
                             type="email"
                             fullWidth
-                            variant="standard"
+                            label="Telefone" 
+                            variant="outlined" 
                             placeholder="(27) 99999-9999"
                             onChange={(e) => setUser((prevState) => ({...prevState, telefone: e.target.value}))}
                         />
