@@ -33,32 +33,6 @@ export default function RegistrationFormShop2({ ...props }) {
       <form onSubmit={(e) => e.preventDefault()}>
         
       <h2 className={styles.title}>Quase la...</h2>
-        <p>
-          Registre o(s) tipo(s) de serviço(s) e os horários de funcionamento:{" "}
-        </p>
-        <Grid item xs={12} mt={1}>
-          <label style={{ float: "left" }}>Serviços oferecidos:</label>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              Escolha uma opção:
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} mt={1}>
-          <Button fullWidth color="inherit" variant="outlined">
-            +
-          </Button>
-        </Grid>
-
         <Grid item xs={12} mt={3}>
           <label style={{ float: "left" }}>Horário de funcionamento:</label>
           <HorarioFuncionamento setDia={setDia} dia={dia} day="segunda" />
