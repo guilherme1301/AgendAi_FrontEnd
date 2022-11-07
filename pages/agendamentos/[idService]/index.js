@@ -63,14 +63,13 @@ export default function agendamentos() {
   const { idService } = query
   const { isLogged, userData } = useContext(Context);
 
+  
   useEffect(() => {
     setDataId(userData)
-    updateList()
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa ID SERVICEEEEEEEEEEEE", idService)
-    console.log("hihihihihihihihihihi", isLogged)
-    if(userData){ 
-      console.log("HAHAHAHAHAHHAHA CORINGUEI", JSON.parse(userData).id);
-     setUsuarioId(JSON.parse(userData).id)
+    // updateList()
+    getShopId()
+    if (userData) {
+      setUsuarioId(JSON.parse(userData).id)
     }
   }, [userData])
 
@@ -89,23 +88,23 @@ export default function agendamentos() {
   //   console.log("query: ", router.query)
   // }
 
+
+
   async function getShopId() {
     if (isReady) {
-      axios.get(`/service?userShopId=${idService}`).then(({ data }) => setData(data.payload))
+      axios.get(`/service?userShopId=${idService}`).then(({ data }) => setDataSource(data.payload))
     }
   }
 
+  console.log(data)
 
-  async function updateList() {
-    await axios.get('/service').
-      then(({ data }) => {
-        setDataSource(data.payload)
-        console.log(data.payload)
-      })
-  }
+  // async function updateList() {
+  //   await axios.get('/service').
+  //     then(({ data }) => {
+  //       setDataSource(data.payload)
+  //     })
+  // }
 
-  console.log("datasource:", dataSource)
-  console.log("data:", data)
 
   const onFinish = (fieldsValue) => {
     setDados(fieldsValue)
@@ -122,6 +121,7 @@ export default function agendamentos() {
   const handleCancel = () => {
     setOpen(false);
   };
+
 
   async function finalizarAgendamento(data) {
     const response = await axios.post('/schedule',
@@ -147,7 +147,7 @@ export default function agendamentos() {
         throw err.response.data.message;
       });
     setOpen(false);
-    updateList()
+    // updateList()
     return response;
   }
 
@@ -159,12 +159,6 @@ export default function agendamentos() {
   //     })
   // }
 
-  console.log("dados", dados)
-  console.log("dataSource", dataSource)
-
-  console.log("serviceid:", serviceId)
-  console.log("shopid", shopId)
-
   function setter(serviceName, serviceId, shopId, shopName) {
 
     setServiceName(serviceName)
@@ -172,8 +166,6 @@ export default function agendamentos() {
     setShopId(shopId)
     setShopName(shopName)
   }
-
-  console.log(shopId)
 
   return (
     <>

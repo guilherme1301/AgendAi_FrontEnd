@@ -44,11 +44,14 @@ export default function searchServiceComponent() {
                 {data && data.map((item, index) => (
                     <Grid item key={index}>
                         <Item onClick={() => router.push(`/servicos/${item.id}`)}>
-                            <Image width={'300px'} height={'300px'} src={item?.shop.logo} />
-                            <h3 className={styles.serviceName}>{item?.name}</h3>
+                            {item?.shop.logo !== "fake" && 
+                                <Image width={'300px'} height={'300px'} src={item?.shop.logo} />
+                            }
+                            <h3 className={styles.serviceName}>{item?.serviceDefault.name}</h3>
                             <p className={styles.serviceItem}>{item?.description}</p>
                             <p className={styles.serviceItem}>{item?.shop.finTime}</p>
                             <p className={styles.serviceItem}>{item?.shop.address.city}, {item?.shop.address.district}, {item?.shop.address.region}</p>
+
                         </Item>
                     </Grid>
                 ))}
