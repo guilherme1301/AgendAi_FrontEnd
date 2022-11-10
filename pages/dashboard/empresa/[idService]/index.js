@@ -3,8 +3,8 @@ import styles from "../../../../styles/EdicaoEmpresa.module.css";
 import TextField from '@mui/material/TextField';
 import { Grid } from "@mui/material";
 import { Context } from "../../../../pages/contexts/userContext";
-import axios from 'axios'
 import { useRouter } from "next/router";
+import axios from "../../../axios";
 
 export default function idService() {
   const { isLogged, userData, type } = useContext(Context);
@@ -20,7 +20,7 @@ export default function idService() {
   }, [type])
 
   const updateProfile = async () => {
-    const {data} = await axios.put("https://agendai-api.herokuapp.com/user-shop?id="+JSON.parse(userData).id, user)
+    const {data} = await axios.put("/user-shop?id="+JSON.parse(userData).id, user)
   }
 
   return (

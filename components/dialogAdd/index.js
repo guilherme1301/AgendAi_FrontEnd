@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Agendamentos from '../agendamentos';
-
+import axios from '../../pages/axios';
 import styles from "../../styles/dialog.module.css";
 
 export default function DialogAdd(props) {
@@ -40,12 +40,10 @@ export default function DialogAdd(props) {
   };
 
   useEffect(() => {
-    fetch('https://agendai-api.herokuapp.com/service')
-      .then(res => res.json())
+    axios.get('/service')
       .then(data => {
         setType(data.payload)
         console.log("services default", data.payload.serviceDefault)
-
       })
   }, [])
 

@@ -3,9 +3,9 @@ import styles from "../../styles/Dashboard.module.css";
 import Agendamentos from "../../components/agendamentos";
 import TextField from '@mui/material/TextField';
 import AuthenticateService from "../../services/authenticate";
-import axios from 'axios'
 import { Context } from "../../pages/contexts/userContext";
 import { useRouter } from "next/router";
+import axios from "../axios";
 
 export default function dashboarUsuario() {
     const [user, setUser] = useState({name: '', email: '', telefone: ''})
@@ -59,7 +59,7 @@ export default function dashboarUsuario() {
     const { isLogged, userData, type } = useContext(Context);
 
     const updateProfile = async () => {
-        const {data} = await axios.put("https://agendai-api.herokuapp.com/user-client?id="+JSON.parse(userData).id, user)
+        const {data} = await axios.put("/user-client?id="+JSON.parse(userData).id, user)
     }
 
     useEffect(() => {

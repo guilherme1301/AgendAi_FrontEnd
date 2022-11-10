@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import AuthenticateService from "../../services/authenticate";
 import LoginDialog from "../../components/client/login/LoginDialog";
 import { Context } from "../contexts/userContext";
-import axios from 'axios'
+import axios from "../axios";
 
 export default function Login(props) {
 
@@ -19,7 +19,7 @@ export default function Login(props) {
     try {
       // const response = await AuthenticateService.login(data);
 
-      const {data} = await axios.post("https://agendai-api.herokuapp.com/auth/login", {
+      const {data} = await axios.post("/auth/login", {
         username,
         password
       })

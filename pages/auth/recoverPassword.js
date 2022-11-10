@@ -5,7 +5,7 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import BackButton from "../../components/buttons/voltar";
-import axios from 'axios'
+import axios from "../axios";
 
 export default function RecoverPassword({ ...props }) {
   const [isLogged, setIsLogged] = useState(true);
@@ -16,7 +16,7 @@ export default function RecoverPassword({ ...props }) {
   const handleOnSubmit = async () => {
     if(phone.toString().length == 11){
       try{
-        const {data} = await axios.post("https://agendai-api.herokuapp.com/recover-password", {
+        const {data} = await axios.post("/recover-password", {
           phone,
         })
       }catch(e){
