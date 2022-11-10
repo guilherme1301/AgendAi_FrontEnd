@@ -6,6 +6,9 @@ import axios from "../../axios";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { useContext } from "react";
 import { Context } from "../../contexts/userContext";
+import { Grid } from "@mui/material";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 
 export default function dashboardEmpresa() {
     const router = useRouter()
@@ -33,9 +36,12 @@ export default function dashboardEmpresa() {
     }
 
     return (
+        
         <div className={styles.container}>
-
-            <div className={styles.title}>{JSON.parse(userData).name}</div>
+            <Grid item xs={2} className={styles.arrowCarrouselDashboard}>
+                <ArrowBackIosIcon sx={{ fontSize: 20 }}></ArrowBackIosIcon><span onClick={() => router.back()}>Voltar</span> 
+            </Grid>            
+            <div className={styles.title}>{JSON.parse(userData).name}</div>            
             <div className={styles.body}>
                 <div className={styles.divContent}>
                     <div>

@@ -13,6 +13,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -101,6 +102,10 @@ function DrawerAppBar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const logout = async function() {
+    localStorage.clear();  
+  }
   
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -175,9 +180,15 @@ function DrawerAppBar(props) {
               <Link href={"/"} key={10000}>
                 <Button key={10000}>               
                   <img  className={styles.perfilLogado} src={JSON.parse(userData).logo}></img> 
-                  <Typography variant="body1">{JSON.parse(userData).name}</Typography>
-                </Button>
+                  <Typography variant="body1">{JSON.parse(userData).name}</Typography>                  
+                </Button>                
               </Link>
+              <Link href={"/"} key={9999}>
+                  <Button key={9999}>
+                    <PowerSettingsNewIcon></PowerSettingsNewIcon>                   
+                  </Button>
+                </Link>
+
             </>
             ) : (
               <>
