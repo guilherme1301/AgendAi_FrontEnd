@@ -6,7 +6,6 @@ export const ProtectedRoute = ({ children }) => {
   const router = useRouter();
   const { isLogged, isLoading } = useContext(Context);
   console.log("Protected Router: isLogged = ", isLogged);
-  return children;
   if(isLogged != undefined){
     if (!isLogged) {
       if(router && !router.pathname.startsWith('/auth') && router.pathname != "/"){
