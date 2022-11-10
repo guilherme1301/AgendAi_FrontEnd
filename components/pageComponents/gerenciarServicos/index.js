@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Space, Table, Modal, Form, Button, notification } from 'antd';
+import { Input, Space, Table, Modal, Form, Button, Popconfirm, notification } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
 
@@ -141,7 +141,14 @@ export default () => {
             render: (_, record) => (
                 <Space size="middle">
                     <a onClick={() => editService(record.id)}>Edit</a>
-                    <a onClick={() => deleteService(record.id)}>Delete</a>
+                    <Popconfirm
+                        title="Deseja realmente deletar esse serviço?"
+                        onConfirm={() => deleteService(record.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <a >Delete</a>
+                    </Popconfirm>
                 </Space>
             ),
         },
