@@ -269,7 +269,6 @@ export default () => {
                     <Form.Item
                         label="Serviço"
                         name="serviceId"
-                        mandando o Id pelo value
                     >
                         <Select
                             showSearch
