@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Input, Space, Table, Modal, Form, Button, Popconfirm, Select, Card, notification } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
+import { useContext } from "react";
+import { Context } from "../../../pages/contexts/userContext";
 
 export default () => {
 
@@ -9,30 +11,31 @@ export default () => {
     const [isModalEdit, setIsModalEdit] = useState(false);
     const [isModalCancel, setIsModalCancel] = useState(false);
     const [lstServicos, setLstServicos] = useState();
-    const [lstShop, setLstShop] = useState();
     const [id, setId] = useState();
     const [form] = Form.useForm();
     const { TextArea } = Input;
+    const { isLogged, userData } = useContext(Context);
+
+    const nameEmpresa = JSON.parse(userData).name;
+    const shopId = JSON.parse(userData).id;
 
     useEffect(() => {
         updateList()
-        getAllShops()
-    }, [])
+        getAllServices()
+    }, [userData])
 
     async function updateList() {
-        await axios.get('/service').
+        await axios.get(`/user-shop/one/?id=${shopId}`).
             then(({ data }) => {
-                setLstServicos(data.payload)
-                setDataSource(data.payload)
-                console.log("vamo la isso aqui eh os services", data.payload)
+                setDataSource(data.payload.services)
             })
     }
 
-    async function getAllShops() {
-        await axios.get('/user-shop')
+    async function getAllServices() {
+        await axios.get('/service-default')
             .then(({ data }) => {
-                setLstShop(data.payload)
-                console.log("vamo la isso eh shop", data.payload)
+                setLstServicos(data.payload)
+                console.log("vamo la isso eh os services rapeize", data.payload)
             })
     }
 
@@ -58,10 +61,7 @@ export default () => {
             });
 
         updateList()
-    }
-
-    async function createService() {
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa")
+        form.resetFields();
     }
 
     const showModalEdit = () => {
@@ -95,7 +95,8 @@ export default () => {
             throw err.response.data.message;
         });
         setIsModalEdit(false);
-        updateList()
+        updateList();
+        form.resetFields();
         return response;
     }
 
@@ -106,7 +107,7 @@ export default () => {
                 description: values.description,
                 duration: +values.duration,
                 price: +values.price,
-                userShopId: values.shopId,
+                userShopId: shopId,
                 serviceDefaultId: values.serviceId
             }
         ).then((res) => {
@@ -124,7 +125,8 @@ export default () => {
         });
         setIsModalCancel(false);
         updateList();
-        return response;
+        form.resetFields();
+                return response;
     }
 
     const columns = [
@@ -132,26 +134,31 @@ export default () => {
             title: 'Nome do Serviço',
             dataIndex: 'serviceDefault',
             key: 'serviceDefault',
+            width: '30%',
             render: (text) => <span>{text.name}</span>
         },
         {
             title: 'Descrição',
             dataIndex: 'description',
             key: 'description',
+            width: '25%',
         },
         {
             title: 'Duração',
             dataIndex: 'duration',
             key: 'duration',
+            width: '20%',
         },
         {
             title: 'Preço',
             dataIndex: 'price',
             key: 'price',
+            width: '10%',
         },
         {
             title: 'Action',
             key: 'action',
+            width: '15%',
             render: (_, record) => (
                 <Space size="middle">
                     <a onClick={() => editService(record.id)}>Edit</a>
@@ -170,14 +177,15 @@ export default () => {
 
     return (
         <>
+            <h1>{nameEmpresa}</h1>
             <Card bordered={false} onClick={showModalCancel}>
                 <Button type='primary'>Cadastrar novo serviço</Button>
             </Card>
-            <Table 
-            columns={columns} 
-            dataSource={dataSource} 
-            size="middle"
-            />
+            <Table
+                bordered
+                columns={columns}
+                dataSource={dataSource}
+                />
             <Modal
                 title={"Editar"}
                 open={isModalEdit}
@@ -259,30 +267,9 @@ export default () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Loja"
-                        name="shopId"
-                        //mandando o Id pelo value
-
-                    >
-                        <Select
-                            showSearch
-                            placeholder="Selecione uma loja"
-                            optionFilterProp="children"
-                        >
-                            {lstShop?.map((e) => {
-                                return (
-                                    <Option key={e.id} value={e.id}>
-                                        {e.name}
-                                    </Option>
-                                );
-                            })}
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
                         label="Serviço"
                         name="serviceId"
-                        //mandando o Id pelo value
+                        mandando o Id pelo value
                     >
                         <Select
                             showSearch
@@ -291,8 +278,8 @@ export default () => {
                         >
                             {lstServicos?.map((e) => {
                                 return (
-                                    <Option key={e.serviceDefault.id} value={e.serviceDefault.id}>
-                                        {e.serviceDefault.name}
+                                    <Option key={e.id} value={e.id}>
+                                        {e.name}
                                     </Option>
                                 );
                             })}
