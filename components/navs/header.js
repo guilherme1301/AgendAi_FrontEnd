@@ -178,13 +178,13 @@ function DrawerAppBar(props) {
             {isLogged ? (
             <>
               <Link href={"/"} key={10000}>
-                <Button key={10000}>               
-                  <img  className={styles.perfilLogado} src={JSON.parse(userData).logo}></img> 
+                <Button key={10000} className={styles.buttonLogin}>               
+                  <img  className={styles.perfilLogado} src={userData.logo}></img> 
                   <Typography variant="body1">{JSON.parse(userData).name}</Typography>                  
                 </Button>                
               </Link>
               <Link href={"/"} key={9999}>
-                  <Button key={9999}>
+                  <Button key={9999} className={styles.buttonLogin}>
                     <PowerSettingsNewIcon></PowerSettingsNewIcon>                   
                   </Button>
                 </Link>
@@ -200,7 +200,7 @@ function DrawerAppBar(props) {
                     sx={{ color: "#000" }}
                     variant={"outlined"}
                   >
-                    <Typography variant="body1">Login</Typography>
+                    <Typography variant="body1">Entrar</Typography>
                   </Button>
                 </Link>
                 <Link href={"/dashboard"} key={9999}>

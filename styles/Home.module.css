@@ -130,6 +130,10 @@
   margin-right: 10px;
 }
 
+.buttonLogin{
+  color: #111 !important;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
