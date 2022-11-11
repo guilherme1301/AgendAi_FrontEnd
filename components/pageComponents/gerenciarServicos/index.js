@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Space, Table, Modal, Form, Button, Popconfirm, Card, notification } from 'antd';
+import { Input, Space, Table, Modal, Form, Button, Popconfirm, Select, Card, notification } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
 
@@ -7,19 +7,32 @@ export default () => {
 
     const [dataSource, setDataSource] = useState();
     const [isModalEdit, setIsModalEdit] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalCancel, setIsModalCancel] = useState(false);
+    const [lstServicos, setLstServicos] = useState();
+    const [lstShop, setLstShop] = useState();
     const [id, setId] = useState();
     const [form] = Form.useForm();
     const { TextArea } = Input;
 
     useEffect(() => {
         updateList()
+        getAllShops()
     }, [])
 
     async function updateList() {
         await axios.get('/service').
             then(({ data }) => {
+                setLstServicos(data.payload)
                 setDataSource(data.payload)
+                console.log("vamo la isso aqui eh os services", data.payload)
+            })
+    }
+
+    async function getAllShops() {
+        await axios.get('/user-shop')
+            .then(({ data }) => {
+                setLstShop(data.payload)
+                console.log("vamo la isso eh shop", data.payload)
             })
     }
 
@@ -55,9 +68,8 @@ export default () => {
         setIsModalEdit(true);
     };
 
-
-    const showModal = () => {
-        setIsModalOpen(true);
+    const showModalCancel = () => {
+        setIsModalCancel(true);
     };
 
     async function onFinishEdit(values) {
@@ -89,18 +101,30 @@ export default () => {
 
     async function onFinishCreate(values) {
         console.log("Success:", values);
-        // const response = await axios.put(`/service?id=${id}`,
-        //     {
-        //         description: values.description,
-        //         duration: values.duration,
-        //         price: values.price,
-        //         userShopId: 0,
-        //         serviceDefaultId: 0
-        //     }
-        // );
-        setIsModalOpen(false);
-        updateList()
-        // return response;
+        const response = await axios.post(`/service`,
+            {
+                description: values.description,
+                duration: +values.duration,
+                price: +values.price,
+                userShopId: values.shopId,
+                serviceDefaultId: values.serviceId
+            }
+        ).then((res) => {
+            notification.success({
+                message: 'Novo serviço cadastrado com sucesso',
+                placement: 'bottomRight'
+            });
+            return res.data;
+        }).catch((err) => {
+            notification.error({
+                message: err.response.data.message,
+                placement: 'bottomRight'
+            });
+            throw err.response.data.message;
+        });
+        setIsModalCancel(false);
+        updateList();
+        return response;
     }
 
     const columns = [
@@ -146,10 +170,14 @@ export default () => {
 
     return (
         <>
-            <Card bordered={false} onClick={showModal}>
+            <Card bordered={false} onClick={showModalCancel}>
                 <Button type='primary'>Cadastrar novo serviço</Button>
             </Card>
-            <Table columns={columns} dataSource={dataSource} />
+            <Table 
+            columns={columns} 
+            dataSource={dataSource} 
+            size="middle"
+            />
             <Modal
                 title={"Editar"}
                 open={isModalEdit}
@@ -198,7 +226,7 @@ export default () => {
 
             {/* ///////////////////////////////////// */}
             <Modal title="Basic Modal"
-                open={isModalOpen}
+                open={isModalCancel}
                 footer={null}
                 closable={false}
             >
@@ -229,12 +257,53 @@ export default () => {
                     >
                         <Input />
                     </Form.Item>
+
+                    <Form.Item
+                        label="Loja"
+                        name="shopId"
+                        //mandando o Id pelo value
+
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Selecione uma loja"
+                            optionFilterProp="children"
+                        >
+                            {lstShop?.map((e) => {
+                                return (
+                                    <Option key={e.id} value={e.id}>
+                                        {e.name}
+                                    </Option>
+                                );
+                            })}
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Serviço"
+                        name="serviceId"
+                        //mandando o Id pelo value
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Selecione uma loja"
+                            optionFilterProp="children"
+                        >
+                            {lstServicos?.map((e) => {
+                                return (
+                                    <Option key={e.serviceDefault.id} value={e.serviceDefault.id}>
+                                        {e.serviceDefault.name}
+                                    </Option>
+                                );
+                            })}
+                        </Select>
+                    </Form.Item>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Space>
-                                                         <Button type="primary" htmlType='submit' onClick={() => console.log("create create")}>
-                                    Criar
-                                </Button>
-                            <Button onClick={() => setIsModalOpen(false)}>
+                            <Button type="primary" htmlType='submit'>
+                                Criar
+                            </Button>
+                            <Button onClick={() => setIsModalCancel(false)}>
                                 Cancelar
                             </Button>
                         </Space>
