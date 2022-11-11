@@ -211,7 +211,7 @@ function DrawerAppBar(props) {
                     sx={{ color: "#000" }}
                     variant={"outlined"}
                   >
-                    <Typography variant="body1">Inscrição</Typography>
+                    <Typography onClick={() => router.push('/auth/registration')} variant="body1">Inscrição</Typography>
                   </Button>
                 </Link>
               </>
