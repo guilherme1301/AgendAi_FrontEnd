@@ -1,10 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import router from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import AuthenticateService from "../../services/authenticate";
 import RegistrationDialog from "../../components/client/login/registrationDialog";
 import { Context } from "../contexts/userContext";
+import { useRouter } from "next/router";
+
 export default function Login(props) {
+  const router = useRouter();
   const { login, isLogged, userData } = useContext(Context);
   const [dialogOpen, setDialogOpen] = useState(true);
   const [inputUserData, setInputUserData] = useState();
@@ -41,6 +43,7 @@ export default function Login(props) {
   }, [inputUserData]);
 
   const handleGoBack = () => {
+    console.log("alkdjaldlakdjlaksdja")
     router.push("/");
   };
 

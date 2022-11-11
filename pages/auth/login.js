@@ -1,5 +1,5 @@
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import router from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import AuthenticateService from "../../services/authenticate";
 import LoginDialog from "../../components/client/login/LoginDialog";
@@ -7,6 +7,7 @@ import { Context } from "../contexts/userContext";
 import axios from "../axios";
 
 export default function Login(props) {
+  const router = useRouter()
 
   const { login, isLogged, userData, setType, type } = useContext(Context);
   const [dialogOpen, setDialogOpen] = useState(true);
@@ -25,6 +26,9 @@ export default function Login(props) {
       })
 
       setType(data.type)
+      router.push("/")
+      // TRATAMENTO DE ERRO
+
 
       // login && login(data.access_token, { ...data });
       
@@ -45,7 +49,7 @@ export default function Login(props) {
   };
 
   const handleGoBack = () => {
-    router.back();
+    router && router.push('/');
   };
 
   return (

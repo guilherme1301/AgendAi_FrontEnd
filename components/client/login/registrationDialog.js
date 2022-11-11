@@ -24,6 +24,7 @@ import { useCallback } from "react";
 import axios from "../../../pages/axios";
 import { notification } from 'antd';
 import "antd/dist/antd.css";
+import { useRouter } from "next/router";
 
 const Transition = React.forwardRef(function Transition({ ref, ...props }) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -37,7 +38,7 @@ export default function RegistrationDialog({ ...props }) {
   const [stepShop, setStepShop] = useState(0)
   const [shopJson, setShopJson] = useState({})
   const [finish, setFinish] = useState(false)
-
+  const router = useRouter();
 
   const handleOnSubmit = useCallback((data) => {
     onInputUpdate && onInputUpdate(data);
@@ -101,6 +102,7 @@ export default function RegistrationDialog({ ...props }) {
               message: 'Empresa cadastrada!',
               placement: 'bottomRight'
             });
+            router.push("/");
             return res.data;
           }).catch((err) => {
             notification.error({
@@ -128,6 +130,7 @@ export default function RegistrationDialog({ ...props }) {
               edge="start"
               color="inherit"
               aria-label="close"
+              onClick={() => {onClose()}}
             >
               <CloseIcon />
             </IconButton>
