@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Space, Table, Modal, Form, Button, Popconfirm, Select, Card, notification } from 'antd';
+import { Input, Space, Table, Modal, Form, Button, Popconfirm, Select, Card, notification, InputNumber } from 'antd';
 import "antd/dist/antd.css";
 import axios from '../../../pages/axios';
 import { useContext } from "react";
@@ -12,6 +12,7 @@ export default () => {
     const [isModalCancel, setIsModalCancel] = useState(false);
     const [lstServicos, setLstServicos] = useState();
     const [id, setId] = useState();
+    const [formData, setFormData] = useState({});
     const [form] = Form.useForm();
     const { TextArea } = Input;
     const { isLogged, userData } = useContext(Context);
@@ -35,14 +36,14 @@ export default () => {
         await axios.get('/service-default')
             .then(({ data }) => {
                 setLstServicos(data.payload)
-                console.log("vamo la isso eh os services rapeize", data.payload)
             })
     }
 
-    async function editService(id) {
-        setId(id);
+    async function editService(record) {
+        setId(record?.id);
         showModalEdit(true);
     }
+
 
     async function deleteService(id) {
         await axios.delete(`/service?id=${id}`)
@@ -70,6 +71,17 @@ export default () => {
 
     const showModalCancel = () => {
         setIsModalCancel(true);
+    };
+
+    const handleCancelModalEdit = () => {
+        setFormData({})
+        setIsModalEdit(false);
+        form.resetFields()
+    };
+
+    const handleCancelModal = () => {
+        setIsModalCancel(false);
+        form.resetFields()
     };
 
     async function onFinishEdit(values) {
@@ -107,8 +119,8 @@ export default () => {
                 description: values.description,
                 duration: +values.duration,
                 price: +values.price,
-                userShopId: shopId,
-                serviceDefaultId: values.serviceId
+                serviceDefaultId: +values.serviceId,
+                userShopId: shopId
             }
         ).then((res) => {
             notification.success({
@@ -126,7 +138,7 @@ export default () => {
         setIsModalCancel(false);
         updateList();
         form.resetFields();
-                return response;
+        return response;
     }
 
     const columns = [
@@ -134,7 +146,7 @@ export default () => {
             title: 'Nome do Serviço',
             dataIndex: 'serviceDefault',
             key: 'serviceDefault',
-            width: '30%',
+            width: '50%',
             render: (text) => <span>{text.name}</span>
         },
         {
@@ -156,19 +168,30 @@ export default () => {
             width: '10%',
         },
         {
-            title: 'Action',
+            title: '',
             key: 'action',
             width: '15%',
             render: (_, record) => (
                 <Space size="middle">
-                    <a onClick={() => editService(record.id)}>Edit</a>
+                    <Button type='primary' onClick={() => {
+                        editService(record),
+                            setFormData(record)
+                        if (record.id !== formData.id) {
+                            form.resetFields();
+                            form.setFieldsValue(record);
+
+                        }
+                        if (record.id === formData.id) {
+                            form.setFieldsValue(record);
+                        }
+                    }}>Editar</Button>
                     <Popconfirm
                         title="Deseja realmente deletar esse serviço?"
                         onConfirm={() => deleteService(record.id)}
-                        okText="Yes"
-                        cancelText="No"
+                        okText="Sim"
+                        cancelText="Não"
                     >
-                        <a >Delete</a>
+                        <Button type='danger'>Deletar</Button>
                     </Popconfirm>
                 </Space>
             ),
@@ -185,7 +208,7 @@ export default () => {
                 bordered
                 columns={columns}
                 dataSource={dataSource}
-                />
+            />
             <Modal
                 title={"Editar"}
                 open={isModalEdit}
@@ -198,33 +221,45 @@ export default () => {
                     wrapperCol={{ span: 16 }}
                     autoComplete="off"
                     onFinish={onFinishEdit}
+                    form={form}
                 >
                     <Form.Item
                         label="Descrição"
                         name="description"
                     >
-                        <TextArea rows={4} />
+                        <TextArea rows={3} />
 
                     </Form.Item>
                     <Form.Item
                         label="Duração"
                         name="duration"
                     >
-                        <Input />
+                        <Input addonAfter="min" />
 
                     </Form.Item>
                     <Form.Item
                         label="Preço"
                         name="price"
                     >
-                        <Input />
+                        <Input
+                            min="0.00"
+                            step="0.00"
+                            stringMode
+                            placeholder="0.00"
+                            type="number"
+                            prefix="R$"
+                            style={{ width: '100%' }}
+
+                        />
+
                     </Form.Item>
+             
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Space>
                             <Button type="primary" htmlType='submit' onClick={() => editService}>
                                 Editar
                             </Button>
-                            <Button onClick={() => setIsModalEdit(false)}>
+                            <Button onClick={() => handleCancelModalEdit()}>
                                 Cancelar
                             </Button>
                         </Space>
@@ -233,7 +268,8 @@ export default () => {
             </Modal>
 
             {/* ///////////////////////////////////// */}
-            <Modal title="Basic Modal"
+            <Modal
+                title={"Cadastrar um novo serviço"}
                 open={isModalCancel}
                 footer={null}
                 closable={false}
@@ -244,26 +280,35 @@ export default () => {
                     wrapperCol={{ span: 16 }}
                     autoComplete="off"
                     onFinish={onFinishCreate}
+                    form={form}
                 >
                     <Form.Item
                         label="Descrição"
                         name="description"
                     >
-                        <TextArea rows={4} />
+                        <TextArea rows={3} />
 
                     </Form.Item>
                     <Form.Item
                         label="Duração"
                         name="duration"
                     >
-                        <Input />
+                        <Input addonAfter="min" />
 
                     </Form.Item>
                     <Form.Item
                         label="Preço"
                         name="price"
                     >
-                        <Input />
+                        <Input
+                            min="0.00"
+                            step="0.00"
+                            stringMode
+                            placeholder="0.00"
+                            type="number"
+                            prefix="R$"
+                            style={{ width: '100%' }}
+                        />
                     </Form.Item>
 
                     <Form.Item
@@ -289,7 +334,7 @@ export default () => {
                             <Button type="primary" htmlType='submit'>
                                 Criar
                             </Button>
-                            <Button onClick={() => setIsModalCancel(false)}>
+                            <Button onClick={() => handleCancelModal()}>
                                 Cancelar
                             </Button>
                         </Space>

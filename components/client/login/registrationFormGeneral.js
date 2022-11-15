@@ -35,12 +35,13 @@ export default function RegistrationFormGeneral({ ...props }) {
               placement: 'bottomRight'
           });
           return res.data;
-      }).catch((err) => {
+      })
+      .catch((err) => {
           notification.error({
-              message: err.response.data.message,
+              message: err.response.data.error,
               placement: 'bottomRight'
           });
-          throw err.response.data.message;
+          throw err.response.data.error;
       })
       
     }

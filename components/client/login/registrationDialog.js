@@ -106,10 +106,10 @@ export default function RegistrationDialog({ ...props }) {
             return res.data;
           }).catch((err) => {
             notification.error({
-              message: err.response.data.message,
+              message: err.response.data.error,
               placement: 'bottomRight'
             });
-            throw err.response.data.message;
+            throw err.response.data.error;
           })
 
 
