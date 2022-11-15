@@ -43,7 +43,6 @@ export default function Login(props) {
   }, [inputUserData]);
 
   const handleGoBack = () => {
-    console.log("alkdjaldlakdjlaksdja")
     router.push("/");
   };
 

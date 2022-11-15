@@ -27,8 +27,8 @@ import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 const navItems = [
-  { item: "Quem Somos", style: "text", link: "/dashboard" },
-  { item: "Contato", style: "text", link: "/dashboard" },
+  { item: "Quem Somos", style: "text", link: "/dashboard/empresa" },
+  { item: "Contato", style: "text", link: "/dashboard/usuario" },
   // { item: "Entrar", style: "outlined", link: "/client/auth/login" },
   // { item: "Inscrição", style: "outlined", link: "/dashboard" },
 ];
@@ -115,11 +115,11 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map(({ item, index }) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }} key={index}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
+            <ListItem key={item} disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }} key={index}>
+                <ListItemText primary={item} />
+              </ListItemButton>
+            </ListItem>
         ))}
       </List>
     </Box>
@@ -203,15 +203,15 @@ function DrawerAppBar(props) {
                     <Typography variant="body1">Entrar</Typography>
                   </Button>
                 </Link>
-                <Link href={"/dashboard"} key={9999}>
+                <Link href={"/auth/registration"} key={10000}>
                   <Button
-                    key={9999}
+                    key={10000}
                     style={{ marginRight: 10 }}
                     color="inherit"
                     sx={{ color: "#000" }}
                     variant={"outlined"}
                   >
-                    <Typography onClick={() => router.push('/auth/registration')} variant="body1">Inscrição</Typography>
+                    <Typography variant="body1">Inscrição</Typography>
                   </Button>
                 </Link>
               </>
