@@ -41,17 +41,21 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
     async function getDadosAgendados() {
-        await axios.get(`/schedule?status=awaiting&userShopId=`+JSON.parse(userData).id).
-            then(({ data }) => {
-                setDadosAgendados(data.payload)
-            })
+        if(userData?.id){
+            await axios.get(`/schedule?status=awaiting&userShopId=`+userData?.id).
+                then(({ data }) => {
+                    setDadosAgendados(data.payload)
+                })
+        }
     }
 
     async function getDadosConfirmados() {
-        await axios.get(`/schedule?status=confirmed&userShopId=`+JSON.parse(userData).id).
-            then(({ data }) => {
-                setdadosConfirmados(data.payload)
-            })
+        if(userData?.id){
+            await axios.get(`/schedule?status=confirmed&userShopId=`+userData?.id).
+                then(({ data }) => {
+                    setdadosConfirmados(data.payload)
+                })
+        }
     }
 
 

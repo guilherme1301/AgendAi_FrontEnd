@@ -59,7 +59,7 @@ export default function dashboarUsuario() {
     const { isLogged, userData, type } = useContext(Context);
 
     const updateProfile = async () => {
-        const {data} = await axios.put("/user-client?id="+JSON.parse(userData).id, user)
+        const {data} = await axios.put("/user-client?id="+userData.id, user)
     }
 
     // useEffect(() => {

@@ -41,14 +41,14 @@ export default function dashboardEmpresa() {
             <Grid item xs={2} className={styles.arrowCarrouselDashboard}>
                 <ArrowBackIosIcon sx={{ fontSize: 20 }}></ArrowBackIosIcon><span onClick={() => router.back()}>Voltar</span> 
             </Grid>            
-            <div className={styles.title}>{JSON.parse(userData).name}</div>            
+            <div className={styles.title}>{userData.name}</div>            
             <div className={styles.body}>
                 <div className={styles.divContent}>
                     <div>
                         <div className={styles.subTitle}>Gerenciar Serviços</div>
                         <div className={styles.divButton}>
                             Adicione, edite ou exclua seus serviços no botão ao lado
-                            <ModeEditIcon />
+                            <ModeEditIcon onClick={ () => router.push('/gerenciarServicos')} />
                         </div>
                     </div>
                     <div>

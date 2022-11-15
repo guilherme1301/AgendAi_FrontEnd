@@ -180,7 +180,7 @@ function DrawerAppBar(props) {
             <>
               <Link href={"/"} key={10000}>
                 <Button key={10000} className={styles.buttonLogin}>               
-                  <img  className={styles.perfilLogado} src={userData.logo}></img> 
+                  {/* <img  className={styles.perfilLogado} src={userData.logo}></img>  */}
                    <Typography variant="body1">{userData.name}</Typography>                  
                 </Button>                
               </Link>
