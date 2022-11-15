@@ -104,9 +104,10 @@ function DrawerAppBar(props) {
   };
 
   const logout = async function() {
-    localStorage.clear();  
+    localStorage.clear();
+    router.reload()
   }
-  
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -180,14 +181,14 @@ function DrawerAppBar(props) {
               <Link href={"/"} key={10000}>
                 <Button key={10000} className={styles.buttonLogin}>               
                   <img  className={styles.perfilLogado} src={userData.logo}></img> 
-                  <Typography variant="body1">{JSON.parse(userData).name}</Typography>                  
+                   <Typography variant="body1">{userData.name}</Typography>                  
                 </Button>                
               </Link>
-              <Link href={"/"} key={9999}>
-                  <Button key={9999} className={styles.buttonLogin}>
+              {/* <Link href={"/"} key={9999}> */}
+                  <Button onClick={() => logout()} key={9999} className={styles.buttonLogin}>
                     <PowerSettingsNewIcon></PowerSettingsNewIcon>                   
                   </Button>
-                </Link>
+                {/* </Link> */}
 
             </>
             ) : (
