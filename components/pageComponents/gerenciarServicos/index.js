@@ -17,8 +17,8 @@ export default () => {
     const { TextArea } = Input;
     const { isLogged, userData } = useContext(Context);
 
-    const nameEmpresa = JSON.parse(userData).name;
-    const shopId = JSON.parse(userData).id;
+    const nameEmpresa = userData?.name;
+    const shopId = userData?.id;
 
     useEffect(() => {
         updateList()

@@ -60,16 +60,17 @@ export default function agendamentos() {
   const { query, isReady } = useRouter()
   const [data, setData] = useState()
   const [usuarioId, setUsuarioId] = useState();
-  const { idService } = query
+  const { idShop } = query
   const { isLogged, userData } = useContext(Context);
 
   
   useEffect(() => {
     setDataId(userData)
     // updateList()
+    console.log("oi", JSON.parse(userData).wppCode.userClientId)
     getShopId()
     if (userData) {
-      setUsuarioId(JSON.parse(userData).id)
+      setUsuarioId(JSON.parse(userData).wppCode.userClientId)
     }
   }, [userData])
 
@@ -92,7 +93,7 @@ export default function agendamentos() {
 
   async function getShopId() {
     if (isReady) {
-      axios.get(`/service?userShopId=${idService}`).then(({ data }) => setDataSource(data.payload))
+      axios.get(`/service?userShopId=${idShop}`).then(({ data }) => setDataSource(data.payload))
     }
   }
 

@@ -46,31 +46,31 @@ export default function servicos() {
 
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Segunda</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.segunda.open ? data?.shop.times.segunda.ini + '-' + data?.shop.times.segunda.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.segunda?.open ? data?.shop?.times?.segunda?.ini + '-' + data?.shop?.times?.segunda?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Terça</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.terca.open ? data?.shop.times.terca.ini + '-' + data?.shop.times.terca.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.terca?.open ? data?.shop?.times?.terca?.ini + '-' + data?.shop?.times?.terca?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Quarta</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.quarta.open ? data?.shop.times.quarta.ini + '-' + data?.shop.times.quarta.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.quarta?.open ? data?.shop?.times?.quarta?.ini + '-' + data?.shop?.times?.quarta?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Quinta</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.quinta.open ? data?.shop.times.quinta.ini + '-' + data?.shop.times.quinta.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.quinta?.open ? data?.shop?.times?.quinta?.ini + '-' + data?.shop?.times?.quinta?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Sexta</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.sexta.open ? data?.shop.times.sexta.ini + '-' + data?.shop.times.sexta.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.sexta?.open ? data?.shop?.times?.sexta?.ini + '-' + data?.shop?.times?.sexta?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Sabado</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.sabado.open ? data?.shop.times.sabado.ini + '-' + data?.shop.times.sabado.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.sabado?.open ? data?.shop?.times?.sabado?.ini + '-' + data?.shop?.times?.sabado?.fim : 'Fechado'}</Grid>
             </>
             <>
               <Grid item xs={6} className={stylest.diasSemana}>Domingo</Grid>
-              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop.times.domingo.open ? data?.shop.times.domingo.ini + '-' + data?.shop.times.domingo.fim : 'Fechado'}</Grid>
+              <Grid item xs={6} className={stylest.diasSemana}>{data?.shop?.times?.domingo?.open ? data?.shop?.times?.domingo?.ini + '-' + data?.shop?.times?.domingo?.fim : 'Fechado'}</Grid>
             </>
 
           </Grid>
@@ -91,7 +91,7 @@ export default function servicos() {
             ))
           }
           <Grid item xs={12}>
-            <Button variant="outlined" className={stylest.botaoAgendar} onClick={() => router.push(`/agendamentos/${id}`)}>Agendar</Button>
+            <Button variant="outlined" className={stylest.botaoAgendar} onClick={() => router.push(`/agendamentos/${data.shop.id}`)}>Agendar</Button>
           </Grid>
         </Grid>
       </Grid>

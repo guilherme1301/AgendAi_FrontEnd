@@ -85,19 +85,8 @@ export default function LoginForm({...props}) {
           </Grid>
         )}
         <Grid container direction="row" style={{ height: "50px" }} mt={2}>
-          <Grid item xs={6} pr={1}>
-            <Button
-              onClick={handleGoBack}
-              variant="outlined"
-              fullWidth
-              style={{ height: "100%" }}
-              color={"inherit"}
-              className={styles.campo}
-            >
-              Voltar
-            </Button>
-          </Grid>
-          <Grid item xs={6} pl={1}>
+        
+          <Grid item xs={12} pl={1}>
             <Button
               type="submit"
               variant="outlined"

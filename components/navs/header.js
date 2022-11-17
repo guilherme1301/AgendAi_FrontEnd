@@ -106,6 +106,7 @@ function DrawerAppBar(props) {
   const logout = async function() {
     localStorage.clear();
     router.reload()
+    router.push('/')
   }
 
   const drawer = (
