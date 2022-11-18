@@ -141,7 +141,7 @@ export default function RegistrationFormGeneral({ ...props }) {
             render={({ field }) => (
               <TextField
                 label="Phone"
-                type='number'
+                type='string'
                 onInput={(e)=>{ 
                   e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,11)
                 }}

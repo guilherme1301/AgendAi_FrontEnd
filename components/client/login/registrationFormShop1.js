@@ -51,7 +51,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="cnpj"
+                label="CNPJ"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setCNPJ(e.target.value)}
@@ -67,7 +67,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="complement"
+                label="Complemento"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setComplement(e.target.value)}
@@ -83,7 +83,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="district"
+                label="Distrito/Bairro"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setDistrict(e.target.value)}
@@ -98,7 +98,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="Number"
+                label="Número"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setNumber(e.target.value)}
@@ -120,7 +120,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="Cep"
+                label="CEP"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setCEP(e.target.value)}
@@ -142,7 +142,7 @@ export default function RegistrationFormShop1({ ...props }) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="Rua"
+                label="Nome da Rua"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => setRua(e.target.value)}
