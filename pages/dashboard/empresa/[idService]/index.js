@@ -6,21 +6,21 @@ import { Context } from "../../../../pages/contexts/userContext";
 import { useRouter } from "next/router";
 import axios from "../../../axios";
 
-export default function idService() {
-  const { isLogged, userData, type } = useContext(Context);
+export default function IdService() {
+  const { userData } = useContext(Context);
   const [user, setUser] = useState({name: '', email: '', telefone: '', description: ''})
   const router = useRouter();
 
   useEffect(() => {
     if (router.isReady) {
-      if(type !== "shop"){
+        if(!JSON.parse(userData)?.wppCode?.userShopId){
         router.push('/')
-      }
+        }
     }
-  }, [type])
+}, [router, userData])
 
   const updateProfile = async () => {
-    const {data} = await axios.put("/user-shop?id="+JSON.parse(userData).id, user)
+    const {data} = await axios.put("/user-shop?id="+JSON.parse(userData)?.wppCode?.userShopId, user)
   }
 
   return (

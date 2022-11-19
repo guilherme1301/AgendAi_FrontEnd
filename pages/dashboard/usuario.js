@@ -7,7 +7,7 @@ import { Context } from "../../pages/contexts/userContext";
 import { useRouter } from "next/router";
 import axios from "../axios";
 
-export default function dashboarUsuario() {
+export default function DashboarUsuario() {
     const [user, setUser] = useState({name: '', email: '', telefone: ''})
     const router = useRouter();
 
@@ -56,19 +56,19 @@ export default function dashboarUsuario() {
         ]
     );
 
-    const { isLogged, userData, type } = useContext(Context);
+    const { userData } = useContext(Context);
 
     const updateProfile = async () => {
-        const {data} = await axios.put("/user-client?id="+userData.id, user)
+        const {data} = await axios.put("/user-client?id="+JSON.parse(userData)?.wppCode?.userClientId, user)
     }
 
-    // useEffect(() => {
-    //     if (router.isReady) {
-    //       if(type !== "user"){
-    //         router.push('/')
-    //       }
-    //     }
-    //   }, [type])
+    useEffect(() => {
+        if (router.isReady) {
+            if(!JSON.parse(userData)?.wppCode?.userClientId){
+            router.push('/')
+            }
+        }
+    }, [router, userData])
 
     return (
         <div className={styles.container}>

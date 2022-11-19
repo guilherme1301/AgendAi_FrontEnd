@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import router from "next/router";
 import styles from "../../../styles/Home.module.css";
 import { Button, Checkbox, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import axios from "../../../pages/axios";
 import { Input, notification } from 'antd';
 import "antd/dist/antd.css";
-
 
 export default function RegistrationFormGeneral({ ...props }) {
   
@@ -38,10 +36,10 @@ export default function RegistrationFormGeneral({ ...props }) {
       })
       .catch((err) => {
           notification.error({
-              message: err.response.data.error,
+              message: err?.response?.data?.error,
               placement: 'bottomRight'
           });
-          throw err.response.data.error;
+          throw err?.response?.data?.error;
       })
       
     }
