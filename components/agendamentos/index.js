@@ -30,7 +30,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     const [horaServico, setHoraServico] = useState();
 
     useEffect(() => {
-        if(userData){
+        if (userData) {
             updateList()
         }
     }, [userData])
@@ -41,8 +41,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
     async function getDadosAgendados() {
-        if(userData?.id){
-            await axios.get(`/schedule?status=awaiting&userShopId=`+userData?.id).
+        if (userData?.id) {
+            await axios.get(`/schedule?status=awaiting&userShopId=` + userData?.id).
                 then(({ data }) => {
                     setDadosAgendados(data.payload)
                 })
@@ -50,8 +50,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
     }
 
     async function getDadosConfirmados() {
-        if(userData?.id){
-            await axios.get(`/schedule?status=confirmed&userShopId=`+userData?.id).
+        if (userData?.id) {
+            await axios.get(`/schedule?status=confirmed&userShopId=` + userData?.id).
                 then(({ data }) => {
                     setdadosConfirmados(data.payload)
                 })
@@ -209,6 +209,24 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
         setIsModalCancelOpen(true);
     }
 
+    async function sendMessageWpp(id) {
+        const response = await axios.post(`/schedule/confirmation?id=${id}`)
+            .then((res) => {
+                notification.success({
+                    message: `Mensagem enviada com sucesso`,
+                    placement: 'bottomRight'
+                });
+                return res.data;
+            }).catch((err) => {
+                notification.error({
+                    message: err.response.data.message,
+                    placement: 'bottomRight'
+                });
+                throw err.response.data.message;
+            });
+        return response;
+    }
+
     return (
         <div className={styles.divContent}>
 
@@ -224,8 +242,8 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                 </div>
             }
             <div>
-                <div className={styles.subTitle}>Agendamentos Pendentes</div>                
-                {dadosAgendados?.map(item => (                        
+                <div className={styles.subTitle}>Agendamentos Pendentes</div>
+                {dadosAgendados?.map(item => (
                     <div className={styles.divButton}>
                         {item.schedules.serviceDefault.name} - {item.userClient.name} - {item.time.day} - {item.time.time}
                         <div className={styles.accept}>
@@ -233,7 +251,7 @@ export default function Agendamentos({ usuario, listServicePending, listServiceC
                                 className={styles.buttonConfirmar} />
                             <CloseIcon onClick={() => setterCancel(item.id, item.schedules.serviceDefault.name, item.userClient.name, item.time.day, item.time.time)}
                                 className={styles.buttonCancelar} />
-                            <WhatsAppIcon className={styles.buttonUaizapi}></WhatsAppIcon>
+                            <WhatsAppIcon className={styles.buttonUaizapi} onClick={() => sendMessageWpp(item.id)}></WhatsAppIcon>
                         </div>
                     </div>
                 ))}
