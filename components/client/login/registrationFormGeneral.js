@@ -68,6 +68,7 @@ export default function RegistrationFormGeneral({ ...props }) {
         <p className={styles.campo}>Primeiro defina as informações de acesso da sua conta.</p>
         <Grid item xs={12}>
           <Controller
+            className={styles.campo}
             name="name"
             control={methods.control}
             defaultValue=""
@@ -89,6 +90,7 @@ export default function RegistrationFormGeneral({ ...props }) {
             )}
           />
           <Controller
+            className={styles.campo}
             name="email"
             control={methods.control}
             defaultValue=""
@@ -111,6 +113,7 @@ export default function RegistrationFormGeneral({ ...props }) {
             )}
           />
           <Controller
+            className={styles.campo}
             name="password"
             control={methods.control}
             defaultValue=""
@@ -132,13 +135,14 @@ export default function RegistrationFormGeneral({ ...props }) {
             )}
           />
           <Controller
+            className={styles.campo}
             name="phone"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
-                label="Phone"
+                label="telefone"
                 type='string'
                 onInput={(e)=>{ 
                   e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,11)
@@ -164,6 +168,7 @@ export default function RegistrationFormGeneral({ ...props }) {
             render={({ field }) => (
               <>
                 <Checkbox
+                  className={styles.color}
                   // {...field}
                   onChange={(e) => setIsShop(e.target.checked)}
                   // checked={methods.getValues("isShop")}
@@ -177,6 +182,7 @@ export default function RegistrationFormGeneral({ ...props }) {
         <Grid container direction="row" style={{ height: "50px" }} mt={2}>
           <Grid item xs={12} pl={1}>
             <Button
+              className={styles.campo}
               type="submit"
               variant="outlined"
               fullWidth

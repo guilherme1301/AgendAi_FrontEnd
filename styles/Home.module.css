@@ -15,8 +15,12 @@
 }
 
 .campo {
-  /*border: 1px solid #128C7E; 
-  color: #128C7E; */
+  border: 1px solid #128C7E; 
+  /* color: #128C7E; */
+}
+
+.color {
+  color: #128C7E;
 }
 
 .footer {
@@ -24,8 +28,10 @@
   flex: 1;
   padding: 2rem 0;
   border-top: 1px solid #eaeaea;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
+  color: #666666;
+  justify-content: space-evenly;
 }
 
 /* .footer .innerColumn{
@@ -54,6 +60,7 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  color: #666666;
 }
 
 .title,

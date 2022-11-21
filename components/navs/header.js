@@ -36,7 +36,7 @@ const navItems = [
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   display: "flex",
-  border: "1px solid #cdcdcd",
+  border: "1px solid #128C7E",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
@@ -158,7 +158,7 @@ function DrawerAppBar(props) {
               inputProps={{ "aria-label": "search" }}
             />
             <SearchIconWrapper>
-              <Button color={"inherit"} variant="outlined" onClick={() => services()}>
+              <Button color={"inherit"} variant="outlined" onClick={() => services()}>                
                 Buscar
               </Button>
             </SearchIconWrapper>

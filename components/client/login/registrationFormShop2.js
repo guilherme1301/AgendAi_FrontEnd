@@ -178,6 +178,7 @@ export default function RegistrationFormShop2({ ...props }) {
         <Grid container direction="row" style={{ height: "50px" }} mt={2}>
           <Grid item xs={12} pl={1}>
             <Button
+              className={styles.campo}
               type="submit"
               variant="outlined"
               fullWidth
@@ -185,7 +186,7 @@ export default function RegistrationFormShop2({ ...props }) {
               color={"inherit"}
               onClick={() => finish()}
             >
-              Finalizar
+              Avançar
             </Button>
           </Grid>
         </Grid>
