@@ -17,6 +17,7 @@ import { Grid, Link } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../../../pages/contexts/userContext";
 import { useRouter } from "next/router";
+import styles from "../../../styles/Home.module.css";
 
 const Transition = React.forwardRef(function Transition({ ref, ...props }) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -83,7 +84,7 @@ export default function LoginDialog({ ...props }) {
               {/* <Grid container> */}
             <Grid item pt={3} alignSelf="center">
               <Link href={"/auth/registration"} key={9999}>
-                <Button variant="text" color="inherit">Criar conta</Button>
+                <Button variant="text" color="inherit" className={styles.color}>Criar conta</Button>
                 </Link>
             </Grid>
               {/* </Grid> */}

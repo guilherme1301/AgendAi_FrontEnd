@@ -18,10 +18,11 @@ export default function LoginForm({...props}) {
     <>
       <form onSubmit={(e) => e.preventDefault()}>
         <Grid item xs={12}>
-          <h2 className={styles.title}>Login</h2>
+          <h2 className={styles.title}>Entrar no AgendAí</h2>
         </Grid>
         <Grid item xs={12}>
           <Controller
+            className={styles.campo}
             name="username"
             control={methods.control}
             render={({ field }) => (
@@ -43,6 +44,7 @@ export default function LoginForm({...props}) {
             )}
           />
           <Controller
+            className={styles.campo}
             name="password"
             control={methods.control}
             //defaultValue=""

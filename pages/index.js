@@ -37,7 +37,7 @@ export default function Home() {
           <Button className={styles.BannerButton} onClick={() => services()} variant="contained">Buscar</Button>
         </Grid>
       </Grid>
-      <Grid className={styles.dashboardService} mt={7}>
+      <Grid className={styles.dashboardService}>
         <Grid className={styles.dashboardTitleService}>Serviços profissionais populares</Grid>
       </Grid>
       <Grid container spacing={0} mt={5} mb={9} className={styles.dashboardCarrousel}>

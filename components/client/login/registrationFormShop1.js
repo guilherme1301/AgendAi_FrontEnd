@@ -39,13 +39,14 @@ export default function RegistrationFormShop1({ ...props }) {
       <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
         
       <h2 className={styles.title} style={{ textAlign: "left" }}>
-          Perfeito!
+          Ótimo!
         </h2>
         <p>Agora nos diga mais sobre a sua empresa.</p>
         
         <Grid item xs={12}>
           <Controller
-            name="cnpj"
+            className={styles.campo}
+            name="CNPJ"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -61,60 +62,8 @@ export default function RegistrationFormShop1({ ...props }) {
           />
 
           <Controller
-            name="complement"
-            control={methods.control}
-            defaultValue=""
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                label="Complemento"
-                variant="outlined"
-                fullWidth
-                onChange={(e) => setComplement(e.target.value)}
-                margin="normal"
-              />
-            )}
-          />
-
-        <Controller
-            name="district"
-            control={methods.control}
-            defaultValue=""
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                label="Distrito/Bairro"
-                variant="outlined"
-                fullWidth
-                onChange={(e) => setDistrict(e.target.value)}
-                margin="normal"
-              />
-            )}
-          />
-          <Controller
-            name="number"
-            control={methods.control}
-            defaultValue=""
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                label="Número"
-                variant="outlined"
-                fullWidth
-                onChange={(e) => setNumber(e.target.value)}
-                margin="normal"
-                error={!!methods.formState.errors.zipcode}
-                helperText={
-                  !!methods.formState.errors.zipcode
-                    ? methods.formState.errors.zipcode?.message
-                    : ""
-                }
-              />
-            )}
-          />
-
-        <Controller
-            name="zipcode"
+            className={styles.campo}
+            name="CEP"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -136,7 +85,8 @@ export default function RegistrationFormShop1({ ...props }) {
           />
 
           <Controller
-            name="street"
+            className={styles.campo}
+            name="Rua"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -157,8 +107,32 @@ export default function RegistrationFormShop1({ ...props }) {
             )}
           />
 
+<Controller
+            className={styles.campo}
+            name="Número"
+            control={methods.control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                label="Número"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => setNumber(e.target.value)}
+                margin="normal"
+                error={!!methods.formState.errors.zipcode}
+                helperText={
+                  !!methods.formState.errors.zipcode
+                    ? methods.formState.errors.zipcode?.message
+                    : ""
+                }
+              />
+            )}
+          />
+
           <Controller
-            name="district"
+            className={styles.campo}
+            name="Cidade"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -180,7 +154,8 @@ export default function RegistrationFormShop1({ ...props }) {
           />
 
           <Controller
-            name="state"
+            className={styles.campo}
+            name="Estado"
             control={methods.control}
             defaultValue=""
             rules={{ required: true }}
@@ -206,6 +181,7 @@ export default function RegistrationFormShop1({ ...props }) {
         <Grid container direction="row" style={{ height: "50px" }} mt={2}>
           <Grid item xs={12} pl={1}>
             <Button
+              className={styles.campo}
               type="submit"
               variant="outlined"
               fullWidth
