@@ -27,8 +27,8 @@ import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 const navItems = [
-  { item: "Quem Somos", style: "text", link: "/dashboard/empresa" },
-  { item: "Contato", style: "text", link: "/dashboard/usuario" },
+  { item: "Dashboard Empresa", style: "text", link: "/dashboard/empresa" },
+  { item: "Dashboard Usuário", style: "text", link: "/dashboard/usuario" },
   // { item: "Entrar", style: "outlined", link: "/client/auth/login" },
   // { item: "Inscrição", style: "outlined", link: "/dashboard" },
 ];

@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import axios from "../../../pages/axios";
 import { Input, notification } from 'antd';
 import "antd/dist/antd.css";
+import Router from "next/router";
 
 export default function RegistrationFormGeneral({ ...props }) {
   
@@ -42,6 +43,7 @@ export default function RegistrationFormGeneral({ ...props }) {
           throw err?.response?.data?.error;
       })
       
+      Router.push('/auth/sms')
     }
   };
 
@@ -186,10 +188,11 @@ export default function RegistrationFormGeneral({ ...props }) {
               type="submit"
               variant="outlined"
               fullWidth
-              onClick={() => handleOnSubmit()}
+              onClick={() => {handleOnSubmit()}}
               style={{ height: "100%" }}
               color={"inherit"}
-            >
+              
+              >
               Avançar
             </Button>
           </Grid>

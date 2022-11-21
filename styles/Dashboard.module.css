@@ -139,18 +139,18 @@
 }
 
 .arrowCarrousel{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 }
 
 .arrowCarrouselSms{
   padding-top: 5px !important;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+}
+
+.marginTop{
+  margin-top: 25px;
 }
 
 .arrowCarrouselDashboard{
@@ -158,8 +158,7 @@
 }
 
 .containerSms{  
-  width: 500px;
-  height: 350px;
+  width: 500px !important;
   margin-top: 0 !important;
 }
 

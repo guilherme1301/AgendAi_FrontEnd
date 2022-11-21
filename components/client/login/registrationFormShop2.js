@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import Link from "next/link";
 import HorarioFuncionamento from "../../buttons/horarioFuncionamento";
 import axios from 'axios'
+import Router from "next/router";
 
 export default function RegistrationFormShop2({ ...props }) {
   // const [inputUserData, setInputUserData] = useState(true);
@@ -26,6 +27,8 @@ export default function RegistrationFormShop2({ ...props }) {
   const finish = async () => {
     setShopJson((prev) => ({...prev, "times": {...dia}}))
     setFinish(true)
+
+    Router.push('/auth/sms')
   };
 
   return (

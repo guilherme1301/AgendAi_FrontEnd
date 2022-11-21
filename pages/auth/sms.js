@@ -7,13 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Grid } from '@mui/material';
-import styles from "../styles/Dashboard.module.css";
+import styles from "../../styles/Dashboard.module.css";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import TextField from '@mui/material/TextField';
 import { useContext } from "react";
-import { Context } from "../pages/contexts/userContext";
-import axios from './axios';
-import { notification, Form, Input, Button } from 'antd';
+import { Context } from "../contexts/userContext";
+import axios from '../axios';
+import { notification, Form, Input, Button, Typography } from 'antd';
 import "antd/dist/antd.css";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -24,7 +24,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
-
+const { Title } = Typography;
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
 
@@ -115,38 +115,38 @@ export default function CustomizedDialogs() {
         open={open}
       >
         <DialogContent dividers>
-          <Grid container spacing={5} mt={5} mb={9} className={styles.containerSms}>
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 100 }}
+            initialValues={{ remember: true }}
+            onFinish={sendMessage}
+            autoComplete="off"
+          >
             <Grid item xs={2} className={styles.arrowCarrouselSms}>
               <ArrowBackIosIcon sx={{ fontSize: 20 }}></ArrowBackIosIcon><span onClick={() => router.back()}>Voltar</span>
             </Grid>
-
-            <Form
-              name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              initialValues={{ remember: true }}
-              onFinish={sendMessage}
-              autoComplete="off"
+            <Title className={styles.marginTop} level={3}>Antes de continuarmos...</Title>
+            <Title className={styles.marginTop} level={5}>Enviamos um código de confirmação para o seu whatsapp, favor inserir o código abaixo.</Title>
+            <Form.Item
+              className={styles.marginTop}
+              name="code"
+              rules={[
+                {
+                  required: true,
+                  message: 'Porfavor insira um código!',
+                }
+              ]}
             >
-              <Form.Item
-                name="code"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input um código!',
-                  }
-                ]}
-              >
-                <Input size="large" />
-              </Form.Item>
-              <Form.Item wrapperCol={{ offset: 8, span: 16 }}
-              >
-                <Button type="primary" htmlType="submit" onClick={() => sendMessage(JSON.parse(userData)?.phone)}>
-                  Avançar
-                </Button>
-              </Form.Item>
-            </Form>
-          </Grid>
+              <Input className={styles.marginTop} size="large" />
+            </Form.Item>
+            <Form.Item className={styles.marginTop} wrapperCol={{ offset: 100, span: 100 }}
+            >
+              <Button type="primary" className={styles.arrowCarrousel} htmlType="submit" onClick={() => sendMessage(JSON.parse(userData)?.phone)}>
+                Avançar
+              </Button>
+            </Form.Item>
+          </Form>
         </DialogContent>
       </BootstrapDialog>
     </div>
