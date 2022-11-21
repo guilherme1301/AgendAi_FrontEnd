@@ -1,18 +1,20 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import styles from "../styles/Dashboard.module.css";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import TextField from '@mui/material/TextField';
+import { useContext } from "react";
+import { Context } from "../pages/contexts/userContext";
+import axios from './axios';
+import { notification, Form, Input, Button } from 'antd';
+import "antd/dist/antd.css";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -54,6 +56,9 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CustomizedDialogs() {
   const [open, setOpen] = React.useState(true);
+  const { isLogged, userData } = useContext(Context);
+
+  const shopId = userData?.id;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,6 +67,47 @@ export default function CustomizedDialogs() {
     setOpen(false);
   };
 
+  function sendMessage(phone, values) {
+
+    if (shopId === undefined) {
+      const response = axios.post(`/user-client/confirme-account?phone=${phone}`,
+        {
+          code: values
+        }).then((res) => {
+          notification.success({
+            message: 'Mensagem enviada!',
+            placement: 'bottomRight'
+          });
+          return res.data;
+        }).catch((err) => {
+          notification.error({
+            message: err.response.data.message,
+            placement: 'bottomRight'
+          });
+          throw err.response.data.message;
+        });
+      return response;
+    } else {
+      const response = axios.post(`/user-shop/confirme-account?phone=${phone}`,
+        {
+          code: values
+        }).then((res) => {
+          notification.success({
+            message: 'Mensagem enviada!',
+            placement: 'bottomRight'
+          });
+          return res.data;
+        }).catch((err) => {
+          notification.error({
+            message: err.response.data.message,
+            placement: 'bottomRight'
+          });
+          throw err.response.data.message;
+        });
+      return response;
+    }
+  }
+
   return (
     <div>
       <BootstrapDialog
@@ -69,27 +115,38 @@ export default function CustomizedDialogs() {
         open={open}
       >
         <DialogContent dividers>
-              <Grid container spacing={5} mt={5} mb={9} className={styles.containerSms}>
-              <Grid item xs={2} className={styles.arrowCarrouselSms}>
-                <ArrowBackIosIcon sx={{ fontSize: 20 }}></ArrowBackIosIcon><span onClick={() => router.back()}>Voltar</span> 
-              </Grid>
-              <Grid item xs={12} className={styles.textDiv}>
-                <h2>Antes de continuarmos...</h2>
-              </Grid>
-                <Grid item xs={12} className={styles.textDiv}>
-                  <span>Enviamos um código de confirmação para o seu Whatsapp, favor inserir o código abaixo</span>
-                </Grid>
-                <Grid item xs={12} className={styles.gridSms}>
-                  <TextField id="number1" className={styles.textSms} variant="outlined" placeholder="-" inputProps={{ maxLength: 1 }} />
-                  <TextField id="number2" className={styles.textSms} variant="outlined" placeholder="-" inputProps={{ maxLength: 1 }} />
-                  <TextField id="number3" className={styles.textSms} variant="outlined" placeholder="-" inputProps={{ maxLength: 1 }} />
-                  <TextField id="number4" className={styles.textSms} variant="outlined" placeholder="-" inputProps={{ maxLength: 1 }} />
-                </Grid> 
-                <Grid item xs={12} className={styles.gridSms}>
-                  <Button className={styles.buttonText} variant="outlined">Avançar</Button>
-                </Grid>              
-              </Grid>
+          <Grid container spacing={5} mt={5} mb={9} className={styles.containerSms}>
+            <Grid item xs={2} className={styles.arrowCarrouselSms}>
+              <ArrowBackIosIcon sx={{ fontSize: 20 }}></ArrowBackIosIcon><span onClick={() => router.back()}>Voltar</span>
+            </Grid>
 
+            <Form
+              name="basic"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ remember: true }}
+              onFinish={sendMessage}
+              autoComplete="off"
+            >
+              <Form.Item
+                name="code"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input um código!',
+                  }
+                ]}
+              >
+                <Input size="large" />
+              </Form.Item>
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}
+              >
+                <Button type="primary" htmlType="submit" onClick={() => sendMessage(JSON.parse(userData)?.phone)}>
+                  Avançar
+                </Button>
+              </Form.Item>
+            </Form>
+          </Grid>
         </DialogContent>
       </BootstrapDialog>
     </div>
